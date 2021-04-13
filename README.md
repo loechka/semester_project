@@ -9,6 +9,8 @@
 
 Сложность варьируется с помощью расстановки блоков, а также наличия и количества плохих «бонусов».
 
-<img src="main_window.png" width="347" height="220">
-![alt text](settings_window.png )
-![alt text](game_window.png )
+Для реализации проекта планируется использовать библотеку PyGame
+
+<img src="main_window.png" width="521" height="330">
+<img src="settings_window.png" width="521" height="330">
+<img src="game_window.png" width="521" height="330">
