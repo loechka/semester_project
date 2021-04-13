@@ -9,6 +9,6 @@
 
 Сложность варьируется с помощью расстановки блоков, а также наличия и количества плохих «бонусов».
 
-![alt text](main_window.png )
+<img src="main_window.png" width="100" height="100">
 ![alt text](settings_window.png )
 ![alt text](game_window.png )
