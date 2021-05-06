@@ -142,7 +142,7 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
 
             for i, (text, file_path) in enumerate((('КВАДРАТ', 'images/square.png'), ('УТОЧКА', 'images/duck.png'))):
-                p = Image(c.character_offset_x + 300,
+                p = Image(c.character_offset_x + c.character_button_w + c.image_w,
                         c.character_offset_y + (c.character_button_h + 50) * i,
                         c.image_w,
                         c.image_h,
