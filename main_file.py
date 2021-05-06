@@ -11,6 +11,7 @@ class Rocket(Game):
         Game.__init__(self, 'Rocket', c.screen_width, c.screen_height, c.frame_rate)
         self.start_level = False
         self.menu_buttons = []
+        self.settings_buttons = []
         self.is_game_running = False
         self.create_objects()
 
@@ -30,23 +31,31 @@ class Rocket(Game):
         def on_settings(button):
             for b in self.menu_buttons:
                 self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_settings()
             pass;
         
         def on_records(button):
             pass;
 
-        for i, (text, click_handler) in enumerate((('НОВАЯ ИГРА', on_play), ('НАСТРОЙКИ', on_settings), ('РЕКОРДЫ', on_records), ('ВЫХОД', on_quit))):
-            b = Button(c.menu_offset_x,
-                       c.menu_offset_y + (c.menu_button_h + 5) * i,
-                       c.menu_button_w,
-                       c.menu_button_h,
-                       text,
-                       click_handler,
-                       padding=5)
-            self.objects.append(b)
-            self.menu_buttons.append(b)
-            self.mouse_handlers.append(b.handle_mouse_event)
+        # first rendering of menu buttons
+        if len(self.menu_buttons)==0:
+            for i, (text, click_handler) in enumerate((('НОВАЯ ИГРА', on_play), ('НАСТРОЙКИ', on_settings), ('РЕКОРДЫ', on_records), ('ВЫХОД', on_quit))):
+                b = Button(c.menu_offset_x,
+                        c.menu_offset_y + (c.menu_button_h + 5) * i,
+                        c.menu_button_w,
+                        c.menu_button_h,
+                        text,
+                        click_handler,
+                        padding=5)
+                self.objects.append(b)
+                self.menu_buttons.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+        # re-rendering of menu buttons
+        else:
+            for b in self.menu_buttons:
+                self.objects.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_objects(self):
         self.create_menu()
@@ -62,19 +71,30 @@ class Rocket(Game):
             pass;
         
         def on_back_from_settings(button):
+            for b in self.settings_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_menu()
             pass;
 
-        for i, (text, click_handler) in enumerate((('ФОН', on_background), ('ПЕРСОНАЖ', on_character), ('СЛОЖНОСТЬ', on_difficulty), ('НАЗАД', on_back_from_settings))):
-            b = Button(c.menu_offset_x,
-                       c.menu_offset_y + (c.menu_button_h + 5) * i,
-                       c.menu_button_w,
-                       c.menu_button_h,
-                       text,
-                       click_handler,
-                       padding=5)
-            self.objects.append(b)
-            self.menu_buttons.append(b)
-            self.mouse_handlers.append(b.handle_mouse_event)
+        # first rendering of settings buttons
+        if len(self.settings_buttons)==0: 
+            for i, (text, click_handler) in enumerate((('ФОН', on_background), ('ПЕРСОНАЖ', on_character), ('СЛОЖНОСТЬ', on_difficulty), ('НАЗАД', on_back_from_settings))):
+                b = Button(c.settings_offset_x,
+                        c.settings_offset_y + (c.settings_button_h + 5) * i,
+                        c.settings_button_w,
+                        c.settings_button_h,
+                        text,
+                        click_handler,
+                        padding=5)
+                self.objects.append(b)
+                self.settings_buttons.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+        # re-rendering of settings buttons
+        else:
+            for b in self.settings_buttons:
+                self.objects.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
 
 
 def main():
