@@ -3,7 +3,6 @@ screen_width = 800
 screen_height = 600
 # background_image = 'images/background.jpg'
 
-# frame_rate = 90
 frame_rate = 90
 
 status_offset_y = 5
@@ -33,7 +32,20 @@ button_normal_back_color = (0,139,139)
 button_hover_back_color = (238, 99, 99)
 button_pressed_back_color = (205, 85, 85)
 
-menu_offset_x = 400
-menu_offset_y = 300
-menu_button_w = 200
+menu_offset_x = 200
+menu_offset_y = 100
+menu_button_w = 400
 menu_button_h = 50
+
+settings_offset_x = 200
+settings_offset_y = 100
+settings_button_w = 400
+settings_button_h = 50
+
+character_offset_x = 200
+character_offset_y = 100
+character_button_w = 400
+character_button_h = 50
+
+image_w = 50
+image_h = 50
