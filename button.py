@@ -31,7 +31,7 @@ class Button(GameObject):
     def draw(self, surface):
         pygame.draw.rect(surface, 
                          self.back_color, 
-                         self.bounds)
+                         self.bounds, border_radius = 3)
         self.text.draw(surface)
 
     def handle_mouse_event(self, type, pos):
