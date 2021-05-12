@@ -4,12 +4,13 @@ from game_object import GameObject
 from text_object import TextObject
 import config as c
 
+
 class Button(GameObject):
-    def __init__(self, 
-                 x, 
-                 y, 
-                 w, 
-                 h, 
+    def __init__(self,
+                 x,
+                 y,
+                 w,
+                 h,
                  text,
                  on_click=lambda x: None,
                  padding=0):
@@ -17,11 +18,12 @@ class Button(GameObject):
         self.state = 'normal'
         self.on_click = on_click
 
-        self.text = TextObject(x + padding, 
-                               y + padding, lambda: text, 
-                               c.button_text_color, 
-                               c.font_name, 
+        self.text = TextObject(x + padding,
+                               y + padding, lambda: text,
+                               c.button_text_color,
+                               c.font_name,
                                c.font_size)
+
     @property
     def back_color(self):
         return dict(normal=c.button_normal_back_color,
@@ -29,9 +31,9 @@ class Button(GameObject):
                     pressed=c.button_pressed_back_color)[self.state]
 
     def draw(self, surface):
-        pygame.draw.rect(surface, 
-                         self.back_color, 
-                         self.bounds, border_radius = 3)
+        pygame.draw.rect(surface,
+                         self.back_color,
+                         self.bounds, border_radius=3)
         self.text.draw(surface)
 
     def handle_mouse_event(self, type, pos):

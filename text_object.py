@@ -1,5 +1,6 @@
 import pygame
 
+
 class TextObject:
     def __init__(self, x, y, text_func, color, font_name, font_size):
         self.pos = (x, y)

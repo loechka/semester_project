@@ -3,14 +3,14 @@ import pygame
 from collections import defaultdict
 import sys
 
+
 class Game:
-    def __init__(self, 
-                 caption, 
-                 width, 
+    def __init__(self,
+                 caption,
+                 width,
                  height,
                  frame_rate):
         # self.background_image = pygame.image.load(back_image_filename)
-        print(width, height)
         self.frame_rate = frame_rate
         self.game_over = False
         self.objects = []
@@ -44,8 +44,8 @@ class Game:
             elif event.type == pygame.KEYUP:
                 for handler in self.keydown_handlers[event.key]:
                     handler(event.key)
-            elif event.type in (pygame.MOUSEBUTTONDOWN, 
-                                pygame.MOUSEBUTTONUP, 
+            elif event.type in (pygame.MOUSEBUTTONDOWN,
+                                pygame.MOUSEBUTTONUP,
                                 pygame.MOUSEMOTION):
                 for handler in self.mouse_handlers:
                     handler(event.type, event.pos)

@@ -28,7 +28,7 @@ effect_duration = 20
 message_duration = 2
 
 button_text_color = (255, 255, 255),
-button_normal_back_color = (0,139,139)
+button_normal_back_color = (0, 139, 139)
 button_hover_back_color = (238, 99, 99)
 button_pressed_back_color = (205, 85, 85)
 
