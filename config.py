@@ -52,7 +52,12 @@ image_h = 50
 
 duck_width = 50
 duck_height = 50
+duck_width_large = 80
+duck_height_large = 80
+duck_width_small = 30
+duck_height_small = 30
 duck_color = (255, 255, 255)
 duck_speed = 5
+
 
 offset = 10
