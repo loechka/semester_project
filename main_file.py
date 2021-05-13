@@ -2,6 +2,9 @@ import config as c
 from button import Button
 from game import Game
 from image import Image
+from duck import Duck
+
+import pygame
 
 
 class Rocket(Game):
@@ -28,6 +31,7 @@ class Rocket(Game):
 
             self.is_game_running = True
             self.start_level = True
+            self.create_game()
 
         def on_quit(button):
             self.game_over = True
@@ -66,8 +70,28 @@ class Rocket(Game):
                 self.objects.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
 
+    def create_duck(self):
+        duck = Duck((c.screen_width - c.duck_width) // 2,
+                        c.screen_height - c.duck_height * 2,
+                        c.duck_width,
+                        c.duck_height,
+                        c.duck_color,
+                        c.duck_speed)
+        self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
+        self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
+        self.keydown_handlers[pygame.K_UP].append(duck.handle)
+        self.keydown_handlers[pygame.K_DOWN].append(duck.handle)
+        self.keyup_handlers[pygame.K_LEFT].append(duck.handle)
+        self.keyup_handlers[pygame.K_RIGHT].append(duck.handle)
+        self.duck = duck
+        self.objects.append(self.duck)
+
+
     def create_objects(self):
         self.create_menu()
+
+    def create_game(self):
+        self.create_duck()
 
     # SETTINGS
     def create_settings(self):

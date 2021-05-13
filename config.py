@@ -49,3 +49,10 @@ character_button_h = 50
 
 image_w = 50
 image_h = 50
+
+duck_width = 50
+duck_height = 50
+duck_color = (255, 255, 255)
+duck_speed = 5
+
+offset = 10
