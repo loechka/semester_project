@@ -26,13 +26,21 @@ class Duck(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
+    
+    def change_size(self, new_width, new_height):
+        center = self.bounds.center
+        self.bounds.width = new_width
+        self.bounds.height = new_height
+        self.bounds.center = center
 
     def update(self):
         dx, dy = 0, 0
         if self.moving_left:
             dx = -(min(self.offset, self.left))
+            self.change_size(c.duck_width_large, c.duck_height_large)
         elif self.moving_right:
             dx = min(self.offset, c.screen_width - self.right)
+            self.change_size(c.duck_width_small, c.duck_height_small)
         elif self.moving_down:
             dy = min(self.offset, c.screen_height - self.bottom)
         elif self.moving_up:
