@@ -60,5 +60,9 @@ duck_height_small = 30
 duck_color = (255, 255, 255)
 duck_speed = 5
 
+wall_height = 100
+wall_width = 40
+wall_color = (255, 255, 255)
+
 
 offset = 10
