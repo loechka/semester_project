@@ -5,8 +5,9 @@ from game_object import GameObject
 
 
 class Duck(GameObject):
-    def __init__(self, x, y, w, h, color, offset, character):
+    def __init__(self, x, y, w, h, color, offset, character, seen = True):
         GameObject.__init__(self, x, y, w, h)
+        self.seen = seen
         self.color = color
         self.offset = offset
         self.moving_up = False
@@ -20,8 +21,9 @@ class Duck(GameObject):
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
+        if self.seen:
         # pygame.draw.rect(surface, self.color, self.bounds)
-        surface.blit(self.myImage, self.bounds)
+            surface.blit(self.myImage, self.bounds)
 
     def handle(self, key):
         if key == pygame.K_LEFT:
@@ -53,3 +55,8 @@ class Duck(GameObject):
             return
 
         self.move(dx, dy)
+
+    def delete(self):
+        self.seen = False
+        self.bounds.height = 0
+        self.bounds.width = 0

@@ -25,7 +25,7 @@ class Rocket(Game):
         self.settings_buttons = []
         self.character_buttons = []
         self.character_images = []
-        self.character_id = 0
+        self.character_id = 1
         self.is_game_running = False
         self.walls_current = deque()
         self.lives = c.initial_lives
@@ -291,6 +291,12 @@ class Rocket(Game):
             self.is_game_running = False
             self.result = (pygame.time.get_ticks() - self.start_time)
             self.show_message('{0:.2f} s'.format(self.result/1000), centralized=True)
+            self.duck.delete()
+            for wall in self.walls_current:
+                wall.delete()
+            self.lives = c.initial_lives
+            self.create_objects()
+
         super().update()
 
     def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):
