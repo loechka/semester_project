@@ -64,6 +64,7 @@ duck_speed = 5
 wall_height = 100
 wall_width = 40
 wall_color = (255, 255, 255)
-
+wall_speed_initial = 3
+wall_acceleration = 0.03
 
 offset = 10

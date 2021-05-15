@@ -4,6 +4,7 @@ from game import Game
 from image import Image
 from duck import Duck
 from wall import Wall
+from text_object import TextObject
 
 import pygame
 import random
@@ -34,7 +35,6 @@ class Rocket(Game):
 
             self.is_game_running = True
             self.start_level = True
-            self.create_game()
 
         def on_quit(button):
             self.game_over = True
@@ -90,14 +90,13 @@ class Rocket(Game):
         self.duck = duck
         self.objects.append(self.duck)
     
-    def create_wall(self):
+    def create_wall(self, speed):
         self.wall = Wall(c.screen_width,
-                         #random.randint(0, c.screen_height-c.wall_height),
                          random.choice(range(0, c.screen_height-c.wall_height + 50, 50)),
                          c.wall_width,
                          c.wall_height,
                          c.wall_color, 
-                         [-3, 0])
+                         [-(speed), 0])
         self.objects.append(self.wall)
 
 
@@ -213,11 +212,25 @@ class Rocket(Game):
     def update(self):
         if not self.is_game_running:
             return
-        #print (pygame.time.get_ticks())
+        if self.start_level:
+            self.start_level = False
+            self.create_duck()
+            self.show_message('ПОЛЕТЕЛИ!', centralized=True)
+            self.wall_speed = c.wall_speed_initial
+
         if (pygame.time.get_ticks() % 1000) in range(20):
-            self.create_wall() 
+            self.wall_speed+=c.wall_acceleration
+            self.create_wall(self.wall_speed) 
 
         super().update()
+
+    def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):
+        message = TextObject(c.screen_width // 2, c.screen_height // 2, lambda: text, color, font_name, font_size)
+        self.draw()
+        message.draw(self.surface, centralized)
+        pygame.display.update()
+        time.sleep(c.message_duration)
+
 
 
 
