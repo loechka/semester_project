@@ -1,7 +1,7 @@
 
 screen_width = 800
 screen_height = 600
-# background_image = 'images/background.jpg'
+background_image = 'images/background.png'
 
 frame_rate = 90
 

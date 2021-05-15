@@ -13,6 +13,7 @@ class Rocket(Game):
                       'Rocket',
                       c.screen_width,
                       c.screen_height,
+                      c.background_image,
                       c.frame_rate)
         self.start_level = False
         self.menu_buttons = []

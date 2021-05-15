@@ -9,8 +9,10 @@ class Game:
                  caption,
                  width,
                  height,
+                 back_image_filename,
                  frame_rate):
-        # self.background_image = pygame.image.load(back_image_filename)
+        self.background_image = pygame.image.load(back_image_filename)
+        self.background_image = pygame.transform.scale(self.background_image, (width, height))
         self.frame_rate = frame_rate
         self.game_over = False
         self.objects = []
@@ -52,8 +54,8 @@ class Game:
 
     def run(self):
         while not self.game_over:
-            # self.surface.blit(self.background_image, (0, 0))
-            self.surface.fill((0, 0, 0))
+            self.surface.blit(self.background_image, (0, 0))
+            # self.surface.fill((0, 0, 0))
 
             self.handle_events()
             self.update()
