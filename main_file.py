@@ -77,7 +77,8 @@ class Rocket(Game):
                         c.duck_width,
                         c.duck_height,
                         c.duck_color,
-                        c.duck_speed)
+                        c.duck_speed,
+                        self.character_id)
         self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
         self.keydown_handlers[pygame.K_UP].append(duck.handle)

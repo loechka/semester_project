@@ -5,7 +5,7 @@ from game_object import GameObject
 
 
 class Duck(GameObject):
-    def __init__(self, x, y, w, h, color, offset):
+    def __init__(self, x, y, w, h, color, offset, character):
         GameObject.__init__(self, x, y, w, h)
         self.color = color
         self.offset = offset
@@ -13,9 +13,15 @@ class Duck(GameObject):
         self.moving_down = False
         self.moving_left = False
         self.moving_right = False
+        self.coordinates = (x,y)
+
+        file_path = c.character_images[character]
+        self.myImage = pygame.image.load(file_path)
+        self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
-        pygame.draw.rect(surface, self.color, self.bounds)
+        # pygame.draw.rect(surface, self.color, self.bounds)
+        surface.blit(self.myImage, self.bounds)
 
     def handle(self, key):
         if key == pygame.K_LEFT:
