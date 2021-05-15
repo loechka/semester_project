@@ -43,10 +43,8 @@ class Duck(GameObject):
         dx, dy = 0, 0
         if self.moving_left:
             dx = -(min(self.offset, self.left))
-            self.change_size(c.duck_width_large, c.duck_height_large)
         elif self.moving_right:
             dx = min(self.offset, c.screen_width - self.right)
-            self.change_size(c.duck_width_small, c.duck_height_small)
         elif self.moving_down:
             dy = min(self.offset, c.screen_height - self.bottom)
         elif self.moving_up:
