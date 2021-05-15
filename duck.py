@@ -5,7 +5,7 @@ from game_object import GameObject
 
 
 class Duck(GameObject):
-    def __init__(self, x, y, w, h, color, offset, character, seen = True):
+    def __init__(self, x, y, w, h, color, offset, character, seen=True):
         GameObject.__init__(self, x, y, w, h)
         self.seen = seen
         self.color = color
@@ -14,7 +14,7 @@ class Duck(GameObject):
         self.moving_down = False
         self.moving_left = False
         self.moving_right = False
-        self.coordinates = (x,y)
+        self.coordinates = (x, y)
 
         file_path = c.character_images[character]
         self.myImage = pygame.image.load(file_path)
@@ -22,7 +22,6 @@ class Duck(GameObject):
 
     def draw(self, surface):
         if self.seen:
-        # pygame.draw.rect(surface, self.color, self.bounds)
             surface.blit(self.myImage, self.bounds)
 
     def handle(self, key):
@@ -34,7 +33,7 @@ class Duck(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
-    
+
     def change_size(self, new_width, new_height):
         center = self.bounds.center
         self.bounds.width = new_width

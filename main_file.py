@@ -12,6 +12,7 @@ import random
 import time
 from collections import deque
 
+
 class Rocket(Game):
     def __init__(self):
         Game.__init__(self,
@@ -79,12 +80,12 @@ class Rocket(Game):
 
     def create_duck(self):
         duck = Duck((c.screen_width - c.duck_width) // 2,
-                        c.screen_height - c.duck_height * 2,
-                        c.duck_width,
-                        c.duck_height,
-                        c.duck_color,
-                        c.duck_speed,
-                        self.character_id)
+                    c.screen_height - c.duck_height * 2,
+                    c.duck_width,
+                    c.duck_height,
+                    c.duck_color,
+                    c.duck_speed,
+                    self.character_id)
         self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
         self.keydown_handlers[pygame.K_UP].append(duck.handle)
@@ -93,29 +94,24 @@ class Rocket(Game):
         self.keyup_handlers[pygame.K_RIGHT].append(duck.handle)
         self.duck = duck
         self.objects.append(self.duck)
-    
+
     def create_wall(self, speed):
         wall = Wall(c.screen_width,
-                         random.choice(range(0, c.screen_height-c.wall_height + 50, 50)),
-                         c.wall_width,
-                         c.wall_height,
-                         c.wall_color, 
-                         [-(speed), 0])
+                    random.choice(range(0, c.screen_height - c.wall_height + 50, 50)),
+                    c.wall_width,
+                    c.wall_height,
+                    c.wall_color,
+                    [-(speed), 0])
         if len(self.walls_current) > c.wall_amount:
             self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
 
-
-
     def create_objects(self):
         self.create_menu()
-        
 
     def create_game(self):
         self.create_duck()
-
-
 
     # SETTINGS
     def create_settings(self):
@@ -225,7 +221,7 @@ class Rocket(Game):
             collisions = set(edge for edge, rect in edges.items() if duck.bounds.colliderect(rect))
             if not collisions:
                 return None
-            
+
             if len(collisions) == 1:
                 return list(collisions)[0]
 
@@ -252,22 +248,8 @@ class Rocket(Game):
                 continue
 
             wall.delete()
-            #self.objects.remove(wall)
             self.lives -= 1
             print('You lost 1 live')
-            continue
-
-            #if wall.special_effect is not None:
-                # Reset previous effect if any
-                #if self.reset_effect is not None:
-                #    self.reset_effect(self)
-
-                # Trigger special effect
-                #self.effect_start_time = datetime.now()
-                #brick.special_effect[0](self)
-                # Set current reset effect function
-                #self.reset_effect = brick.special_effect[1]
-
 
     def update(self):
         if not self.is_game_running:
@@ -279,18 +261,15 @@ class Rocket(Game):
             self.wall_speed = c.wall_speed_initial
             self.start_time = pygame.time.get_ticks()
 
-        
+        if (pygame.time.get_ticks() % 1000) in range(20):
+            self.create_wall(self.wall_speed)
 
-        if (pygame.time.get_ticks() % 1000) in range(20): 
-            self.create_wall(self.wall_speed) 
-            
-
-        self.wall_speed+=c.wall_acceleration
+        self.wall_speed += c.wall_acceleration
         self.handle_collisions()
         if self.lives == 0:
             self.is_game_running = False
             self.result = (pygame.time.get_ticks() - self.start_time)
-            self.show_message('{0:.2f} s'.format(self.result/1000), centralized=True)
+            self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
             self.duck.delete()
             for wall in self.walls_current:
                 wall.delete()
@@ -305,8 +284,6 @@ class Rocket(Game):
         message.draw(self.surface, centralized)
         pygame.display.update()
         time.sleep(c.message_duration)
-
-
 
 
 def main():

@@ -2,7 +2,7 @@
 screen_width = 800
 screen_height = 600
 background_image = 'images/background.png'
-character_images = {0:'images/square.png', 1:'images/duck.png'}
+character_images = {0: 'images/square.png', 1: 'images/duck.png'}
 wall_image = 'images/block.png'
 
 frame_rate = 90
@@ -19,7 +19,6 @@ font_name = 'Arial'
 font_size = 20
 
 effect_duration = 20
-
 # sounds_effects = dict(
 #     brick_hit='sound_effects/brick_hit.wav',
 #     effect_done='sound_effects/effect_done.wav',
@@ -52,8 +51,8 @@ character_button_h = 50
 image_w = 50
 image_h = 50
 
-duck_width = 50
-duck_height = 50
+duck_width = 70
+duck_height = 70
 duck_width_large = 80
 duck_height_large = 80
 duck_width_small = 30

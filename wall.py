@@ -5,7 +5,7 @@ import config as c
 
 
 class Wall(GameObject):
-    def __init__(self, x, y, w, h, color, speed, seen = True):
+    def __init__(self, x, y, w, h, color, speed, seen=True):
         GameObject.__init__(self, x, y, w, h, speed)
         self.seen = seen
         self.color = color
@@ -14,10 +14,8 @@ class Wall(GameObject):
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
-        #pygame.draw.rect(surface, self.color, self.bounds)
         if self.seen:
             surface.blit(self.myImage, self.bounds)
-
 
     def update(self):
         super().update()
