@@ -3,9 +3,10 @@ from button import Button
 from game import Game
 from image import Image
 from duck import Duck
+from wall import Wall
 
 import pygame
-
+import random
 
 class Rocket(Game):
     def __init__(self):
@@ -87,6 +88,16 @@ class Rocket(Game):
         self.keyup_handlers[pygame.K_RIGHT].append(duck.handle)
         self.duck = duck
         self.objects.append(self.duck)
+    
+    def create_wall(self):
+        self.wall = Wall(c.screen_width,
+                         c.screen_height // random.randint(1, 10),
+                         c.wall_width,
+                         c.wall_height,
+                         c.wall_color, 
+                         [-3, 0])
+        self.objects.append(self.wall)
+
 
 
     def create_objects(self):
@@ -94,6 +105,7 @@ class Rocket(Game):
 
     def create_game(self):
         self.create_duck()
+        self.create_wall()
 
     # SETTINGS
     def create_settings(self):
