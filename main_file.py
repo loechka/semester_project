@@ -277,6 +277,7 @@ class Rocket(Game):
             self.create_duck()
             self.show_message('ПОЛЕТЕЛИ!', centralized=True)
             self.wall_speed = c.wall_speed_initial
+            self.start_time = pygame.time.get_ticks()
 
         
 
@@ -288,7 +289,8 @@ class Rocket(Game):
         self.handle_collisions()
         if self.lives == 0:
             self.is_game_running = False
-            self.show_message('КОНЕЦ', centralized=True)
+            self.result = (pygame.time.get_ticks() - self.start_time)
+            self.show_message('{0:.2f} s'.format(self.result/1000), centralized=True)
         super().update()
 
     def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):
