@@ -65,7 +65,7 @@ wall_height = 100
 wall_width = 40
 wall_color = (255, 255, 255)
 wall_speed_initial = 3
-wall_acceleration = 0.03
+wall_acceleration = 0.001
 wall_amount = 30
 
 offset = 10

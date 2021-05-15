@@ -251,9 +251,11 @@ class Rocket(Game):
             if not edge:
                 continue
 
-            wall.seen = False
+            wall.delete()
+            #self.objects.remove(wall)
             self.lives -= 1
             print('You lost 1 live')
+            continue
 
             #if wall.special_effect is not None:
                 # Reset previous effect if any
@@ -276,15 +278,17 @@ class Rocket(Game):
             self.show_message('ПОЛЕТЕЛИ!', centralized=True)
             self.wall_speed = c.wall_speed_initial
 
+        
+
+        if (pygame.time.get_ticks() % 1000) in range(20): 
+            self.create_wall(self.wall_speed) 
+            
+
+        self.wall_speed+=c.wall_acceleration
+        self.handle_collisions()
         if self.lives == 0:
             self.is_game_running = False
             self.show_message('КОНЕЦ', centralized=True)
-
-        if (pygame.time.get_ticks() % 1000) in range(20):
-            self.wall_speed+=c.wall_acceleration
-            self.create_wall(self.wall_speed) 
-            self.handle_collisions()
-
         super().update()
 
     def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):

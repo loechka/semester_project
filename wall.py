@@ -18,5 +18,11 @@ class Wall(GameObject):
         if self.seen:
             surface.blit(self.myImage, self.bounds)
 
+
     def update(self):
         super().update()
+
+    def delete(self):
+        self.seen = False
+        self.bounds.height = 0
+        self.bounds.width = 0
