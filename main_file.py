@@ -7,6 +7,7 @@ from wall import Wall
 
 import pygame
 import random
+import time
 
 class Rocket(Game):
     def __init__(self):
@@ -91,7 +92,8 @@ class Rocket(Game):
     
     def create_wall(self):
         self.wall = Wall(c.screen_width,
-                         c.screen_height // random.randint(1, 10),
+                         #random.randint(0, c.screen_height-c.wall_height),
+                         random.choice(range(0, c.screen_height-c.wall_height + 50, 50)),
                          c.wall_width,
                          c.wall_height,
                          c.wall_color, 
@@ -102,10 +104,12 @@ class Rocket(Game):
 
     def create_objects(self):
         self.create_menu()
+        
 
     def create_game(self):
         self.create_duck()
-        self.create_wall()
+
+
 
     # SETTINGS
     def create_settings(self):
@@ -205,6 +209,16 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
             for p in self.character_images:
                 self.objects.append(p)
+
+    def update(self):
+        if not self.is_game_running:
+            return
+        #print (pygame.time.get_ticks())
+        if (pygame.time.get_ticks() % 1000) in range(20):
+            self.create_wall() 
+
+        super().update()
+
 
 
 def main():
