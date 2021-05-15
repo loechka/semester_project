@@ -5,10 +5,12 @@ from image import Image
 from duck import Duck
 from wall import Wall
 from text_object import TextObject
+from pygame.rect import Rect
 
 import pygame
 import random
 import time
+from collections import deque
 
 class Rocket(Game):
     def __init__(self):
@@ -25,6 +27,8 @@ class Rocket(Game):
         self.character_images = []
         self.character_id = 0
         self.is_game_running = False
+        self.walls_current = deque()
+        self.lives = c.initial_lives
         self.create_objects()
 
     # MENU
@@ -91,13 +95,16 @@ class Rocket(Game):
         self.objects.append(self.duck)
     
     def create_wall(self, speed):
-        self.wall = Wall(c.screen_width,
+        wall = Wall(c.screen_width,
                          random.choice(range(0, c.screen_height-c.wall_height + 50, 50)),
                          c.wall_width,
                          c.wall_height,
                          c.wall_color, 
                          [-(speed), 0])
-        self.objects.append(self.wall)
+        if len(self.walls_current) > c.wall_amount:
+            self.walls_current.popleft()
+        self.walls_current.append(wall)
+        self.objects.append(wall)
 
 
 
@@ -209,6 +216,57 @@ class Rocket(Game):
             for p in self.character_images:
                 self.objects.append(p)
 
+    def handle_collisions(self):
+        def intersect(obj, duck):
+            edges = dict(left=Rect(obj.left, obj.top, 1, obj.height),
+                         right=Rect(obj.right, obj.top, 1, obj.height),
+                         top=Rect(obj.left, obj.top, obj.width, 1),
+                         bottom=Rect(obj.left, obj.bottom, obj.width, 1))
+            collisions = set(edge for edge, rect in edges.items() if duck.bounds.colliderect(rect))
+            if not collisions:
+                return None
+            
+            if len(collisions) == 1:
+                return list(collisions)[0]
+
+            if 'top' in collisions:
+                if duck.centery >= obj.top:
+                    return 'top'
+                if duck.centerx < obj.left:
+                    return 'left'
+                else:
+                    return 'right'
+
+            if 'bottom' in collisions:
+                if duck.centery >= obj.bottom:
+                    return 'bottom'
+                if duck.centerx < obj.left:
+                    return 'left'
+                else:
+                    return 'right'
+
+        # Hit wall
+        for wall in self.walls_current:
+            edge = intersect(wall, self.duck)
+            if not edge:
+                continue
+
+            wall.seen = False
+            self.lives -= 1
+            print('You lost 1 live')
+
+            #if wall.special_effect is not None:
+                # Reset previous effect if any
+                #if self.reset_effect is not None:
+                #    self.reset_effect(self)
+
+                # Trigger special effect
+                #self.effect_start_time = datetime.now()
+                #brick.special_effect[0](self)
+                # Set current reset effect function
+                #self.reset_effect = brick.special_effect[1]
+
+
     def update(self):
         if not self.is_game_running:
             return
@@ -218,9 +276,14 @@ class Rocket(Game):
             self.show_message('ПОЛЕТЕЛИ!', centralized=True)
             self.wall_speed = c.wall_speed_initial
 
+        if self.lives == 0:
+            self.is_game_running = False
+            self.show_message('КОНЕЦ', centralized=True)
+
         if (pygame.time.get_ticks() % 1000) in range(20):
             self.wall_speed+=c.wall_acceleration
             self.create_wall(self.wall_speed) 
+            self.handle_collisions()
 
         super().update()
 
