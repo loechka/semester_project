@@ -3,6 +3,7 @@ screen_width = 800
 screen_height = 600
 background_image = 'images/background.png'
 character_images = {0:'images/square.png', 1:'images/duck.png'}
+wall_image = 'images/block.png'
 
 frame_rate = 90
 
