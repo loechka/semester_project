@@ -34,6 +34,7 @@ class Rocket(Game):
         self.lives = c.initial_lives
         self.create_objects()
         self.pause_duration = 0
+        self.current_timer = 0
 
     # MENU
     def create_menu(self):
@@ -166,6 +167,16 @@ class Rocket(Game):
 
     def create_objects(self):
         self.create_menu()
+
+    def create_labels(self):
+        self.time_label = TextObject(c.time_offset,
+                                      c.status_offset_y,
+                                      lambda: f'TIME: {self.current_timer}',
+                                      c.text_color,
+                                      c.font_name,
+                                      c.font_size)
+        self.objects.append(self.time_label)
+
         
     # SETTINGS
     def create_settings(self):
@@ -315,9 +326,12 @@ class Rocket(Game):
             self.start_level = False
             self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
+            self.create_labels()
             self.show_message('ПОЛЕТЕЛИ!', centralized=True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pygame.time.get_ticks()
+
+        self.current_timer = round(((pygame.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
 
         if (pygame.time.get_ticks() % 1000) in range(20):
             self.create_wall(self.wall_speed)
@@ -335,6 +349,7 @@ class Rocket(Game):
                 wall.delete()
             self.lives = c.initial_lives
             self.pause_duration = 0
+            self.current_timer = 0
             self.create_objects()
 
         super().update()

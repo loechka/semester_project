@@ -8,6 +8,7 @@ wall_image = 'images/block.png'
 frame_rate = 90
 
 status_offset_y = 5
+time_offset = 500
 
 text_color = (255, 255, 0)
 initial_lives = 3
