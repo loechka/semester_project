@@ -14,8 +14,9 @@ class Duck(GameObject):
         self.moving_left = False
         self.moving_right = False
         self.coordinates = (x,y)
+        self.character = character
 
-        file_path = c.character_images[character]
+        file_path = c.character_images[self.character]
         self.myImage = pygame.image.load(file_path)
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
@@ -39,7 +40,12 @@ class Duck(GameObject):
         self.bounds.height = new_height
         self.bounds.center = center
 
+    def change_character(self):
+        file_path = c.character_images[self.character]
+        self.myImage = pygame.image.load(file_path)
+
     def update(self):
+        self.myImage = pygame.transform.scale(self.myImage, (self.bounds.width, self.bounds.height))
         dx, dy = 0, 0
         if self.moving_left:
             dx = -(min(self.offset, self.left))
@@ -53,5 +59,5 @@ class Duck(GameObject):
             dy = -(min(self.offset, self.top))
         else:
             return
-
+        
         self.move(dx, dy)
