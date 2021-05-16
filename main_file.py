@@ -161,11 +161,7 @@ class Rocket(Game):
 
     def create_objects(self):
         self.create_menu()
-
-    def create_game(self):
-        self.create_duck()
-        self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
-
+        
     # SETTINGS
     def create_settings(self):
         def on_background(button):
@@ -312,6 +308,7 @@ class Rocket(Game):
             return
         if self.start_level:
             self.start_level = False
+            self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.show_message('ПОЛЕТЕЛИ!', centralized=True)
             self.wall_speed = c.wall_speed_initial
