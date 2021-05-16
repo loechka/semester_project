@@ -3,8 +3,14 @@ from button import Button
 from game import Game
 from image import Image
 from duck import Duck
+from wall import Wall
+from text_object import TextObject
+from pygame.rect import Rect
 
 import pygame
+import random
+import time
+from collections import deque
 
 
 class Rocket(Game):
@@ -21,9 +27,11 @@ class Rocket(Game):
         self.character_buttons = []
         self.character_images = []
         self.character_objects = []
-        self.character_id = 0
+        self.character_id = 1
         self.mode = 'main'
         self.is_game_running = False
+        self.walls_current = deque()
+        self.lives = c.initial_lives
         self.create_objects()
 
     # MENU
@@ -35,7 +43,6 @@ class Rocket(Game):
 
             self.is_game_running = True
             self.start_level = True
-            self.create_game()
 
         def on_quit(button):
             self.game_over = True
@@ -110,12 +117,12 @@ class Rocket(Game):
 
     def create_duck(self):
         duck = Duck((c.screen_width - c.duck_width) // 2,
-                        c.screen_height - c.duck_height * 2,
-                        c.duck_width,
-                        c.duck_height,
-                        c.duck_color,
-                        c.duck_speed,
-                        self.character_id)
+                    c.screen_height - c.duck_height * 2,
+                    c.duck_width,
+                    c.duck_height,
+                    c.duck_color,
+                    c.duck_speed,
+                    self.character_id)
         self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
         self.keydown_handlers[pygame.K_UP].append(duck.handle)
@@ -139,6 +146,18 @@ class Rocket(Game):
             self.create_menu()
         else:
             pass
+
+    def create_wall(self, speed):
+        wall = Wall(c.screen_width,
+                    random.choice(range(0, c.screen_height - c.wall_height + 50, 50)),
+                    c.wall_width,
+                    c.wall_height,
+                    c.wall_color,
+                    [-(speed), 0])
+        if len(self.walls_current) > c.wall_amount:
+            self.walls_current.popleft()
+        self.walls_current.append(wall)
+        self.objects.append(wall)
 
     def create_objects(self):
         self.create_menu()
@@ -248,6 +267,79 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
             for p in self.character_images:
                 self.objects.append(p)
+
+    def handle_collisions(self):
+        def intersect(obj, duck):
+            edges = dict(left=Rect(obj.left, obj.top, 1, obj.height),
+                         right=Rect(obj.right, obj.top, 1, obj.height),
+                         top=Rect(obj.left, obj.top, obj.width, 1),
+                         bottom=Rect(obj.left, obj.bottom, obj.width, 1))
+            collisions = set(edge for edge, rect in edges.items() if duck.bounds.colliderect(rect))
+            if not collisions:
+                return None
+
+            if len(collisions) == 1:
+                return list(collisions)[0]
+
+            if 'top' in collisions:
+                if duck.centery >= obj.top:
+                    return 'top'
+                if duck.centerx < obj.left:
+                    return 'left'
+                else:
+                    return 'right'
+
+            if 'bottom' in collisions:
+                if duck.centery >= obj.bottom:
+                    return 'bottom'
+                if duck.centerx < obj.left:
+                    return 'left'
+                else:
+                    return 'right'
+
+        # Hit wall
+        for wall in self.walls_current:
+            edge = intersect(wall, self.duck)
+            if not edge:
+                continue
+
+            wall.delete()
+            self.lives -= 1
+            print('You lost 1 live')
+
+    def update(self):
+        if not self.is_game_running:
+            return
+        if self.start_level:
+            self.start_level = False
+            self.create_duck()
+            self.show_message('ПОЛЕТЕЛИ!', centralized=True)
+            self.wall_speed = c.wall_speed_initial
+            self.start_time = pygame.time.get_ticks()
+
+        if (pygame.time.get_ticks() % 1000) in range(20):
+            self.create_wall(self.wall_speed)
+
+        self.wall_speed += c.wall_acceleration
+        self.handle_collisions()
+        if self.lives == 0:
+            self.is_game_running = False
+            self.result = (pygame.time.get_ticks() - self.start_time)
+            self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
+            self.duck.delete()
+            for wall in self.walls_current:
+                wall.delete()
+            self.lives = c.initial_lives
+            self.create_objects()
+
+        super().update()
+
+    def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):
+        message = TextObject(c.screen_width // 2, c.screen_height // 2, lambda: text, color, font_name, font_size)
+        self.draw()
+        message.draw(self.surface, centralized)
+        pygame.display.update()
+        time.sleep(c.message_duration)
 
 
 def main():

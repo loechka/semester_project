@@ -5,8 +5,9 @@ from game_object import GameObject
 
 
 class Duck(GameObject):
-    def __init__(self, x, y, w, h, color, offset, character):
+    def __init__(self, x, y, w, h, color, offset, character, seen=True):
         GameObject.__init__(self, x, y, w, h)
+        self.seen = seen
         self.color = color
         self.offset = offset
         self.moving_up = False
@@ -15,14 +16,13 @@ class Duck(GameObject):
         self.moving_right = False
         self.coordinates = (x,y)
         self.character = character
-
         file_path = c.character_images[self.character]
         self.myImage = pygame.image.load(file_path)
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
-        # pygame.draw.rect(surface, self.color, self.bounds)
-        surface.blit(self.myImage, self.bounds)
+        if self.seen:
+            surface.blit(self.myImage, self.bounds)
 
     def handle(self, key):
         if key == pygame.K_LEFT:
@@ -33,7 +33,7 @@ class Duck(GameObject):
             self.moving_up = not self.moving_up
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
-    
+
     def change_size(self, new_width, new_height):
         center = self.bounds.center
         self.bounds.width = new_width
@@ -49,10 +49,8 @@ class Duck(GameObject):
         dx, dy = 0, 0
         if self.moving_left:
             dx = -(min(self.offset, self.left))
-            self.change_size(c.duck_width_large, c.duck_height_large)
         elif self.moving_right:
             dx = min(self.offset, c.screen_width - self.right)
-            self.change_size(c.duck_width_small, c.duck_height_small)
         elif self.moving_down:
             dy = min(self.offset, c.screen_height - self.bottom)
         elif self.moving_up:
@@ -61,3 +59,8 @@ class Duck(GameObject):
             return
         
         self.move(dx, dy)
+
+    def delete(self):
+        self.seen = False
+        self.bounds.height = 0
+        self.bounds.width = 0
