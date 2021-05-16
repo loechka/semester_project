@@ -20,7 +20,9 @@ class Rocket(Game):
         self.settings_buttons = []
         self.character_buttons = []
         self.character_images = []
+        self.character_objects = []
         self.character_id = 0
+        self.mode = 'main'
         self.is_game_running = False
         self.create_objects()
 
@@ -29,6 +31,7 @@ class Rocket(Game):
         def on_play(button):
             for b in self.menu_buttons:
                 self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
 
             self.is_game_running = True
             self.start_level = True
@@ -48,28 +51,62 @@ class Rocket(Game):
         def on_records(button):
             pass
 
+        def on_continue_game(button):
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.is_game_running = True
+            for obj in self.character_objects:
+                obj.character = self.character_id
+                obj.change_character()
+                self.objects.append(obj)
+
+        def on_character(button):
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_character()
+
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
             for i, (text, click_handler) in \
                 enumerate((('НОВАЯ ИГРА', on_play),
-                           ('НАСТРОЙКИ', on_settings),
-                           ('РЕКОРДЫ', on_records),
-                           ('ВЫХОД', on_quit))):
+                        ('НАСТРОЙКИ', on_settings),
+                        ('РЕКОРДЫ', on_records),
+                        ('ВЫХОД', on_quit))):
                 b = Button(c.menu_offset_x,
-                           c.menu_offset_y + (c.menu_button_h + 50) * i,
-                           c.menu_button_w,
-                           c.menu_button_h,
-                           text,
-                           click_handler,
-                           padding=5)
+                        c.menu_offset_y + (c.menu_button_h + 50) * i,
+                        c.menu_button_w,
+                        c.menu_button_h,
+                        text,
+                        click_handler,
+                        padding=5)
                 self.objects.append(b)
                 self.menu_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
+                
         # re-rendering of menu buttons
         else:
-            for b in self.menu_buttons:
-                self.objects.append(b)
-                self.mouse_handlers.append(b.handle_mouse_event)
+            if self.mode == 'main':
+                for b in self.menu_buttons:
+                    self.objects.append(b)
+                    self.mouse_handlers.append(b.handle_mouse_event)
+            elif self.mode == 'short':
+                self.menu_buttons = []
+                for i, (text, click_handler) in \
+                    enumerate((('ВЕРНУТЬСЯ', on_continue_game),
+                            ('ПЕРСОНАЖ', on_character),
+                            ('ВЫХОД', on_quit))):
+                    b = Button(c.menu_offset_x,
+                            c.menu_offset_y + (c.menu_button_h + 50) * i,
+                            c.menu_button_w,
+                            c.menu_button_h,
+                            text,
+                            click_handler,
+                            padding=5)
+                    self.objects.append(b)
+                    self.menu_buttons.append(b)
+                    self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_duck(self):
         duck = Duck((c.screen_width - c.duck_width) // 2,
@@ -85,15 +122,30 @@ class Rocket(Game):
         self.keydown_handlers[pygame.K_DOWN].append(duck.handle)
         self.keyup_handlers[pygame.K_LEFT].append(duck.handle)
         self.keyup_handlers[pygame.K_RIGHT].append(duck.handle)
+        self.keyup_handlers[pygame.K_UP].append(duck.handle)
+        self.keyup_handlers[pygame.K_DOWN].append(duck.handle)
         self.duck = duck
         self.objects.append(self.duck)
+        self.character_objects.append(self.duck)
 
+    def handle_stop_game(self, key):
+        if self.is_game_running == True and key == pygame.K_ESCAPE:
+            self.is_game_running = False
+            self.mode = 'short'
+            for obj in self.character_objects:
+                self.objects.remove(obj)
+                # self.keydown_handlers.remove(obj.handle)
+                # self.keyup_handlers.remove(obj.handle)
+            self.create_menu()
+        else:
+            pass
 
     def create_objects(self):
         self.create_menu()
 
     def create_game(self):
         self.create_duck()
+        self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
 
     # SETTINGS
     def create_settings(self):
@@ -153,7 +205,10 @@ class Rocket(Game):
                 self.mouse_handlers.remove(b.handle_mouse_event)
             for p in self.character_images:
                 self.objects.remove(p)
-            self.create_settings()
+            if self.mode == 'main':
+                self.create_settings()
+            elif self.mode == 'short':
+                self.create_menu()
 
         # first rendering of character buttons
         if len(self.character_buttons) == 0:
