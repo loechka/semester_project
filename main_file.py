@@ -33,6 +33,7 @@ class Rocket(Game):
         self.walls_current = deque()
         self.lives = c.initial_lives
         self.create_objects()
+        self.pause_duration = 0
 
     # MENU
     def create_menu(self):
@@ -59,6 +60,8 @@ class Rocket(Game):
             pass
 
         def on_continue_game(button):
+            global pause_start
+            self.pause_duration+= pygame.time.get_ticks() - pause_start
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -136,8 +139,10 @@ class Rocket(Game):
         self.character_objects.append(self.duck)
 
     def handle_stop_game(self, key):
+        global pause_start
         if self.is_game_running == True and key == pygame.K_ESCAPE:
             self.is_game_running = False
+            pause_start = pygame.time.get_ticks()
             self.mode = 'short'
             for obj in self.character_objects:
                 self.objects.remove(obj)
@@ -320,13 +325,16 @@ class Rocket(Game):
         self.wall_speed += c.wall_acceleration
         self.handle_collisions()
         if self.lives == 0:
+            self.mode = 'main'
+            self.menu_buttons = []
             self.is_game_running = False
-            self.result = (pygame.time.get_ticks() - self.start_time)
+            self.result = (pygame.time.get_ticks() - self.start_time) - self.pause_duration
             self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
             self.duck.delete()
             for wall in self.walls_current:
                 wall.delete()
             self.lives = c.initial_lives
+            self.pause_duration = 0
             self.create_objects()
 
         super().update()
