@@ -11,6 +11,7 @@ import pygame
 import random
 import time
 from collections import deque
+import shelve
 
 
 class Rocket(Game):
@@ -35,6 +36,9 @@ class Rocket(Game):
         self.create_objects()
         self.pause_duration = 0
         self.current_timer = 0
+        self.high_score = 0
+        self.set_high_score()
+
 
     # MENU
     def create_menu(self):
@@ -176,6 +180,13 @@ class Rocket(Game):
                                       c.font_name,
                                       c.font_size)
         self.objects.append(self.time_label)
+        self.high_score_label = TextObject(c.time_offset,
+                                      c.status_offset_y + c.font_size,
+                                      lambda: f'HIGH SCORE: {self.high_score}',
+                                      c.text_color,
+                                      c.font_name,
+                                      c.font_size)
+        self.objects.append(self.high_score_label)
 
         
     # SETTINGS
@@ -344,6 +355,7 @@ class Rocket(Game):
             self.is_game_running = False
             self.result = (pygame.time.get_ticks() - self.start_time) - self.pause_duration
             self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
+            self.record_high_score('{0:.2f} s'.format(self.result / 1000))
             self.duck.delete()
             for wall in self.walls_current:
                 wall.delete()
@@ -360,6 +372,29 @@ class Rocket(Game):
         message.draw(self.surface, centralized)
         pygame.display.update()
         time.sleep(c.message_duration)
+
+    def set_high_score(self):
+        with shelve.open(c.high_score_file) as current_scores:
+            if '1' in current_scores:
+                print('hi')
+                self.high_score = current_scores['1']
+
+    def record_high_score(self, score):
+        with shelve.open(c.high_score_file) as current_scores:
+            current_scores['new'] = score
+            sorted_scores = sorted(list(current_scores.values()), reverse = True)
+            for i in range(len(sorted_scores)):
+                current_scores[str(i+1)] = sorted_scores[i]
+            print(dict(current_scores))
+            del current_scores['new']
+            if len(current_scores) > 10: 
+                del current_scores["11"] 
+            
+            self.set_high_score()  
+
+
+
+
 
 
 def main():

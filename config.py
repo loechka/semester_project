@@ -69,3 +69,5 @@ wall_acceleration = 0.001
 wall_amount = 30
 
 offset = 10
+
+high_score_file = 'score.txt'
