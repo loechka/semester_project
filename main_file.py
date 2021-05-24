@@ -28,6 +28,7 @@ class Rocket(Game):
         self.character_buttons = []
         self.character_images = []
         self.character_objects = []
+        self.label_objects = [0]*3
         self.character_id = 1
         self.mode = 'main'
         self.is_game_running = False
@@ -187,7 +188,13 @@ class Rocket(Game):
                                       c.font_name,
                                       c.font_size)
         self.objects.append(self.high_score_label)
-
+        for i in range(3):
+            self.label_objects[i] = Image(c.lives_offset + c.image_w*i,
+                                    c.status_offset_y,
+                                    c.image_w,
+                                    c.image_h,
+                                    'images/bonus_heart.png')
+            self.objects.append(self.label_objects[i])
         
     # SETTINGS
     def create_settings(self):
@@ -328,6 +335,8 @@ class Rocket(Game):
 
             wall.delete()
             self.lives -= 1
+            if self.lives!=-1:
+                self.objects.remove(self.label_objects[self.lives])
             print('You lost 1 live')
 
     def update(self):

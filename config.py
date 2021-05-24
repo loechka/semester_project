@@ -8,12 +8,13 @@ wall_image = 'images/block.png'
 frame_rate = 90
 
 status_offset_y = 5
-time_offset = 500
+time_offset = 350
+lives_offset = 600
 
 text_color = (255, 255, 0)
 initial_lives = 3
-lives_right_offset = 85
-lives_offset = screen_width - lives_right_offset
+# lives_right_offset = 85
+# lives_offset = screen_width - lives_right_offset
 score_offset = 5
 
 font_name = 'Arial'
