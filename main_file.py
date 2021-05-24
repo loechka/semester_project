@@ -76,8 +76,7 @@ class Rocket(Game):
                 obj.character = self.character_id
                 obj.change_character()
                 self.objects.append(obj)
-            for obj in self.walls_current:
-                self.objects.append(obj)
+            --
 
         def on_character(button):
             for b in self.menu_buttons:
@@ -156,8 +155,6 @@ class Rocket(Game):
                 self.objects.remove(obj)
                 # self.keydown_handlers.remove(obj.handle)
                 # self.keyup_handlers.remove(obj.handle)
-            for obj in self.walls_current:
-                self.objects.remove(obj)
             self.create_menu()
         else:
             pass
