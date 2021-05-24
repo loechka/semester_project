@@ -189,7 +189,7 @@ class Rocket(Game):
                                       c.font_size)
         self.objects.append(self.high_score_label)
         for i in range(3):
-            self.label_objects[i] = Image(c.lives_offset + c.image_w*i,
+            self.label_objects[i] = Image(c.lives_offset + (c.image_w + 20)*i,
                                     c.status_offset_y,
                                     c.image_w,
                                     c.image_h,
