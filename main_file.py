@@ -248,6 +248,9 @@ class Rocket(Game):
         def on_face_duck(button):
             self.character_id = 1
 
+        def on_face_horse(button):
+            self.character_id = 2
+
         def on_back_from_character(button):
             for b in self.character_buttons:
                 self.objects.remove(b)
@@ -264,6 +267,7 @@ class Rocket(Game):
             for i, (text, click_handler) in \
                 enumerate((('КВАДРАТ', on_face_default),
                            ('УТОЧКА', on_face_duck),
+                           ('КОНЬ', on_face_horse),
                            ('НАЗАД', on_back_from_character))):
                 b = Button(c.character_offset_x,
                            c.character_offset_y +
@@ -279,7 +283,8 @@ class Rocket(Game):
 
             for i, (text, file_path) in \
                 enumerate((('КВАДРАТ', 'images/square.png'),
-                           ('УТОЧКА', 'images/duck.png'))):
+                           ('УТОЧКА', 'images/duck.png'),
+                           ('КОНЬ', 'images/horse.png'))):
                 p = Image(c.character_offset_x +
                           c.character_button_w + c.image_w,
                           c.character_offset_y +
