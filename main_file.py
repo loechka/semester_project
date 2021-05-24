@@ -76,7 +76,6 @@ class Rocket(Game):
                 obj.character = self.character_id
                 obj.change_character()
                 self.objects.append(obj)
-            --
 
         def on_character(button):
             for b in self.menu_buttons:
