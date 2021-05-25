@@ -27,6 +27,8 @@ class Duck(GameObject):
     def handle(self, key):
         if key == pygame.K_LEFT:
             self.moving_left = not self.moving_left
+            self.myImage = pygame.transform.flip(self.myImage, True, False)
+            
         elif key == pygame.K_RIGHT:
             self.moving_right = not self.moving_right
         elif key == pygame.K_UP:

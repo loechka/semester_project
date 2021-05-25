@@ -439,13 +439,14 @@ class Rocket(Game):
         if self.wall_app_mode == 0:
             if (pygame.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
                 self.last_wall_app = pygame.time.get_ticks()
+                self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
         else:
             if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app)/100 >=2:
                 self.last_wall_app = pygame.time.get_ticks()
                 self.create_wall_determined(self.wall_speed)
 
-        self.wall_speed += c.wall_acceleration
+        #self.wall_speed += c.wall_acceleration
         self.handle_collisions()
         if self.lives == 0:
             self.mode = 'main'

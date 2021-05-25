@@ -60,13 +60,13 @@ duck_height_large = 80
 duck_width_small = 30
 duck_height_small = 30
 duck_color = (255, 255, 255)
-duck_speed = 5
+duck_speed = 6
 
 wall_height = 100
 wall_width = 40
 wall_color = (255, 255, 255)
 wall_speed_initial = 3
-wall_acceleration = 0.0005
+wall_acceleration = 0.05
 wall_amount = 20
 walls_regularity = 1500
 
