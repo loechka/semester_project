@@ -26,10 +26,12 @@ class Rocket(Game):
         self.menu_buttons = []
         self.settings_buttons = []
         self.character_buttons = []
+        self.difficulty_buttons = []
         self.character_images = []
         self.character_objects = []
         self.label_objects = [0]*3
         self.character_id = 1
+        self.wall_app_mode = 0
         self.mode = 'main'
         self.is_game_running = False
         self.walls_current = deque()
@@ -38,6 +40,7 @@ class Rocket(Game):
         self.pause_duration = 0
         self.current_timer = 0
         self.high_score = 0
+        self.last_wall_app = 0
         self.set_high_score()
 
 
@@ -170,6 +173,29 @@ class Rocket(Game):
         self.walls_current.append(wall)
         self.objects.append(wall)
 
+    def create_wall_determined(self, speed):
+        wall = Wall(c.screen_width,
+                    random.choice(range(c.screen_height - 200, c.screen_height - c.wall_height, 20)),
+                    c.wall_width,
+                    c.wall_height,
+                    c.wall_color,
+                    [-(speed), 0])
+        # if len(self.walls_current) > c.wall_amount:
+        #     self.walls_current.popleft()
+        self.walls_current.append(wall)
+        self.objects.append(wall)
+
+        wall = Wall(c.screen_width,
+                    random.choice(range(c.wall_height, 200, 20)),
+                    c.wall_width,
+                    c.wall_height,
+                    c.wall_color,
+                    [-(speed), 0])
+        # if len(self.walls_current) > c.wall_amount:
+        #     self.walls_current.popleft()
+        self.walls_current.append(wall)
+        self.objects.append(wall)
+
     def create_objects(self):
         self.create_menu()
 
@@ -208,7 +234,10 @@ class Rocket(Game):
             self.create_character()
 
         def on_difficulty(button):
-            pass
+            for b in self.settings_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_difficulty()
 
         def on_back_from_settings(button):
             for b in self.settings_buttons:
@@ -237,6 +266,42 @@ class Rocket(Game):
         # re-rendering of settings buttons
         else:
             for b in self.settings_buttons:
+                self.objects.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+    
+    def create_difficulty(self):
+        def on_infinite(button):
+            self.wall_app_mode = 0
+        
+        def on_until_finish(button):
+            self.wall_app_mode = 1
+
+        def on_back_from_difficulty(button):
+            for b in self.difficulty_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_settings()
+
+        # first rendering of settings buttons
+        if len(self.difficulty_buttons) == 0:
+            for i, (text, click_handler) in \
+                enumerate((('БЕСКОНЕЧНЫЙ РЕЖИМ', on_infinite),
+                           ('ДОБРАТЬСЯ ДО ФИНИША', on_until_finish),
+                           ('НАЗАД', on_back_from_difficulty))):
+                b = Button(c.settings_offset_x,
+                           c.settings_offset_y +
+                           (c.settings_button_h + 50) * i,
+                           c.settings_button_w,
+                           c.settings_button_h,
+                           text,
+                           click_handler,
+                           padding=5)
+                self.objects.append(b)
+                self.difficulty_buttons.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+        # re-rendering of settings buttons
+        else:
+            for b in self.difficulty_buttons:
                 self.objects.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
 
@@ -358,8 +423,13 @@ class Rocket(Game):
 
         self.current_timer = round(((pygame.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
 
-        if (pygame.time.get_ticks() % 1000) in range(20):
-            self.create_wall(self.wall_speed)
+        if self.wall_app_mode == 0:
+            if (pygame.time.get_ticks() % 1000) in range(20):
+                self.create_wall(self.wall_speed)
+        else:
+            if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app)/100 >=2:
+                self.last_wall_app = pygame.time.get_ticks()
+                self.create_wall_determined(self.wall_speed)
 
         self.wall_speed += c.wall_acceleration
         self.handle_collisions()
