@@ -162,16 +162,29 @@ class Rocket(Game):
             pass
 
     def create_wall(self, speed):
-        wall = Wall(c.screen_width,
-                    random.choice(range(0, c.screen_height - c.wall_height + 50, 50)),
+        walls_num = random.randint(3, 6)
+        free_space = c.duck_height + random.choice(range(5, 40))
+        walls_distance = []
+        space_left = c.screen_height - walls_num * walls_num - free_space
+        for i in range(walls_num):
+            new_distance = random.choice(range(1, 80))
+            walls_distance.append(new_distance)
+        
+        walls_distance = [i/sum(walls_distance)*space_left for i in walls_distance]
+        walls_distance.append(free_space)
+        random.shuffle(walls_distance)
+
+        for i in range(walls_num):
+            wall = Wall(c.screen_width,
+                    c.screen_height - sum(walls_distance[:i]) - c.wall_height*(i+1),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
                     [-(speed), 0])
-        if len(self.walls_current) > c.wall_amount:
-            self.walls_current.popleft()
-        self.walls_current.append(wall)
-        self.objects.append(wall)
+            if len(self.walls_current) > c.wall_amount:
+                self.walls_current.popleft()
+            self.walls_current.append(wall)
+            self.objects.append(wall)
 
     def create_wall_determined(self, speed):
         wall = Wall(c.screen_width,
@@ -424,7 +437,8 @@ class Rocket(Game):
         self.current_timer = round(((pygame.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
 
         if self.wall_app_mode == 0:
-            if (pygame.time.get_ticks() % 1000) in range(20):
+            if (pygame.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
+                self.last_wall_app = pygame.time.get_ticks()
                 self.create_wall(self.wall_speed)
         else:
             if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app)/100 >=2:
