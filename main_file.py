@@ -439,7 +439,7 @@ class Rocket(Game):
             self.is_game_running = False
             self.result = (pygame.time.get_ticks() - self.start_time) - self.pause_duration
             self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
-            self.record_high_score('{0:.2f} s'.format(self.result / 1000))
+            self.record_high_score(round(self.result / 1000, 2))
             self.duck.delete()
             for wall in self.walls_current:
                 wall.delete()
@@ -467,6 +467,7 @@ class Rocket(Game):
         with shelve.open(c.high_score_file) as current_scores:
             current_scores['new'] = score
             sorted_scores = sorted(list(current_scores.values()), reverse = True)
+            print(sorted_scores)
             for i in range(len(sorted_scores)):
                 current_scores[str(i+1)] = sorted_scores[i]
             print(dict(current_scores))
