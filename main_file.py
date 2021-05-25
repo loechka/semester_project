@@ -89,10 +89,10 @@ class Rocket(Game):
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((('НОВАЯ ИГРА', on_play),
-                        ('НАСТРОЙКИ', on_settings),
-                        ('РЕКОРДЫ', on_records),
-                        ('ВЫХОД', on_quit))):
+                enumerate((("НОВАЯ ИГРА", on_play),
+                        ("НАСТРОЙКИ", on_settings),
+                        ("РЕКОРДЫ", on_records),
+                        ("ВЫХОД", on_quit))):
                 b = Button(c.menu_offset_x,
                         c.menu_offset_y + (c.menu_button_h + 50) * i,
                         c.menu_button_w,
@@ -113,9 +113,9 @@ class Rocket(Game):
             elif self.mode == 'short':
                 self.menu_buttons = []
                 for i, (text, click_handler) in \
-                    enumerate((('ВЕРНУТЬСЯ', on_continue_game),
-                            ('ПЕРСОНАЖ', on_character),
-                            ('ВЫХОД', on_quit))):
+                    enumerate((("ВЕРНУТЬСЯ", on_continue_game),
+                            ("ПЕРСОНАЖ", on_character),
+                            ("ВЫХОД", on_quit))):
                     b = Button(c.menu_offset_x,
                             c.menu_offset_y + (c.menu_button_h + 50) * i,
                             c.menu_button_w,
@@ -202,14 +202,14 @@ class Rocket(Game):
     def create_labels(self):
         self.time_label = TextObject(c.time_offset,
                                       c.status_offset_y,
-                                      lambda: f'TIME: {self.current_timer}',
+                                      lambda: f"ВРЕМЯ: {self.current_timer}",
                                       c.text_color,
                                       c.font_name,
                                       c.font_size)
         self.objects.append(self.time_label)
         self.high_score_label = TextObject(c.time_offset,
                                       c.status_offset_y + c.font_size,
-                                      lambda: f'HIGH SCORE: {self.high_score}',
+                                      lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
                                       c.text_color,
                                       c.font_name,
                                       c.font_size)
@@ -285,9 +285,9 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.difficulty_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((('БЕСКОНЕЧНЫЙ РЕЖИМ', on_infinite),
-                           ('ДОБРАТЬСЯ ДО ФИНИША', on_until_finish),
-                           ('НАЗАД', on_back_from_difficulty))):
+                enumerate((("БЕСКОНЕЧНЫЙ РЕЖИМ", on_infinite),
+                           ("ДОБРАТЬСЯ ДО ФИНИША", on_until_finish),
+                           ("НАЗАД", on_back_from_difficulty))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -330,10 +330,10 @@ class Rocket(Game):
         # first rendering of character buttons
         if len(self.character_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((('КВАДРАТ', on_face_default),
-                           ('УТОЧКА', on_face_duck),
-                           ('КОНЬ', on_face_horse),
-                           ('НАЗАД', on_back_from_character))):
+                enumerate((("КВАДРАТ", on_face_default),
+                           ("УТОЧКА", on_face_duck),
+                           ("КОНЬ", on_face_horse),
+                           ("НАЗАД", on_back_from_character))):
                 b = Button(c.character_offset_x,
                            c.character_offset_y +
                            (c.character_button_h + 50) * i,
@@ -347,9 +347,9 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
 
             for i, (text, file_path) in \
-                enumerate((('КВАДРАТ', 'images/square.png'),
-                           ('УТОЧКА', 'images/duck.png'),
-                           ('КОНЬ', 'images/horse.png'))):
+                enumerate((("КВАДРАТ", 'images/square.png'),
+                           ("УТОЧКА", 'images/duck.png'),
+                           ("КОНЬ", 'images/horse.png'))):
                 p = Image(c.character_offset_x +
                           c.character_button_w + c.image_w,
                           c.character_offset_y +
@@ -407,7 +407,7 @@ class Rocket(Game):
             self.lives -= 1
             if self.lives!=-1:
                 self.objects.remove(self.label_objects[self.lives])
-            print('You lost 1 live')
+
 
     def update(self):
         if not self.is_game_running:
@@ -417,7 +417,7 @@ class Rocket(Game):
             self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.create_labels()
-            self.show_message('ПОЛЕТЕЛИ!', centralized=True)
+            self.show_message("ПОЛЕТЕЛИ!", centralized=True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pygame.time.get_ticks()
 
@@ -438,7 +438,7 @@ class Rocket(Game):
             self.menu_buttons = []
             self.is_game_running = False
             self.result = (pygame.time.get_ticks() - self.start_time) - self.pause_duration
-            self.show_message('{0:.2f} s'.format(self.result / 1000), centralized=True)
+            self.show_message(str(round(self.result / 1000, 2)) + "сек", centralized=True)
             self.record_high_score(round(self.result / 1000, 2))
             self.duck.delete()
             for wall in self.walls_current:
@@ -460,17 +460,14 @@ class Rocket(Game):
     def set_high_score(self):
         with shelve.open(c.high_score_file) as current_scores:
             if '1' in current_scores:
-                print('hi')
                 self.high_score = current_scores['1']
 
     def record_high_score(self, score):
         with shelve.open(c.high_score_file) as current_scores:
             current_scores['new'] = score
             sorted_scores = sorted(list(current_scores.values()), reverse = True)
-            print(sorted_scores)
             for i in range(len(sorted_scores)):
                 current_scores[str(i+1)] = sorted_scores[i]
-            print(dict(current_scores))
             del current_scores['new']
             if len(current_scores) > 10: 
                 del current_scores["11"] 
