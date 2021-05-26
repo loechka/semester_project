@@ -4,7 +4,9 @@ screen_height = 600
 background_image = 'images/background.png'
 character_images = {0: 'images/square.png', 1: 'images/duck.png', 2:'images/horse.png'}
 wall_image = 'images/block.png'
-
+star_image = 'images/bonus_star.png'
+bomb_image = 'images/bonus_bomb.png'
+heart_image = 'images/bonus_heart.png'
 frame_rate = 90
 
 status_offset_y = 5
@@ -69,6 +71,12 @@ wall_speed_initial = 3
 wall_acceleration = 0.05
 wall_amount = 20
 walls_regularity = 1500
+
+bonus_height = 30
+bonus_width = 30
+bonus_color = (255, 0, 0)
+bonuses_amount = 5
+bonuses_regularity = 7000
 
 offset = 10
 

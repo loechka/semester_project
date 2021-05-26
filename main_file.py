@@ -1,9 +1,11 @@
+from bonus import Bonus
 import config as c
 from button import Button
 from game import Game
 from image import Image
 from duck import Duck
 from wall import Wall
+from bonus import Bonus
 from text_object import TextObject
 from pygame.rect import Rect
 
@@ -35,12 +37,14 @@ class Rocket(Game):
         self.mode = 'main'
         self.is_game_running = False
         self.walls_current = deque()
+        self.bonuses_current = deque()
         self.lives = c.initial_lives
         self.create_objects()
         self.pause_duration = 0
         self.current_timer = 0
         self.high_score = 0
         self.last_wall_app = 0
+        self.last_bonus_app = 0
         self.last_wall_change = 0
         self.set_high_score()
 
@@ -163,7 +167,7 @@ class Rocket(Game):
             pass
 
     def create_wall(self, speed):
-        walls_num = random.randint(3, 6)
+        walls_num = random.randint(3, 5)
         free_space = c.duck_height + random.choice(range(5, 40))
         walls_distance = []
         space_left = c.screen_height - walls_num * walls_num - free_space
@@ -177,7 +181,7 @@ class Rocket(Game):
 
         for i in range(walls_num):
             wall = Wall(c.screen_width,
-                    c.screen_height - sum(walls_distance[:i]) - c.wall_height*(i+1),
+                    c.screen_height - sum(walls_distance[0:i]) - c.wall_height*(i+1),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
@@ -231,6 +235,20 @@ class Rocket(Game):
         #     self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
+
+    def create_bonus(self, speed):
+        bonus_type = bool(random.randint(0, 1))
+        bonus = Bonus(c.screen_width,
+                    random.randint(0, c.screen_height - c.bonus_height),
+                    c.bonus_width,
+                    c.bonus_height,
+                    c.bonus_color,
+                    [-(speed), 0],
+                    bonus_type)
+        if len(self.bonuses_current) > c.bonuses_amount:
+            self.bonuses_current.popleft()
+        self.bonuses_current.append(bonus)
+        self.objects.append(bonus)
 
     def create_objects(self):
         self.create_menu()
@@ -443,6 +461,25 @@ class Rocket(Game):
             self.lives -= 1
             if self.lives!=-1:
                 self.objects.remove(self.label_objects[self.lives])
+        
+        # Hit bonus
+        for bonus in self.bonuses_current:
+            edge = intersect(bonus, self.duck)
+            if not edge:
+                continue
+
+            bonus.delete()
+            if (bonus.good) & (self.lives < 3):
+                self.lives += 1
+                self.objects.append(self.label_objects[self.lives-1])
+            elif not bonus.good:
+                if self.lives <= 2:
+                    for i in range(self.lives):
+                        self.objects.remove(self.label_objects[i])
+                else:
+                    self.objects.remove(self.label_objects[self.lives-2])
+                    self.objects.remove(self.label_objects[self.lives-1])
+                self.lives -= 2
 
 
     def update(self):
@@ -464,6 +501,10 @@ class Rocket(Game):
                 self.last_wall_app = pygame.time.get_ticks()
                 self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
+            if (pygame.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
+                if (pygame.time.get_ticks() - self.last_wall_app) > 300:
+                    self.last_bonus_app = pygame.time.get_ticks()
+                    self.create_bonus(self.wall_speed)
         else:
             if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app)/100 >=5:
                 self.last_wall_app = pygame.time.get_ticks()
@@ -471,7 +512,7 @@ class Rocket(Game):
 
         #self.wall_speed += c.wall_acceleration
         self.handle_collisions()
-        if self.lives == 0:
+        if self.lives <= 0:
             self.mode = 'main'
             self.menu_buttons = []
             self.is_game_running = False
@@ -481,7 +522,10 @@ class Rocket(Game):
             self.duck.delete()
             for wall in self.walls_current:
                 wall.delete()
+            for bonus in self.bonuses_current:
+                bonus.delete()
             self.lives = c.initial_lives
+            #self.create_labels()
             self.pause_duration = 0
             self.current_timer = 0
             self.create_objects()
