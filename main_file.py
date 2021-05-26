@@ -1,4 +1,3 @@
-from bonus import Bonus
 import config as c
 from button import Button
 from game import Game
@@ -31,7 +30,7 @@ class Rocket(Game):
         self.difficulty_buttons = []
         self.character_images = []
         self.character_objects = []
-        self.label_objects = [0]*3
+        self.label_objects = [0] * 3
         self.character_id = 1
         self.wall_app_mode = 0
         self.mode = 'main'
@@ -47,7 +46,6 @@ class Rocket(Game):
         self.last_bonus_app = 0
         self.last_wall_change = 0
         self.set_high_score()
-
 
     # MENU
     def create_menu(self):
@@ -75,7 +73,7 @@ class Rocket(Game):
 
         def on_continue_game(button):
             global pause_start
-            self.pause_duration+= pygame.time.get_ticks() - pause_start
+            self.pause_duration += pygame.time.get_ticks() - pause_start
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -94,21 +92,23 @@ class Rocket(Game):
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((("НОВАЯ ИГРА", on_play),
-                        ("НАСТРОЙКИ", on_settings),
-                        ("РЕКОРДЫ", on_records),
-                        ("ВЫХОД", on_quit))):
-                b = Button(c.menu_offset_x,
-                        c.menu_offset_y + (c.menu_button_h + 50) * i,
-                        c.menu_button_w,
-                        c.menu_button_h,
-                        text,
-                        click_handler,
-                        padding=5)
+                enumerate((
+                    ("НОВАЯ ИГРА", on_play),
+                    ("НАСТРОЙКИ", on_settings),
+                    ("РЕКОРДЫ", on_records),
+                    ("ВЫХОД", on_quit))):
+                b = Button(
+                    c.menu_offset_x,
+                    c.menu_offset_y + (c.menu_button_h + 50) * i,
+                    c.menu_button_w,
+                    c.menu_button_h,
+                    text,
+                    click_handler,
+                    padding=5)
                 self.objects.append(b)
                 self.menu_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
-                
+
         # re-rendering of menu buttons
         else:
             if self.mode == 'main':
@@ -119,27 +119,29 @@ class Rocket(Game):
                 self.menu_buttons = []
                 for i, (text, click_handler) in \
                     enumerate((("ВЕРНУТЬСЯ", on_continue_game),
-                            ("ПЕРСОНАЖ", on_character),
-                            ("ВЫХОД", on_quit))):
-                    b = Button(c.menu_offset_x,
-                            c.menu_offset_y + (c.menu_button_h + 50) * i,
-                            c.menu_button_w,
-                            c.menu_button_h,
-                            text,
-                            click_handler,
-                            padding=5)
+                               ("ПЕРСОНАЖ", on_character),
+                               ("ВЫХОД", on_quit))):
+                    b = Button(
+                        c.menu_offset_x,
+                        c.menu_offset_y + (c.menu_button_h + 50) * i,
+                        c.menu_button_w,
+                        c.menu_button_h,
+                        text,
+                        click_handler,
+                        padding=5)
                     self.objects.append(b)
                     self.menu_buttons.append(b)
                     self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_duck(self):
-        duck = Duck((c.screen_width - c.duck_width) // 2,
-                    c.screen_height - c.duck_height * 2,
-                    c.duck_width,
-                    c.duck_height,
-                    c.duck_color,
-                    c.duck_speed,
-                    self.character_id)
+        duck = Duck((
+            c.screen_width - c.duck_width) // 2,
+            c.screen_height - c.duck_height * 2,
+            c.duck_width,
+            c.duck_height,
+            c.duck_color,
+            c.duck_speed,
+            self.character_id)
         self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
         self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
         self.keydown_handlers[pygame.K_UP].append(duck.handle)
@@ -154,7 +156,7 @@ class Rocket(Game):
 
     def handle_stop_game(self, key):
         global pause_start
-        if self.is_game_running == True and key == pygame.K_ESCAPE:
+        if self.is_game_running is True and key == pygame.K_ESCAPE:
             self.is_game_running = False
             pause_start = pygame.time.get_ticks()
             self.mode = 'short'
@@ -174,18 +176,19 @@ class Rocket(Game):
         for i in range(walls_num):
             new_distance = random.choice(range(1, 80))
             walls_distance.append(new_distance)
-        
-        walls_distance = [i/sum(walls_distance)*space_left for i in walls_distance]
+
+        walls_distance = [i / sum(walls_distance) * space_left for i in walls_distance]
         walls_distance.append(free_space)
         random.shuffle(walls_distance)
 
         for i in range(walls_num):
-            wall = Wall(c.screen_width,
-                    c.screen_height - sum(walls_distance[0:i]) - c.wall_height*(i+1),
-                    c.wall_width,
-                    c.wall_height,
-                    c.wall_color,
-                    [-(speed), 0])
+            wall = Wall(
+                c.screen_width,
+                c.screen_height - sum(walls_distance[0:i]) - c.wall_height * (i + 1),
+                c.wall_width,
+                c.wall_height,
+                c.wall_color,
+                [-(speed), 0])
             if len(self.walls_current) > c.wall_amount:
                 self.walls_current.popleft()
             self.walls_current.append(wall)
@@ -238,13 +241,14 @@ class Rocket(Game):
 
     def create_bonus(self, speed):
         bonus_type = bool(random.randint(0, 1))
-        bonus = Bonus(c.screen_width,
-                    random.randint(0, c.screen_height - c.bonus_height),
-                    c.bonus_width,
-                    c.bonus_height,
-                    c.bonus_color,
-                    [-(speed), 0],
-                    bonus_type)
+        bonus = Bonus(
+            c.screen_width,
+            random.randint(0, c.screen_height - c.bonus_height),
+            c.bonus_width,
+            c.bonus_height,
+            c.bonus_color,
+            [-(speed), 0],
+            bonus_type)
         if len(self.bonuses_current) > c.bonuses_amount:
             self.bonuses_current.popleft()
         self.bonuses_current.append(bonus)
@@ -254,28 +258,31 @@ class Rocket(Game):
         self.create_menu()
 
     def create_labels(self):
-        self.time_label = TextObject(c.time_offset,
-                                      c.status_offset_y,
-                                      lambda: f"ВРЕМЯ: {self.current_timer}",
-                                      c.text_color,
-                                      c.font_name,
-                                      c.font_size)
+        self.time_label = TextObject(
+                                    c.time_offset,
+                                    c.status_offset_y,
+                                    lambda: f"ВРЕМЯ: {self.current_timer}",
+                                    c.text_color,
+                                    c.font_name,
+                                    c.font_size)
         self.objects.append(self.time_label)
-        self.high_score_label = TextObject(c.time_offset,
-                                      c.status_offset_y + c.font_size,
-                                      lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
-                                      c.text_color,
-                                      c.font_name,
-                                      c.font_size)
+        self.high_score_label = TextObject(
+                                    c.time_offset,
+                                    c.status_offset_y + c.font_size,
+                                    lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
+                                    c.text_color,
+                                    c.font_name,
+                                    c.font_size)
         self.objects.append(self.high_score_label)
         for i in range(3):
-            self.label_objects[i] = Image(c.lives_offset + (c.image_w + 20)*i,
+            self.label_objects[i] = Image(
+                                    c.lives_offset + (c.image_w + 20) * i,
                                     c.status_offset_y,
                                     c.image_w,
                                     c.image_h,
                                     'images/bonus_heart.png')
             self.objects.append(self.label_objects[i])
-        
+
     # SETTINGS
     def create_settings(self):
         def on_background(button):
@@ -322,11 +329,11 @@ class Rocket(Game):
             for b in self.settings_buttons:
                 self.objects.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
-    
+
     def create_difficulty(self):
         def on_infinite(button):
             self.wall_app_mode = 0
-        
+
         def on_until_finish(button):
             self.wall_app_mode = 1
 
@@ -459,9 +466,9 @@ class Rocket(Game):
 
             wall.delete()
             self.lives -= 1
-            if self.lives!=-1:
+            if self.lives != -1:
                 self.objects.remove(self.label_objects[self.lives])
-        
+
         # Hit bonus
         for bonus in self.bonuses_current:
             edge = intersect(bonus, self.duck)
@@ -471,16 +478,15 @@ class Rocket(Game):
             bonus.delete()
             if (bonus.good) & (self.lives < 3):
                 self.lives += 1
-                self.objects.append(self.label_objects[self.lives-1])
+                self.objects.append(self.label_objects[self.lives - 1])
             elif not bonus.good:
                 if self.lives <= 2:
                     for i in range(self.lives):
                         self.objects.remove(self.label_objects[i])
                 else:
-                    self.objects.remove(self.label_objects[self.lives-2])
-                    self.objects.remove(self.label_objects[self.lives-1])
+                    self.objects.remove(self.label_objects[self.lives - 2])
+                    self.objects.remove(self.label_objects[self.lives - 1])
                 self.lives -= 2
-
 
     def update(self):
         if not self.is_game_running:
@@ -506,11 +512,10 @@ class Rocket(Game):
                     self.last_bonus_app = pygame.time.get_ticks()
                     self.create_bonus(self.wall_speed)
         else:
-            if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app)/100 >=5:
+            if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app) / 100 >= 5:
                 self.last_wall_app = pygame.time.get_ticks()
                 self.create_wall_determined(self.wall_speed)
 
-        #self.wall_speed += c.wall_acceleration
         self.handle_collisions()
         if self.lives <= 0:
             self.mode = 'main'
@@ -525,7 +530,6 @@ class Rocket(Game):
             for bonus in self.bonuses_current:
                 bonus.delete()
             self.lives = c.initial_lives
-            #self.create_labels()
             self.pause_duration = 0
             self.current_timer = 0
             self.create_objects()
@@ -547,18 +551,13 @@ class Rocket(Game):
     def record_high_score(self, score):
         with shelve.open(c.high_score_file) as current_scores:
             current_scores['new'] = score
-            sorted_scores = sorted(list(current_scores.values()), reverse = True)
+            sorted_scores = sorted(list(current_scores.values()), reverse=True)
             for i in range(len(sorted_scores)):
-                current_scores[str(i+1)] = sorted_scores[i]
+                current_scores[str(i + 1)] = sorted_scores[i]
             del current_scores['new']
-            if len(current_scores) > 10: 
-                del current_scores["11"] 
-            
-            self.set_high_score()  
-
-
-
-
+            if len(current_scores) > 10:
+                del current_scores["11"]
+            self.set_high_score()
 
 
 def main():

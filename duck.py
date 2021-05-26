@@ -14,7 +14,7 @@ class Duck(GameObject):
         self.moving_down = False
         self.moving_left = False
         self.moving_right = False
-        self.coordinates = (x,y)
+        self.coordinates = (x, y)
         self.character = character
         file_path = c.character_images[self.character]
         self.myImage = pygame.image.load(file_path)
@@ -28,7 +28,7 @@ class Duck(GameObject):
         if key == pygame.K_LEFT:
             self.moving_left = not self.moving_left
             self.myImage = pygame.transform.flip(self.myImage, True, False)
-            
+
         elif key == pygame.K_RIGHT:
             self.moving_right = not self.moving_right
         elif key == pygame.K_UP:
@@ -59,7 +59,7 @@ class Duck(GameObject):
             dy = -(min(self.offset, self.top))
         else:
             return
-        
+
         self.move(dx, dy)
 
     def delete(self):
