@@ -43,7 +43,7 @@ class Rocket(Game):
         self.current_timer = 0
         self.high_score = 0
         self.last_wall_app = 0
-        self.last_bonus_app = 0
+        self.last_bonus_app = c.bonus_offset
         self.last_wall_change = 0
         self.last_bias_change = 0
         self.bias_key = 130
@@ -518,9 +518,12 @@ class Rocket(Game):
                 self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
             if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
-                if (pg.time.get_ticks() - self.last_wall_app) > 200:
+                if (pg.time.get_ticks() - self.last_wall_app) > 400:
                     self.last_bonus_app = pg.time.get_ticks()
-                    self.create_bonus(c.screen_width, random.randint(0, c.screen_height - c.bonus_height), self.wall_speed)
+                    self.create_bonus(
+                        c.screen_width, 
+                        random.randint(0, c.screen_height - c.bonus_height),
+                        self.wall_speed)
         elif self.wall_app_mode == 1:
             if (pg.time.get_ticks() - self.last_wall_app) / 100 >= 2:
                 self.last_wall_app = pg.time.get_ticks()
@@ -551,6 +554,8 @@ class Rocket(Game):
             for bonus in self.bonuses_current:
                 bonus.delete()
             self.lives = c.initial_lives
+            self.last_bonus_app = c.bonus_offset
+            self.last_wall_app = 0
             self.pause_duration = 0
             self.current_timer = 0
             self.create_objects()
@@ -590,7 +595,7 @@ class Rocket(Game):
             del current_scores['new']
             if len(current_scores) > 10:
                 del current_scores["11"]
-            self.set_high_score()
+        self.set_high_score()
 
 
 def main():
