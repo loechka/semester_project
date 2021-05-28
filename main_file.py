@@ -192,7 +192,7 @@ class Rocket(Game):
             if len(self.walls_current) > c.wall_amount:
                 self.walls_current.popleft()
             self.walls_current.append(wall)
-            self.objects.append(wall)
+            self.objects.insert(0, wall)
 
     def create_wall_determined(self, speed):
         # wall = Wall(c.screen_width,
@@ -508,7 +508,7 @@ class Rocket(Game):
                 self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
             if (pygame.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
-                if (pygame.time.get_ticks() - self.last_wall_app) > 350:
+                if (pygame.time.get_ticks() - self.last_wall_app) > 200:
                     self.last_bonus_app = pygame.time.get_ticks()
                     self.create_bonus(self.wall_speed)
         else:

@@ -76,7 +76,7 @@ bonus_height = 40
 bonus_width = 40
 bonus_color = (255, 0, 0)
 bonuses_amount = 5
-bonuses_regularity = 7000
+bonuses_regularity = 5000
 
 offset = 10
 
