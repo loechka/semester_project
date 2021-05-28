@@ -190,7 +190,8 @@ class Rocket(Game):
                 c.wall_color,
                 [-(speed), 0])
             if len(self.walls_current) > c.wall_amount:
-                self.walls_current.popleft()
+                self.objects.remove(self.walls_current[0])
+                self.walls_current.popleft()       
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
