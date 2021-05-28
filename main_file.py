@@ -170,9 +170,9 @@ class Rocket(Game):
 
     def create_wall(self, speed):
         walls_num = random.randint(3, 5)
-        free_space = c.duck_height + random.choice(range(5, 40))
+        free_space = c.duck_height + random.choice(range(10, 40))
         walls_distance = []
-        space_left = c.screen_height - walls_num * walls_num - free_space
+        space_left = c.screen_height - c.wall_height * walls_num - free_space
         for i in range(walls_num):
             new_distance = random.choice(range(1, 80))
             walls_distance.append(new_distance)
