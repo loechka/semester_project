@@ -318,7 +318,7 @@ class Rocket(Game):
             for i, (text, click_handler) in \
                 enumerate((('ФОН', on_background),
                            ('ПЕРСОНАЖ', on_character),
-                           ('СЛОЖНОСТЬ', on_difficulty),
+                           ('РЕЖИМ ИГРЫ', on_difficulty),
                            ('НАЗАД', on_back_from_settings))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
