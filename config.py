@@ -55,8 +55,8 @@ character_button_h = 50
 image_w = 50
 image_h = 50
 
-duck_width = 70
-duck_height = 70
+duck_width = 60
+duck_height = 60
 duck_width_large = 80
 duck_height_large = 80
 duck_width_small = 30
