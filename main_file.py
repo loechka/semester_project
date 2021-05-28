@@ -8,7 +8,7 @@ from bonus import Bonus
 from text_object import TextObject
 from pygame.rect import Rect
 
-import pygame
+import pygame as pg
 import random
 import time
 from collections import deque
@@ -73,7 +73,7 @@ class Rocket(Game):
 
         def on_continue_game(button):
             global pause_start
-            self.pause_duration += pygame.time.get_ticks() - pause_start
+            self.pause_duration += pg.time.get_ticks() - pause_start
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -142,23 +142,23 @@ class Rocket(Game):
             c.duck_color,
             c.duck_speed,
             self.character_id)
-        self.keydown_handlers[pygame.K_LEFT].append(duck.handle)
-        self.keydown_handlers[pygame.K_RIGHT].append(duck.handle)
-        self.keydown_handlers[pygame.K_UP].append(duck.handle)
-        self.keydown_handlers[pygame.K_DOWN].append(duck.handle)
-        self.keyup_handlers[pygame.K_LEFT].append(duck.handle)
-        self.keyup_handlers[pygame.K_RIGHT].append(duck.handle)
-        self.keyup_handlers[pygame.K_UP].append(duck.handle)
-        self.keyup_handlers[pygame.K_DOWN].append(duck.handle)
+        self.keydown_handlers[pg.K_LEFT].append(duck.handle)
+        self.keydown_handlers[pg.K_RIGHT].append(duck.handle)
+        self.keydown_handlers[pg.K_UP].append(duck.handle)
+        self.keydown_handlers[pg.K_DOWN].append(duck.handle)
+        self.keyup_handlers[pg.K_LEFT].append(duck.handle)
+        self.keyup_handlers[pg.K_RIGHT].append(duck.handle)
+        self.keyup_handlers[pg.K_UP].append(duck.handle)
+        self.keyup_handlers[pg.K_DOWN].append(duck.handle)
         self.duck = duck
         self.objects.append(self.duck)
         self.character_objects.append(self.duck)
 
     def handle_stop_game(self, key):
         global pause_start
-        if self.is_game_running is True and key == pygame.K_ESCAPE:
+        if self.is_game_running is True and key == pg.K_ESCAPE:
             self.is_game_running = False
-            pause_start = pygame.time.get_ticks()
+            pause_start = pg.time.get_ticks()
             self.mode = 'short'
             for obj in self.character_objects:
                 self.objects.remove(obj)
@@ -176,22 +176,25 @@ class Rocket(Game):
         for i in range(walls_num):
             new_distance = random.choice(range(1, 80))
             walls_distance.append(new_distance)
-
-        walls_distance = [i / sum(walls_distance) * space_left for i in walls_distance]
+        walls_distance = [
+            i / sum(walls_distance) * space_left for i in walls_distance
+        ]
         walls_distance.append(free_space)
         random.shuffle(walls_distance)
 
         for i in range(walls_num):
+            space_ttl = sum(walls_distance[0:i])
+            walls_ttl = c.wall_height * (i + 1)
             wall = Wall(
                 c.screen_width,
-                c.screen_height - sum(walls_distance[0:i]) - c.wall_height * (i + 1),
+                c.screen_height - space_ttl - walls_ttl,
                 c.wall_width,
                 c.wall_height,
                 c.wall_color,
                 [-(speed), 0])
             if len(self.walls_current) > c.wall_amount:
                 self.objects.remove(self.walls_current[0])
-                self.walls_current.popleft()       
+                self.walls_current.popleft()
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
@@ -219,7 +222,8 @@ class Rocket(Game):
         # self.objects.append(wall)
 
         wall = Wall(c.screen_width,
-                    random.choice(range(c.screen_height - 300, c.screen_height - 250, 10)),
+                    random.choice(range(c.screen_height - 300,
+                                        c.screen_height - 250, 10)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
@@ -260,28 +264,28 @@ class Rocket(Game):
 
     def create_labels(self):
         self.time_label = TextObject(
-                                    c.time_offset,
-                                    c.status_offset_y,
-                                    lambda: f"ВРЕМЯ: {self.current_timer}",
-                                    c.text_color,
-                                    c.font_name,
-                                    c.font_size)
+                                c.time_offset,
+                                c.status_offset_y,
+                                lambda: f"ВРЕМЯ: {self.current_timer}",
+                                c.text_color,
+                                c.font_name,
+                                c.font_size)
         self.objects.append(self.time_label)
         self.high_score_label = TextObject(
-                                    c.time_offset,
-                                    c.status_offset_y + c.font_size,
-                                    lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
-                                    c.text_color,
-                                    c.font_name,
-                                    c.font_size)
+                                c.time_offset,
+                                c.status_offset_y + c.font_size,
+                                lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
+                                c.text_color,
+                                c.font_name,
+                                c.font_size)
         self.objects.append(self.high_score_label)
         for i in range(3):
             self.label_objects[i] = Image(
-                                    c.lives_offset + (c.image_w + 20) * i,
-                                    c.status_offset_y,
-                                    c.image_w,
-                                    c.image_h,
-                                    'images/bonus_heart.png')
+                                c.lives_offset + (c.image_w + 20) * i,
+                                c.status_offset_y,
+                                c.image_w,
+                                c.image_h,
+                                c.heart_image)
             self.objects.append(self.label_objects[i])
 
     # SETTINGS
@@ -436,7 +440,9 @@ class Rocket(Game):
                          right=Rect(obj.right, obj.top, 1, obj.height),
                          top=Rect(obj.left, obj.top, obj.width, 1),
                          bottom=Rect(obj.left, obj.bottom, obj.width, 1))
-            collisions = set(edge for edge, rect in edges.items() if duck.bounds.colliderect(rect))
+            collisions = set(
+                    edge for edge,
+                    rect in edges.items() if duck.bounds.colliderect(rect))
             if not collisions:
                 return None
 
@@ -494,27 +500,28 @@ class Rocket(Game):
             return
         if self.start_level:
             self.start_level = False
-            self.keyup_handlers[pygame.K_ESCAPE].append(self.handle_stop_game)
+            self.keyup_handlers[pg.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.create_labels()
             self.show_message("ПОЛЕТЕЛИ!", centralized=True)
             self.wall_speed = c.wall_speed_initial
-            self.start_time = pygame.time.get_ticks()
+            self.start_time = pg.time.get_ticks()
 
-        self.current_timer = round(((pygame.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
+        self.current_timer = round(
+            ((pg.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
 
         if self.wall_app_mode == 0:
-            if (pygame.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
-                self.last_wall_app = pygame.time.get_ticks()
+            if (pg.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
+                self.last_wall_app = pg.time.get_ticks()
                 self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
-            if (pygame.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
-                if (pygame.time.get_ticks() - self.last_wall_app) > 200:
-                    self.last_bonus_app = pygame.time.get_ticks()
+            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
+                if (pg.time.get_ticks() - self.last_wall_app) > 200:
+                    self.last_bonus_app = pg.time.get_ticks()
                     self.create_bonus(self.wall_speed)
         else:
-            if (pygame.time.get_ticks() % 100) in range(20) and (pygame.time.get_ticks() - self.last_wall_app) / 100 >= 5:
-                self.last_wall_app = pygame.time.get_ticks()
+            if (pg.time.get_ticks() % 100) in range(20) and (pg.time.get_ticks() - self.last_wall_app) / 100 >= 5:
+                self.last_wall_app = pg.time.get_ticks()
                 self.create_wall_determined(self.wall_speed)
 
         self.handle_collisions()
@@ -522,8 +529,10 @@ class Rocket(Game):
             self.mode = 'main'
             self.menu_buttons = []
             self.is_game_running = False
-            self.result = (pygame.time.get_ticks() - self.start_time) - self.pause_duration
-            self.show_message(str(round(self.result / 1000, 2)) + "сек", centralized=True)
+            self.result = (pg.time.get_ticks() - self.start_time) - self.pause_duration
+            self.show_message(
+                            str(round(self.result / 1000, 2)) + "сек",
+                            centralized=True)
             self.record_high_score(round(self.result / 1000, 2))
             self.duck.delete()
             for wall in self.walls_current:
@@ -537,11 +546,23 @@ class Rocket(Game):
 
         super().update()
 
-    def show_message(self, text, color=c.button_normal_back_color, font_name='Times New Roman', font_size=40, centralized=False):
-        message = TextObject(c.screen_width // 2, c.screen_height // 2, lambda: text, color, font_name, font_size)
+    def show_message(
+                    self,
+                    text,
+                    color=c.button_normal_back_color,
+                    font_name='Times New Roman',
+                    font_size=40,
+                    centralized=False):
+        message = TextObject(
+                            c.screen_width // 2,
+                            c.screen_height // 2,
+                            lambda: text,
+                            color,
+                            font_name,
+                            font_size)
         self.draw()
         message.draw(self.surface, centralized)
-        pygame.display.update()
+        pg.display.update()
         time.sleep(c.message_duration)
 
     def set_high_score(self):

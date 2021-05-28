@@ -12,7 +12,9 @@ class Game:
                  back_image_filename,
                  frame_rate):
         self.background_image = pygame.image.load(back_image_filename)
-        self.background_image = pygame.transform.scale(self.background_image, (width, height))
+        self.background_image = pygame.transform.scale(
+                                        self.background_image,
+                                        (width, height))
         self.frame_rate = frame_rate
         self.game_over = False
         self.objects = []

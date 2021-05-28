@@ -2,7 +2,9 @@
 screen_width = 800
 screen_height = 600
 background_image = 'images/background.png'
-character_images = {0: 'images/square.png', 1: 'images/duck.png', 2: 'images/horse.png'}
+character_images = {0: 'images/square.png',
+                    1: 'images/duck.png',
+                    2: 'images/horse.png'}
 wall_image = 'images/block.png'
 star_image = 'images/bonus_star.png'
 bomb_image = 'images/bonus_bomb.png'
