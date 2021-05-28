@@ -169,8 +169,8 @@ class Rocket(Game):
             pass
 
     def create_wall(self, speed):
-        walls_num = random.randint(3, 5)
-        free_space = c.duck_height + random.choice(range(10, 40))
+        walls_num = random.choice([3, 4, 4, 5])
+        free_space = c.duck_height + random.choice(range(15, 40))
         walls_distance = []
         space_left = c.screen_height - c.wall_height * walls_num - free_space
         for i in range(walls_num):
@@ -508,7 +508,7 @@ class Rocket(Game):
                 self.wall_speed += c.wall_acceleration
                 self.create_wall(self.wall_speed)
             if (pygame.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
-                if (pygame.time.get_ticks() - self.last_wall_app) > 300:
+                if (pygame.time.get_ticks() - self.last_wall_app) > 350:
                     self.last_bonus_app = pygame.time.get_ticks()
                     self.create_bonus(self.wall_speed)
         else:
