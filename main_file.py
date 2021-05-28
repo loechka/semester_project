@@ -168,7 +168,7 @@ class Rocket(Game):
         else:
             pass
 
-    def create_wall(self, speed):
+    def create_wall(self, speed_x, speed_y = 0):
         walls_num = random.choice([3, 4, 4, 5])
         free_space = c.duck_height + random.choice(range(15, 40))
         walls_distance = []
@@ -191,68 +191,68 @@ class Rocket(Game):
                 c.wall_width,
                 c.wall_height,
                 c.wall_color,
-                [-(speed), 0])
+                [-(speed_x), speed_y])
             if len(self.walls_current) > c.wall_amount:
                 self.objects.remove(self.walls_current[0])
                 self.walls_current.popleft()
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined(self, speed):
-        # wall = Wall(c.screen_width,
-        #             random.choice(range(c.screen_height - 200, c.screen_height - c.wall_height, 20)),
-        #             c.wall_width,
-        #             c.wall_height,
-        #             c.wall_color,
-        #             [-(speed), 0])
-        # # if len(self.walls_current) > c.wall_amount:
-        # #     self.walls_current.popleft()
-        # self.walls_current.append(wall)
-        # self.objects.append(wall)
-
-        # wall = Wall(c.screen_width,
-        #             random.choice(range(c.wall_height, 200, 20)),
-        #             c.wall_width,
-        #             c.wall_height,
-        #             c.wall_color,
-        #             [-(speed), 0])
-        # # if len(self.walls_current) > c.wall_amount:
-        # #     self.walls_current.popleft()
-        # self.walls_current.append(wall)
-        # self.objects.append(wall)
-
+    def create_wall_determined(self, speed_x, speed_y = 0):
         wall = Wall(c.screen_width,
-                    random.choice(range(c.screen_height - 300,
-                                        c.screen_height - 250, 10)),
+                    random.choice(range(c.screen_height - 200, c.screen_height - c.wall_height, 20)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
-                    [-(speed), 1.4])
+                    [-(speed_x), 0])
         # if len(self.walls_current) > c.wall_amount:
         #     self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
 
         wall = Wall(c.screen_width,
-                    random.choice(range(-50, 70, 10)),
+                    random.choice(range(c.wall_height, 200, 20)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
-                    [-(speed), 1.4])
+                    [-(speed_x), 0])
         # if len(self.walls_current) > c.wall_amount:
         #     self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
 
-    def create_bonus(self, speed):
+        # wall = Wall(c.screen_width,
+        #             random.choice(range(c.screen_height - 300,
+        #                                 c.screen_height - 250, 10)),
+        #             c.wall_width,
+        #             c.wall_height,
+        #             c.wall_color,
+        #             [-(speed_x), 1.4])
+        # # if len(self.walls_current) > c.wall_amount:
+        # #     self.walls_current.popleft()
+        # self.walls_current.append(wall)
+        # self.objects.append(wall)
+
+        # wall = Wall(c.screen_width,
+        #             random.choice(range(-50, 70, 10)),
+        #             c.wall_width,
+        #             c.wall_height,
+        #             c.wall_color,
+        #             [-(speed_x), 1.4])
+        # # if len(self.walls_current) > c.wall_amount:
+        # #     self.walls_current.popleft()
+        # self.walls_current.append(wall)
+        # self.objects.append(wall)
+
+    def create_bonus(self, location_x, location_y, speed_x, speed_y = 0):
         bonus_type = bool(random.randint(0, 1))
         bonus = Bonus(
-            c.screen_width,
-            random.randint(0, c.screen_height - c.bonus_height),
+            location_x,
+            location_y,
             c.bonus_width,
             c.bonus_height,
             c.bonus_color,
-            [-(speed), 0],
+            [-(speed_x), speed_y],
             bonus_type)
         if len(self.bonuses_current) > c.bonuses_amount:
             self.bonuses_current.popleft()
@@ -518,11 +518,17 @@ class Rocket(Game):
             if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
                 if (pg.time.get_ticks() - self.last_wall_app) > 200:
                     self.last_bonus_app = pg.time.get_ticks()
-                    self.create_bonus(self.wall_speed)
+                    self.create_bonus(c.screen_width, random.randint(0, c.screen_height - c.bonus_height), self.wall_speed)
         else:
-            if (pg.time.get_ticks() % 100) in range(20) and (pg.time.get_ticks() - self.last_wall_app) / 100 >= 5:
+            if (pg.time.get_ticks() - self.last_wall_app) / 100 >= 2:
                 self.last_wall_app = pg.time.get_ticks()
                 self.create_wall_determined(self.wall_speed)
+            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
+                self.last_bonus_app = pg.time.get_ticks()
+                self.create_bonus(c.screen_width, random.randint(0, c.screen_height - c.bonus_height), self.wall_speed)
+            # if (pg.time.get_ticks() - self.last_wall_app) / 100 >= 15:
+            #     self.last_wall_app = pg.time.get_ticks()
+            #     self.create_wall_determined(self.wall_speed)
 
         self.handle_collisions()
         if self.lives <= 0:
