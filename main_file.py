@@ -46,7 +46,7 @@ class Rocket(Game):
         self.last_bonus_app = c.bonus_offset
         self.last_wall_change = 0
         self.last_bias_change = 0
-        self.bias_key = 130
+        self.bias_key = [80,1]
         self.set_high_score()
 
     # MENU
@@ -201,25 +201,25 @@ class Rocket(Game):
             self.objects.insert(0, wall)
 
     def create_wall_determined(self, bias_key, speed_x, speed_y = 0):
-        wall = Wall(c.screen_width,
-                    random.choice(range(c.screen_height - bias_key, c.screen_height - c.wall_height, 5)),
+        wall = Wall(c.screen_width + 50,
+                    random.choice(range(c.screen_height - bias_key - 30, c.screen_height - bias_key, 10)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
                     [-(speed_x), 0])
-        # if len(self.walls_current) > c.wall_amount:
-        #     self.walls_current.popleft()
+        if len(self.walls_current) > c.wall_amount:
+            self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
 
         wall = Wall(c.screen_width,
-                    random.choice(range(c.wall_height, bias_key, 5)),
+                    random.choice(range(bias_key, bias_key + 30, 10)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
                     [-(speed_x), 0])
-        # if len(self.walls_current) > c.wall_amount:
-        #     self.walls_current.popleft()
+        if len(self.walls_current) > c.wall_amount:
+            self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
 
@@ -525,18 +525,19 @@ class Rocket(Game):
                         random.randint(0, c.screen_height - c.bonus_height),
                         self.wall_speed)
         elif self.wall_app_mode == 1:
-            if (pg.time.get_ticks() - self.last_wall_app) / 100 >= 2:
+            if (pg.time.get_ticks() - self.last_wall_app)  >= 350:
                 self.last_wall_app = pg.time.get_ticks()
-                self.create_wall_determined(self.bias_key, self.wall_speed)
-            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
+                self.create_wall_determined(self.bias_key[0], self.wall_speed)
+            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity//2:
                 self.last_bonus_app = pg.time.get_ticks()
                 self.create_bonus(c.screen_width, random.choice(range(250,350,10)), self.wall_speed)
-            if self.bias_key < 210 and (pg.time.get_ticks() - self.last_bias_change) >= 1500:
-                self.last_bias_change = pg.time.get_ticks()
-                self.bias_key += 5
-            # if (pg.time.get_ticks() - self.last_wall_app) / 100 >= 15:
-            #     self.last_wall_app = pg.time.get_ticks()
-            #     self.create_wall_determined(self.wall_speed)
+            if (pg.time.get_ticks() - self.last_bias_change) >= 300:
+                if self.bias_key[0]<180 and self.bias_key[0]>=80:
+                    self.last_bias_change = pg.time.get_ticks()
+                    self.bias_key[0] = self.bias_key[0] + 15*self.bias_key[1]
+                else:
+                    self.bias_key[1] *= -1
+                    self.bias_key[0] = self.bias_key[0] + 15*self.bias_key[1]
 
         self.handle_collisions()
         if self.lives <= 0:
