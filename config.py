@@ -12,8 +12,8 @@ heart_image = 'images/bonus_heart.png'
 frame_rate = 90
 
 status_offset_y = 5
-time_offset = 350
-lives_offset = 600
+time_offset = 150
+lives_offset = 500
 
 text_color = (255, 255, 0)
 initial_lives = 3
@@ -32,7 +32,7 @@ effect_duration = 20
 #     level_complete='sound_effects/level_complete.wav',
 # )
 
-message_duration = 2
+message_duration = 4
 
 button_text_color = (255, 255, 255),
 button_normal_back_color = (0, 139, 139)
@@ -71,13 +71,13 @@ wall_width = 40
 wall_color = (255, 255, 255)
 wall_speed_initial = 3
 wall_acceleration = 0.05
-wall_amount = 20
+wall_amount = 50
 walls_regularity = 1500
 
 bonus_height = 40
 bonus_width = 40
 bonus_color = (255, 0, 0)
-bonuses_amount = 5
+bonuses_amount = 7
 bonuses_regularity = walls_regularity * 4
 bonus_offset = 800
 

@@ -47,6 +47,7 @@ class Rocket(Game):
         self.last_wall_change = 0
         self.last_bias_change = 0
         self.bias_key = [80,1]
+        self.is_final_line = 0
         self.set_high_score()
 
     # MENU
@@ -260,6 +261,15 @@ class Rocket(Game):
             self.bonuses_current.popleft()
         self.bonuses_current.append(bonus)
         self.objects.append(bonus)
+
+    def create_final_line(self):
+        p = Image(c.screen_width - 100,
+                0,
+                100,
+                c.screen_height,
+                'images/finish_line.png')
+        self.finish_line = p
+        self.objects.append(p)
 
     def create_objects(self):
         self.create_menu()
@@ -524,7 +534,7 @@ class Rocket(Game):
                         c.screen_width, 
                         random.randint(0, c.screen_height - c.bonus_height),
                         self.wall_speed)
-        elif self.wall_app_mode == 1:
+        elif self.wall_app_mode == 1 and self.is_final_line == 0:
             if (pg.time.get_ticks() - self.last_wall_app)  >= 350:
                 self.last_wall_app = pg.time.get_ticks()
                 self.create_wall_determined(self.bias_key[0], self.wall_speed)
@@ -540,6 +550,7 @@ class Rocket(Game):
                     self.bias_key[0] = self.bias_key[0] + 15*self.bias_key[1]
 
         self.handle_collisions()
+
         if self.lives <= 0:
             self.mode = 'main'
             self.menu_buttons = []
@@ -554,12 +565,46 @@ class Rocket(Game):
                 wall.delete()
             for bonus in self.bonuses_current:
                 bonus.delete()
+            for live_label in self.label_objects:
+                live_label.delete()
             self.lives = c.initial_lives
             self.last_bonus_app = c.bonus_offset
             self.last_wall_app = 0
             self.pause_duration = 0
             self.current_timer = 0
+            if self.wall_app_mode == 1:
+                self.bias_key = [80,1]
             self.create_objects()
+
+        if self.wall_app_mode == 1: 
+            if self.current_timer >= 100 and self.current_timer <= 103:
+                self.is_final_line = 1
+            if self.current_timer > 13:
+                self.is_final_line = 0
+                self.create_final_line()
+                self.mode = 'main'
+                self.menu_buttons = []
+                self.is_game_running = False
+                self.show_message(
+                                'ПОБЕДА!',
+                                centralized=True)
+                self.duck.delete()
+                self.finish_line.delete()
+                for wall in self.walls_current:
+                    wall.delete()
+                for bonus in self.bonuses_current:
+                    bonus.delete()
+                for live_label in self.label_objects:
+                    live_label.delete()
+                self.lives = c.initial_lives
+                self.last_bonus_app = c.bonus_offset
+                self.last_wall_app = 0
+                self.pause_duration = 0
+                self.current_timer = 0
+                if self.wall_app_mode == 1:
+                    self.bias_key = [80,1]
+                self.create_objects()
+
 
         super().update()
 
