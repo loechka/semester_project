@@ -173,7 +173,7 @@ class Rocket(Game):
 
     def create_wall(self, speed_x, speed_y=0):
         walls_num = random.choice([3, 3, 4, 4, 5])
-        free_space = c.duck_height + random.choice(range(15, 40))
+        free_space = c.duck_height + random.choice(range(20, 40))
         walls_distance = []
         space_left = c.screen_height - c.wall_height * walls_num - free_space
         for i in range(walls_num):

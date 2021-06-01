@@ -57,12 +57,12 @@ character_button_h = 50
 image_w = 50
 image_h = 50
 
-duck_width = 60
-duck_height = 60
-duck_width_large = 80
-duck_height_large = 80
-duck_width_small = 30
-duck_height_small = 30
+duck_width = 55
+duck_height = 55
+duck_width_large = 70
+duck_height_large = 70
+duck_width_small = 40
+duck_height_small = 40
 duck_color = (255, 255, 255)
 duck_speed = 5
 
