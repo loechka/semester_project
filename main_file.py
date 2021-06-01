@@ -248,7 +248,8 @@ class Rocket(Game):
         # self.objects.append(wall)
 
     def create_bonus(self, location_x, location_y, speed_x, speed_y=0):
-        bonus_type = bool(random.randint(0, 1))
+        bonus_good = bool(random.randint(0, 1))
+        bonus_type = (random.randint(0, 1))
         bonus = Bonus(
             location_x,
             location_y,
@@ -256,6 +257,7 @@ class Rocket(Game):
             c.bonus_height,
             c.bonus_color,
             [-(speed_x), speed_y],
+            bonus_good,
             bonus_type)
         if len(self.bonuses_current) > c.bonuses_amount:
             self.bonuses_current.popleft()
@@ -496,16 +498,25 @@ class Rocket(Game):
                 continue
 
             bonus.delete()
-            if (bonus.good) & (self.lives < 3):
-                self.lives += 1
-                self.objects.append(self.label_objects[self.lives - 1])
+            if (bonus.good):
+                if (bonus.type == 0) & (self.lives < 3):
+                    self.lives += 1
+                    self.objects.append(self.label_objects[self.lives - 1])
+                elif (bonus.type == 1):
+                    self.duck.change_size(
+                        c.duck_width_small, 
+                        c.duck_height_small)
             elif not bonus.good:
-                if self.lives <= 2:
+                if (bonus.type == 0) & (self.lives <= 2):
                     for i in range(self.lives):
                         self.objects.remove(self.label_objects[i])
-                else:
+                elif (bonus.type == 0) & (self.lives > 2):
                     self.objects.remove(self.label_objects[self.lives - 2])
                     self.objects.remove(self.label_objects[self.lives - 1])
+                elif (bonus.type == 1):
+                    self.duck.change_size(
+                        c.duck_width_large, 
+                        c.duck_height_large)
                 self.lives -= 2
 
     def update(self):
