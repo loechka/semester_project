@@ -12,7 +12,16 @@ class Duck(GameObject):
     Every Duck object is a rectangle moving by arrow keys.
     """
 
-    def __init__(self, x: int, y: int, w: int, h: int, color: tuple, offset: int, character: int, seen: bool=True):
+    def __init__(
+                self,
+                x: int,
+                y: int,
+                w: int,
+                h: int,
+                color: tuple,
+                offset: int,
+                character: int,
+                seen: bool = True):
         """
         Init Duck object with certain features.
 
@@ -67,7 +76,9 @@ class Duck(GameObject):
         elif key == pygame.K_DOWN:
             self.moving_down = not self.moving_down
 
-    def change_size(self, new_width: int, new_height: int):
+    def change_size(self,
+                    new_width: int,
+                    new_height: int):
         """
         Change character size.
 

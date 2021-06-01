@@ -10,19 +10,21 @@ class Bonus(GameObject):
     Bonus object class, based on GameObject class.
 
     There are two types of bonuses: good - star, bad - bomb.
-    Every good or bad bonus can have two different effects: change amount of lives, change charecter size.
+    Every good or bad bonus can have two different effects:
+    change amount of lives, change charecter size.
     """
 
     def __init__(
-                self, x: int, 
-                y: int, 
-                w: int, 
-                h: int, 
-                color: tuple, 
-                speed: int, 
-                good: bool=True, 
-                type: int=0, 
-                seen: bool=True):
+                self,
+                x: int,
+                y: int,
+                w: int,
+                h: int,
+                color: tuple,
+                speed: int,
+                good: bool = True,
+                type: int = 0,
+                seen: bool = True):
         """
         Init Bonus object with certain features.
 

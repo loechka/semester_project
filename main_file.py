@@ -46,7 +46,7 @@ class Rocket(Game):
         self.last_bonus_app = c.bonus_offset
         self.last_wall_change = 0
         self.last_bias_change = 0
-        self.bias_key = [80,1]
+        self.bias_key = [80, 1]
         self.is_final_line = 0
         self.set_high_score()
 
@@ -171,7 +171,7 @@ class Rocket(Game):
         else:
             pass
 
-    def create_wall(self, speed_x, speed_y = 0):
+    def create_wall(self, speed_x, speed_y=0):
         walls_num = random.choice([3, 3, 4, 4, 5])
         free_space = c.duck_height + random.choice(range(15, 40))
         walls_distance = []
@@ -201,9 +201,10 @@ class Rocket(Game):
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined(self, bias_key, speed_x, speed_y = 0):
+    def create_wall_determined(self, bias_key, speed_x, speed_y=0):
         wall = Wall(c.screen_width + 50,
-                    random.choice(range(c.screen_height - bias_key - 30, c.screen_height - bias_key, 10)),
+                    random.choice(range(c.screen_height - bias_key - 30,
+                                        c.screen_height - bias_key, 10)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
@@ -223,7 +224,6 @@ class Rocket(Game):
             self.walls_current.popleft()
         self.walls_current.append(wall)
         self.objects.append(wall)
-
         # wall = Wall(c.screen_width,
         #             random.choice(range(c.screen_height - 300,
         #                                 c.screen_height - 250, 10)),
@@ -247,7 +247,7 @@ class Rocket(Game):
         # self.walls_current.append(wall)
         # self.objects.append(wall)
 
-    def create_bonus(self, location_x, location_y, speed_x, speed_y = 0):
+    def create_bonus(self, location_x, location_y, speed_x, speed_y=0):
         bonus_type = bool(random.randint(0, 1))
         bonus = Bonus(
             location_x,
@@ -263,7 +263,8 @@ class Rocket(Game):
         self.objects.append(bonus)
 
     def create_final_line(self):
-        p = Image(c.screen_width - 100,
+        p = Image(
+                c.screen_width - 100,
                 0,
                 100,
                 c.screen_height,
@@ -531,23 +532,26 @@ class Rocket(Game):
                 if (pg.time.get_ticks() - self.last_wall_app) > 400:
                     self.last_bonus_app = pg.time.get_ticks()
                     self.create_bonus(
-                        c.screen_width, 
+                        c.screen_width,
                         random.randint(0, c.screen_height - c.bonus_height),
                         self.wall_speed)
         elif self.wall_app_mode == 1 and self.is_final_line == 0:
-            if (pg.time.get_ticks() - self.last_wall_app)  >= 350:
+            if (pg.time.get_ticks() - self.last_wall_app) >= 350:
                 self.last_wall_app = pg.time.get_ticks()
                 self.create_wall_determined(self.bias_key[0], self.wall_speed)
-            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity//2:
+            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity // 2:
                 self.last_bonus_app = pg.time.get_ticks()
-                self.create_bonus(c.screen_width, random.choice(range(250,350,10)), self.wall_speed)
+                self.create_bonus(
+                                c.screen_width,
+                                random.choice(range(250, 350, 10)),
+                                self.wall_speed)
             if (pg.time.get_ticks() - self.last_bias_change) >= 300:
-                if self.bias_key[0]<180 and self.bias_key[0]>=80:
+                if self.bias_key[0] < 180 and self.bias_key[0] >= 80:
                     self.last_bias_change = pg.time.get_ticks()
-                    self.bias_key[0] = self.bias_key[0] + 15*self.bias_key[1]
+                    self.bias_key[0] = self.bias_key[0] + 15 * self.bias_key[1]
                 else:
                     self.bias_key[1] *= -1
-                    self.bias_key[0] = self.bias_key[0] + 15*self.bias_key[1]
+                    self.bias_key[0] = self.bias_key[0] + 15 * self.bias_key[1]
 
         self.handle_collisions()
 
@@ -573,10 +577,10 @@ class Rocket(Game):
             self.pause_duration = 0
             self.current_timer = 0
             if self.wall_app_mode == 1:
-                self.bias_key = [80,1]
+                self.bias_key = [80, 1]
             self.create_objects()
 
-        if self.wall_app_mode == 1: 
+        if self.wall_app_mode == 1:
             if self.current_timer >= 100 and self.current_timer <= 103:
                 self.is_final_line = 1
             if self.current_timer > 13:
@@ -602,9 +606,8 @@ class Rocket(Game):
                 self.pause_duration = 0
                 self.current_timer = 0
                 if self.wall_app_mode == 1:
-                    self.bias_key = [80,1]
+                    self.bias_key = [80, 1]
                 self.create_objects()
-
 
         super().update()
 

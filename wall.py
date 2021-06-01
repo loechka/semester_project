@@ -12,7 +12,15 @@ class Wall(GameObject):
     Every class object is a moving left rectangle.
     """
 
-    def __init__(self, x: int, y: int, w: int, h: int, color: tuple, speed: int, seen: bool=True):
+    def __init__(
+                self,
+                x: int,
+                y: int,
+                w: int,
+                h: int,
+                color: tuple,
+                speed: int,
+                seen: bool = True):
         """
         Init Wall object with certain features.
 

@@ -10,7 +10,7 @@ class Image(GameObject):
                  w,
                  h,
                  file_path,
-                 seen = True):
+                 seen=True):
         super().__init__(x, y, w, h)
         self.seen = seen
         self.myImage = pygame.image.load(file_path)
@@ -23,7 +23,7 @@ class Image(GameObject):
         # pygame.display.update()
         if self.seen:
             surface.blit(self.myImage, self.coordinates)
-    
+
     def delete(self):
         self.seen = False
         self.coordinates = (0, 0)
