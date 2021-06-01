@@ -44,6 +44,7 @@ class Rocket(Game):
         self.high_score = 0
         self.last_wall_app = 0
         self.last_bonus_app = c.bonus_offset
+        self.last_size_change = 0
         self.last_wall_change = 0
         self.last_bias_change = 0
         self.bias_key = [80, 1]
@@ -506,6 +507,7 @@ class Rocket(Game):
                     self.duck.change_size(
                         c.duck_width_small, 
                         c.duck_height_small)
+                    self.last_size_change = pg.time.get_ticks()
             elif not bonus.good:
                 if (bonus.type == 0) & (self.lives <= 2):
                     for i in range(self.lives):
@@ -517,6 +519,7 @@ class Rocket(Game):
                     self.duck.change_size(
                         c.duck_width_large, 
                         c.duck_height_large)
+                    self.last_size_change = pg.time.get_ticks()
                 self.lives -= 2
 
     def update(self):
@@ -565,6 +568,8 @@ class Rocket(Game):
                     self.bias_key[0] = self.bias_key[0] + 15 * self.bias_key[1]
 
         self.handle_collisions()
+        if (pg.time.get_ticks() - self.last_size_change) >= 10000:
+            self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
             self.mode = 'main'
