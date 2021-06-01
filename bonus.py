@@ -6,7 +6,8 @@ import config as c
 
 
 class Bonus(GameObject):
-    """Bonus object class, based on GameObject class.
+    """
+    Bonus object class, based on GameObject class.
 
     There are two types of bonuses: good - star, bad - bomb.
     Every good or bad bonus can have two different effects: change amount of lives, change charecter size.
@@ -23,7 +24,7 @@ class Bonus(GameObject):
                 type: int=0, 
                 seen: bool=True):
         """
-        Init Bonus with certain features.
+        Init Bonus object with certain features.
 
         Keyword arguments:
         :param x: left coordinate
@@ -31,7 +32,7 @@ class Bonus(GameObject):
         :param w: object width
         :param h: object height
         :param color: object color
-        :params peed: object speed
+        :params speed: object speed
         :param good: is bonus good - True - star, False - bomb (default True)
         :param type: bonus type: 0 - +/- lives, 1 - change size (default 0)
         :param seen: is bonus seen (default True)
