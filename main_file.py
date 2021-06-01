@@ -543,7 +543,8 @@ class Rocket(Game):
             if (pg.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
                 self.last_wall_app = pg.time.get_ticks()
                 self.wall_speed += c.wall_acceleration
-                self.create_wall(self.wall_speed)
+                if not ((self.wall_speed % 1) > (1 - c.wall_acceleration)):
+                    self.create_wall(self.wall_speed)
             if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
                 if (pg.time.get_ticks() - self.last_wall_app) > 400:
                     self.last_bonus_app = pg.time.get_ticks()
