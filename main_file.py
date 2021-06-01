@@ -509,18 +509,20 @@ class Rocket(Game):
                         c.duck_height_small)
                     self.last_size_change = pg.time.get_ticks()
             elif not bonus.good:
-                if (bonus.type == 0) & (self.lives <= 2):
-                    for i in range(self.lives):
-                        self.objects.remove(self.label_objects[i])
-                elif (bonus.type == 0) & (self.lives > 2):
-                    self.objects.remove(self.label_objects[self.lives - 2])
-                    self.objects.remove(self.label_objects[self.lives - 1])
+                if (bonus.type == 0):
+                    if (self.lives <= 2):
+                        for i in range(self.lives):
+                            self.objects.remove(self.label_objects[i])
+                    else:
+                        self.objects.remove(self.label_objects[self.lives - 2])
+                        self.objects.remove(self.label_objects[self.lives - 1])
+                    self.lives -= 2
                 elif (bonus.type == 1):
                     self.duck.change_size(
                         c.duck_width_large, 
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
-                self.lives -= 2
+                
 
     def update(self):
         if not self.is_game_running:
