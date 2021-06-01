@@ -72,14 +72,14 @@ wall_color = (255, 255, 255)
 wall_speed_initial = 3
 wall_acceleration = 0.05
 wall_amount = 50
-walls_regularity = 1500
+walls_regularity = 2000
 
 bonus_height = 40
 bonus_width = 40
 bonus_color = (255, 0, 0)
 bonuses_amount = 7
 bonuses_regularity = walls_regularity * 4
-bonus_offset = 800
+bonus_offset = 1100
 
 offset = 10
 
