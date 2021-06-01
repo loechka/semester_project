@@ -11,7 +11,7 @@ class GameObject:
     which also has speed and can move.
     """
 
-    def __init__(self, x, y, w, h, speed=(0, 0)):
+    def __init__(self, x: int, y: int, w: int, h: int, speed: tuple = (0, 0)):
         """
         Init GameObject with certain features.
 
@@ -78,7 +78,7 @@ class GameObject:
         """
         pass
 
-    def move(self, dx, dy):
+    def move(self, dx: int, dy:int):
         """Move object.
 
         Keyword arguments:
