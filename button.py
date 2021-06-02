@@ -1,11 +1,18 @@
-import pygame
+"""Module contains Duck class."""
 
+import pygame
 from game_object import GameObject
 from text_object import TextObject
 import config as c
 
 
 class Button(GameObject):
+    """
+    Button object class, based on GameObject class.
+
+    Every Button object is a rectangle that can handle mouse events.
+    """
+
     def __init__(self,
                  x,
                  y,
@@ -14,6 +21,18 @@ class Button(GameObject):
                  text,
                  on_click=lambda x: None,
                  padding=0):
+        """
+        Init Button object with certain features.
+
+        Keyword arguments:
+        :param x: left coordinate
+        :param y: top coordinate
+        :param w: object width
+        :param h: object height
+        :param text: text on the button
+        :params on_click: mouse click event
+        :param padding: text padding
+        """
         super().__init__(x, y, w, h)
         self.state = 'normal'
         self.on_click = on_click
@@ -26,17 +45,31 @@ class Button(GameObject):
 
     @property
     def back_color(self):
+        """Set button color."""
         return dict(normal=c.button_normal_back_color,
                     hover=c.button_hover_back_color,
                     pressed=c.button_pressed_back_color)[self.state]
 
     def draw(self, surface):
+        """
+        Draw buttton with text.
+
+        Keyword arguments:
+        :param surface: pygame Surface
+        """
         pygame.draw.rect(surface,
                          self.back_color,
                          self.bounds, border_radius=3)
         self.text.draw(surface)
 
     def handle_mouse_event(self, type, pos):
+        """
+        Handle mouse events.
+
+        Keyword arguments:
+        :param type: type of mouse event
+        :param pos: mouse position
+        """
         if type == pygame.MOUSEMOTION:
             self.handle_mouse_move(pos)
         elif type == pygame.MOUSEBUTTONDOWN:
@@ -45,6 +78,12 @@ class Button(GameObject):
             self.handle_mouse_up(pos)
 
     def handle_mouse_move(self, pos):
+        """
+        Handle mouse movement.
+
+        Keyword arguments:
+        :param pos: mouse position
+        """
         if self.bounds.collidepoint(pos):
             if self.state != 'pressed':
                 self.state = 'hover'
@@ -52,10 +91,22 @@ class Button(GameObject):
             self.state = 'normal'
 
     def handle_mouse_down(self, pos):
+        """
+        Handle pressed mouse button.
+
+        Keyword arguments:
+        :param pos: mouse position
+        """
         if self.bounds.collidepoint(pos):
             self.state = 'pressed'
 
     def handle_mouse_up(self, pos):
+        """
+        Handle released mouse button.
+
+        Keyword arguments:
+        :param pos: mouse position
+        """
         if self.state == 'pressed':
             self.on_click(self)
             self.state = 'hover'
