@@ -73,12 +73,12 @@ class GameObject:
     def draw(self, surface):
         """
         Draw object.
-        
+
         Needs to be updated in child classes
         """
         pass
 
-    def move(self, dx: int, dy:int):
+    def move(self, dx: int, dy: int):
         """Move object.
 
         Keyword arguments:

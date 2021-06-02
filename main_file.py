@@ -505,7 +505,7 @@ class Rocket(Game):
                     self.objects.append(self.label_objects[self.lives - 1])
                 elif (bonus.type == 1):
                     self.duck.change_size(
-                        c.duck_width_small, 
+                        c.duck_width_small,
                         c.duck_height_small)
                     self.last_size_change = pg.time.get_ticks()
             elif not bonus.good:
@@ -519,10 +519,9 @@ class Rocket(Game):
                     self.lives -= 2
                 elif (bonus.type == 1):
                     self.duck.change_size(
-                        c.duck_width_large, 
+                        c.duck_width_large,
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
-                
 
     def update(self):
         if not self.is_game_running:
