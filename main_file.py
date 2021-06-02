@@ -16,7 +16,14 @@ import shelve
 
 
 class Rocket(Game):
+    """
+    Rocket class, based on Game class.
+
+    Contains the game itself.
+    """
+
     def __init__(self):
+        """Init Rocket class object with certain features, based on Game class."""
         Game.__init__(self,
                       'Rocket',
                       c.screen_width,
@@ -138,6 +145,7 @@ class Rocket(Game):
                     self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_duck(self):
+        """Create game character on screen and set keyboard events handling."""
         duck = Duck((
             c.screen_width - c.duck_width) // 2,
             c.screen_height - c.duck_height * 2,
@@ -173,6 +181,16 @@ class Rocket(Game):
             pass
 
     def create_wall(self, speed_x, speed_y=0):
+        """Create a layer of walls.
+        
+        Create a layer of walls with a random amount of objects.
+        Set free spaces between walls in a special way that allows
+        game character to fly by. Create and refresh a set of existing walls.
+
+        Keyword arguments:
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         walls_num = random.choice([3, 3, 4, 4, 5])
         free_space = c.duck_height + random.choice(range(20, 40))
         walls_distance = []
@@ -249,6 +267,16 @@ class Rocket(Game):
         # self.objects.append(wall)
 
     def create_bonus(self, location_x, location_y, speed_x, speed_y=0):
+        """Create a bonus in game window.
+        
+        Creates a bonus of one of determined types randomly.
+
+        Keyword arguments:
+        :param location_x: left coordinate
+        :param location_y: top coordinate
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         bonus_good = bool(random.randint(0, 1))
         bonus_type = (random.randint(0, 1))
         bonus = Bonus(
@@ -451,7 +479,17 @@ class Rocket(Game):
                 self.objects.append(p)
 
     def handle_collisions(self):
+        """Handle game objects collisions. 
+
+        Such as game character hitting walls and collecting bonuses.
+        """
         def intersect(obj, duck):
+            """Check intersection of game character and other object.
+            
+            Keyword arguments:
+            :param obj: one of game objects
+            :param duck: game character object
+            """
             edges = dict(left=Rect(obj.left, obj.top, 1, obj.height),
                          right=Rect(obj.right, obj.top, 1, obj.height),
                          top=Rect(obj.left, obj.top, obj.width, 1),
@@ -608,7 +646,7 @@ class Rocket(Game):
                 self.menu_buttons = []
                 self.is_game_running = False
                 self.show_message(
-                                'ПОБЕДА!',
+                                "ПОБЕДА!",
                                 centralized=True)
                 self.duck.delete()
                 self.finish_line.delete()
@@ -667,11 +705,17 @@ class Rocket(Game):
         time.sleep(c.message_duration)
 
     def set_high_score(self):
+        """Set new high score."""
         with shelve.open(c.high_score_file) as current_scores:
             if '1' in current_scores:
                 self.high_score = current_scores['1']
 
     def record_high_score(self, score):
+        """Record best 10 results in a special file.
+        
+        Keyword Arguments:
+        :param score: new game score
+        """
         with shelve.open(c.high_score_file) as current_scores:
             current_scores['new'] = score
             sorted_scores = sorted(list(current_scores.values()), reverse=True)
