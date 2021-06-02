@@ -37,6 +37,7 @@ class Rocket(Game):
         self.character_buttons = []
         self.difficulty_buttons = []
         self.record_buttons = []
+        self.language_buttons = []
         self.records_texts = []
         self.character_images = []
         self.character_objects = []
@@ -60,6 +61,7 @@ class Rocket(Game):
         self.bias_key = [80, 1]
         self.is_final_line = 0
         self.score = list()
+        self.language_id = 0
         self.set_high_score()
 
     # MENU
@@ -355,6 +357,12 @@ class Rocket(Game):
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_difficulty()
 
+        def on_language(button):
+            for b in self.settings_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_language()
+
         def on_back_from_settings(button):
             for b in self.settings_buttons:
                 self.objects.remove(b)
@@ -366,6 +374,7 @@ class Rocket(Game):
             for i, (text, click_handler) in \
                 enumerate((('ПЕРСОНАЖ', on_character),
                            ('РЕЖИМ ИГРЫ', on_difficulty),
+                           ('ЯЗЫК', on_language),
                            ('НАЗАД', on_back_from_settings))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
@@ -435,8 +444,43 @@ class Rocket(Game):
             self.record_buttons.append(b)
             self.mouse_handlers.append(b.handle_mouse_event)
 
+    def create_language(self):
+        def on_eng(button):
+            self.language_id = 1
+        
+        def on_rus(button):
+            self.language_id = 0
 
+        def on_back_from_language(button):
+            for b in self.language_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_settings()
 
+        # first rendering of settings buttons
+        if len(self.language_buttons) == 0:
+            for i, (text, click_handler) in \
+                enumerate((("АНГЛИЙСКИЙ", on_eng),
+                           ("РУССКИЙ", on_rus),
+                           ("НАЗАД", on_back_from_language))):
+                b = Button(c.settings_offset_x,
+                           c.settings_offset_y +
+                           (c.settings_button_h + 50) * i,
+                           c.settings_button_w,
+                           c.settings_button_h,
+                           text,
+                           click_handler,
+                           padding=5)
+                self.objects.append(b)
+                self.language_buttons.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+        # re-rendering of settings buttons
+        else:
+            for b in self.language_buttons:
+                self.objects.append(b)
+                self.mouse_handlers.append(b.handle_mouse_event)
+
+        
     def create_difficulty(self):
         def on_infinite(button):
             self.wall_app_mode = 0
