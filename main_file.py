@@ -396,19 +396,27 @@ class Rocket(Game):
             self.create_menu()
 
         def drop_records(button):
-            pass
+            with shelve.open(c.high_score_file) as current_scores:
+                current_scores_len = len(current_scores)
+                for i in range(1,11):
+                    if str(i) in current_scores:
+                        del current_scores[str(i)]
+                self.high_score = 0
+            for b in self.records_texts:
+                self.objects.remove(b)
+            self.records_texts = []
 
         with shelve.open(c.high_score_file) as current_scores:
             for i in range(1,6):
                 if str(i) in current_scores:
-                    idx = i
                     obj = TextObject(
                             c.settings_offset_x,
                             c.settings_offset_y + 50 * (i - 1),
                             lambda: f"{str(current_scores[str(i)])} сек",
                             c.text_color,
                             c.font_name,
-                            c.font_size)
+                            c.font_size,
+                            1)
                     self.records_texts.append(obj)
                     self.objects.append(obj)
 
@@ -417,7 +425,7 @@ class Rocket(Game):
                         ("НАЗАД", on_back_from_records))):
             b = Button(c.settings_offset_x,
                         c.settings_offset_y +
-                        50 * idx + (c.settings_button_h + 50) * i,
+                        50 * 5 + (c.settings_button_h + 50) * i,
                         c.settings_button_w,
                         c.settings_button_h,
                         text,
@@ -664,6 +672,7 @@ class Rocket(Game):
         if self.lives <= 0:
             self.mode = 'main'
             self.menu_buttons = []
+            self.set_high_score()
             self.is_game_running = False
             self.result = (pg.time.get_ticks() - self.start_time) - self.pause_duration
             self.show_message(

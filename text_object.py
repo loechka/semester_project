@@ -2,15 +2,25 @@ import pygame
 
 
 class TextObject:
-    def __init__(self, x, y, text_func, color, font_name, font_size):
+    def __init__(self, x, y, text_func, color, font_name, font_size, text_type = 0):
         self.pos = (x, y)
-        self.text_func = text_func()
+        self.text_type = text_type
+        if self.text_type == 0:
+            self.text_func = text_func
+        else:
+            self.text_func = text_func()
         self.color = color
         self.font = pygame.font.SysFont(font_name, font_size)
-        self.bounds = self.get_surface(self.text_func)
+        if self.text_type == 0:
+            self.bounds = self.get_surface(self.text_func())
+        else:
+            self.bounds = self.get_surface(self.text_func)
 
     def draw(self, surface, centralized=False):
-        text_surface, self.bounds = self.get_surface(self.text_func)
+        if self.text_type == 0:
+            text_surface, self.bounds = self.get_surface(self.text_func())
+        else:
+            text_surface, self.bounds = self.get_surface(self.text_func)
         if centralized:
             pos = (self.pos[0] - self.bounds.width // 2, self.pos[1])
         else:
