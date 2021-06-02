@@ -14,13 +14,13 @@ class Button(GameObject):
     """
 
     def __init__(self,
-                 x,
-                 y,
-                 w,
-                 h,
-                 text,
+                 x: int,
+                 y: int,
+                 w: int,
+                 h: int,
+                 text: str,
                  on_click=lambda x: None,
-                 padding=0):
+                 padding:int = 0):
         """
         Init Button object with certain features.
 
@@ -62,7 +62,7 @@ class Button(GameObject):
                          self.bounds, border_radius=3)
         self.text.draw(surface)
 
-    def handle_mouse_event(self, type, pos):
+    def handle_mouse_event(self, type, pos: int):
         """
         Handle mouse events.
 
@@ -77,7 +77,7 @@ class Button(GameObject):
         elif type == pygame.MOUSEBUTTONUP:
             self.handle_mouse_up(pos)
 
-    def handle_mouse_move(self, pos):
+    def handle_mouse_move(self, pos: int):
         """
         Handle mouse movement.
 
@@ -90,7 +90,7 @@ class Button(GameObject):
         else:
             self.state = 'normal'
 
-    def handle_mouse_down(self, pos):
+    def handle_mouse_down(self, pos: int):
         """
         Handle pressed mouse button.
 
