@@ -13,6 +13,7 @@ import random
 import time
 from collections import deque
 import shelve
+import copy
 
 
 class Rocket(Game):
@@ -35,6 +36,8 @@ class Rocket(Game):
         self.settings_buttons = []
         self.character_buttons = []
         self.difficulty_buttons = []
+        self.record_buttons = []
+        self.records_texts = []
         self.character_images = []
         self.character_objects = []
         self.label_objects = [0] * 3
@@ -56,6 +59,7 @@ class Rocket(Game):
         self.last_bias_change = 0
         self.bias_key = [80, 1]
         self.is_final_line = 0
+        self.score = list()
         self.set_high_score()
 
     # MENU
@@ -80,7 +84,10 @@ class Rocket(Game):
             self.create_settings()
 
         def on_records(button):
-            pass
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.create_records()
 
         def on_continue_game(button):
             global pause_start
@@ -143,6 +150,7 @@ class Rocket(Game):
                     self.objects.append(b)
                     self.menu_buttons.append(b)
                     self.mouse_handlers.append(b.handle_mouse_event)
+
 
     def create_duck(self):
         """Create game character on screen and set keyboard events handling."""
@@ -334,8 +342,6 @@ class Rocket(Game):
 
     # SETTINGS
     def create_settings(self):
-        def on_background(button):
-            pass
 
         def on_character(button):
             for b in self.settings_buttons:
@@ -358,8 +364,7 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.settings_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((('ФОН', on_background),
-                           ('ПЕРСОНАЖ', on_character),
+                enumerate((('ПЕРСОНАЖ', on_character),
                            ('РЕЖИМ ИГРЫ', on_difficulty),
                            ('НАЗАД', on_back_from_settings))):
                 b = Button(c.settings_offset_x,
@@ -378,6 +383,51 @@ class Rocket(Game):
             for b in self.settings_buttons:
                 self.objects.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
+
+    def create_records(self):
+        def on_back_from_records(button):
+            for b in self.record_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            for b in self.records_texts:
+                self.objects.remove(b)
+            self.record_buttons = []
+            self.records_texts = []
+            self.create_menu()
+
+        def drop_records(button):
+            pass
+
+        with shelve.open(c.high_score_file) as current_scores:
+            for i in range(1,6):
+                if str(i) in current_scores:
+                    idx = i
+                    obj = TextObject(
+                            c.settings_offset_x,
+                            c.settings_offset_y + 50 * (i - 1),
+                            lambda: f"{str(current_scores[str(i)])} сек",
+                            c.text_color,
+                            c.font_name,
+                            c.font_size)
+                    self.records_texts.append(obj)
+                    self.objects.append(obj)
+
+        for i, (text, click_handler) in \
+            enumerate((("СБРОСИТЬ РЕКОРДЫ", drop_records),
+                        ("НАЗАД", on_back_from_records))):
+            b = Button(c.settings_offset_x,
+                        c.settings_offset_y +
+                        50 * idx + (c.settings_button_h + 50) * i,
+                        c.settings_button_w,
+                        c.settings_button_h,
+                        text,
+                        click_handler,
+                        padding=5)
+            self.objects.append(b)
+            self.record_buttons.append(b)
+            self.mouse_handlers.append(b.handle_mouse_event)
+
+
 
     def create_difficulty(self):
         def on_infinite(button):

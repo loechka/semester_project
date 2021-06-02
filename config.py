@@ -81,6 +81,9 @@ bonuses_amount = 7
 bonuses_regularity = walls_regularity * 4
 bonus_offset = 1100
 
+record_offset_x = 200
+record_offset_y = 100
+
 offset = 10
 
 high_score_file = 'score.txt'
