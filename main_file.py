@@ -531,7 +531,7 @@ class Rocket(Game):
             self.keyup_handlers[pg.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.create_labels()
-            self.show_message("ПОЛЕТЕЛИ!", centralized=True)
+            self.show_message("ПОЛЕТЕЛИ!", centralized=True, start = True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pg.time.get_ticks()
 
@@ -635,16 +635,34 @@ class Rocket(Game):
                     color=c.button_normal_back_color,
                     font_name='Times New Roman',
                     font_size=40,
-                    centralized=False):
+                    centralized=False,
+                    start = False):
         message = TextObject(
                             c.screen_width // 2,
-                            c.screen_height // 2,
+                            c.screen_height // 2 - 50,
                             lambda: text,
                             color,
                             font_name,
                             font_size)
+        rules1 = TextObject(
+                            c.screen_width // 4,
+                            c.screen_height // 3 * 2,
+                            lambda: "СОБИРАЙ ЗВЕЗДЫ",
+                            color,
+                            font_name,
+                            30)
+        rules2 = TextObject(
+                            c.screen_width // 4 * 3,
+                            c.screen_height // 3 * 2,
+                            lambda: "ИЗБЕГАЙ БОМБ",
+                            color,
+                            font_name,
+                            30)
         self.draw()
         message.draw(self.surface, centralized)
+        if start:
+            rules1.draw(self.surface, centralized)
+            rules2.draw(self.surface, centralized)
         pg.display.update()
         time.sleep(c.message_duration)
 

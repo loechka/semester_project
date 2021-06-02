@@ -32,7 +32,7 @@ effect_duration = 20
 #     level_complete='sound_effects/level_complete.wav',
 # )
 
-message_duration = 4
+message_duration = 2
 
 button_text_color = (255, 255, 255),
 button_normal_back_color = (0, 139, 139)
