@@ -1,3 +1,4 @@
+"""Configuration file."""
 
 screen_width = 800
 screen_height = 600
@@ -9,7 +10,7 @@ wall_image = 'images/block.png'
 star_image = 'images/bonus_star.png'
 bomb_image = 'images/bonus_bomb.png'
 heart_image = 'images/bonus_heart.png'
-frame_rate = 90
+frame_rate = 60
 
 status_offset_y = 5
 time_offset = 150
