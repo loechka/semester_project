@@ -205,7 +205,7 @@ class Rocket(Game):
         else:
             pass
 
-    def create_wall(self, speed_x, speed_y=0):
+    def create_wall(self, speed_x: int, speed_y:int = 0):
         """Create a layer of walls.
 
         Create a layer of walls with a random amount of objects.
@@ -245,7 +245,7 @@ class Rocket(Game):
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined(self, bias_key, speed_x, speed_y=0):
+    def create_wall_determined(self, bias_key: int, speed_x: int, speed_y: int = 0):
         wall = Wall(c.screen_width + 50,
                     random.choice(range(c.screen_height - bias_key - 30,
                                         c.screen_height - bias_key, 10)),
@@ -291,7 +291,12 @@ class Rocket(Game):
         # self.walls_current.append(wall)
         # self.objects.append(wall)
 
-    def create_bonus(self, location_x, location_y, speed_x, speed_y=0):
+    def create_bonus(
+                    self, 
+                    location_x: int, 
+                    location_y: int, 
+                    speed_x: int, 
+                    speed_y: int = 0):
         """Create a bonus in game window.
 
         Creates a bonus of one of determined types randomly.
@@ -848,7 +853,7 @@ class Rocket(Game):
             if '1' in current_scores:
                 self.high_score = current_scores['1']
 
-    def record_high_score(self, score):
+    def record_high_score(self, score: float):
         """Record best 10 results in a special file.
 
         Keyword Arguments:
