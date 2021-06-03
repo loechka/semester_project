@@ -95,25 +95,7 @@ class Rocket(Game):
 
 
         def on_main_menu(button):
-            self.is_game_running = False
-            self.duck.delete()
-            for wall in self.walls_current:
-                wall.delete()
-            for bonus in self.bonuses_current:
-                bonus.delete()
-            for live_label in self.label_objects:
-                live_label.delete()
-            self.lives = c.initial_lives
-            self.last_bonus_app = c.bonus_offset
-            self.last_wall_app = 0
-            self.pause_duration = 0
-            self.current_timer = 0
-              
-            for b in self.menu_buttons:
-                self.objects.remove(b)
-                self.mouse_handlers.remove(b.handle_mouse_event)
-            self.mode = 'main' 
-            self.create_menu()
+            pass
         
         
 
@@ -364,7 +346,7 @@ class Rocket(Game):
         self.time_label = TextObject(
                                 c.time_offset,
                                 c.status_offset_y,
-                                lambda: f"ВРЕМЯ: {self.current_timer}",
+                                lambda: "ВРЕМЯ" + f": {self.current_timer}",
                                 c.text_color,
                                 c.font_name,
                                 c.font_size)
@@ -372,7 +354,7 @@ class Rocket(Game):
         self.high_score_label = TextObject(
                                 c.time_offset,
                                 c.status_offset_y + c.font_size,
-                                lambda: f"ЛУЧШИЙ РЕЗУЛЬТАТ: {self.high_score}",
+                                lambda: "ЛУЧШИЙ РЕЗУЛЬТАТ" + f": {self.high_score}",
                                 c.text_color,
                                 c.font_name,
                                 c.font_size)
@@ -416,10 +398,10 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.settings_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((('ПЕРСОНАЖ', on_character),
-                           ('РЕЖИМ ИГРЫ', on_difficulty),
-                           ('ЯЗЫК', on_language),
-                           ('НАЗАД', on_back_from_settings))):
+                enumerate((("ПЕРСОНАЖ", on_character),
+                           ("РЕЖИМ ИГРЫ", on_difficulty),
+                           ("ЯЗЫК", on_language),
+                           ("НАЗАД", on_back_from_settings))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -465,7 +447,7 @@ class Rocket(Game):
                     obj = TextObject(
                             c.settings_offset_x,
                             c.settings_offset_y + 50 * (i - 1),
-                            lambda: f"{str(current_scores[str(i)])} сек",
+                            lambda: f"{str(current_scores[str(i)])}" + " сек",
                             c.text_color,
                             c.font_name,
                             c.font_size,
@@ -879,7 +861,7 @@ class Rocket(Game):
                 current_scores[str(i + 1)] = sorted_scores[i]
             del current_scores['new']
             if len(current_scores) > 10:
-                del current_scores["11"]
+                del current_scores['11']
         self.set_high_score()
 
 
