@@ -1,0 +1,129 @@
+# English translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-03 16:45+0300\n"
+"PO-Revision-Date: 2021-06-03 15:49+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: main_file.py:149 main_file.py:175
+msgid "NEW GAME"
+msgstr ""
+
+#: main_file.py:150
+msgid "SETTINGS"
+msgstr ""
+
+#: main_file.py:151
+msgid "HIGH SCORES"
+msgstr ""
+
+#: main_file.py:152
+msgid "EXIT"
+msgstr ""
+
+#: main_file.py:174 main_file.py:410 main_file.py:466 main_file.py:540
+#: main_file.py:586
+msgid "RETURN"
+msgstr ""
+
+#: main_file.py:176
+msgid "MAIN MENU"
+msgstr ""
+
+#: main_file.py:356
+msgid "TIME"
+msgstr ""
+
+#: main_file.py:364
+msgid "HIGH SCORE"
+msgstr ""
+
+#: main_file.py:407
+msgid "CHARACTER"
+msgstr ""
+
+#: main_file.py:408
+msgid "GAME MODE"
+msgstr ""
+
+#: main_file.py:409
+msgid "LANGUAGE"
+msgstr ""
+
+#: main_file.py:456
+msgid " sec"
+msgstr ""
+
+#: main_file.py:465
+msgid "RESET"
+msgstr ""
+
+#: main_file.py:501
+msgid "ENGLISH"
+msgstr ""
+
+#: main_file.py:502
+msgid "RUSSIAN"
+msgstr ""
+
+#: main_file.py:503
+msgid "APPLY"
+msgstr ""
+
+#: main_file.py:538
+msgid "ENDLESS"
+msgstr ""
+
+#: main_file.py:539
+msgid "REACH FINISH"
+msgstr ""
+
+#: main_file.py:583 main_file.py:600
+msgid "SQUARE"
+msgstr ""
+
+#: main_file.py:584 main_file.py:601
+msgid "DUCK"
+msgstr ""
+
+#: main_file.py:585 main_file.py:602
+msgid "HORSE"
+msgstr ""
+
+#: main_file.py:712
+msgid "LET'S GO!"
+msgstr ""
+
+#: main_file.py:761
+msgid "sec"
+msgstr ""
+
+#: main_file.py:790
+msgid "YOU WIN!"
+msgstr ""
+
+#: main_file.py:829
+msgid " - USE ARROR KEYS"
+msgstr ""
+
+#: main_file.py:836
+msgid " - AVOID WALLS AND BOMBS"
+msgstr ""
+
+#: main_file.py:843
+msgid " - COLLECT STARS"
+msgstr ""
+
