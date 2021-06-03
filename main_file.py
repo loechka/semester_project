@@ -113,7 +113,7 @@ class Rocket(Game):
             pass
 
         def on_quit(button):
-            """Handle pressing EXIT button."""
+            """Handle pressing QUIT button."""
             self.game_over = True
             self.is_game_running = False
             self.game_over = True
@@ -148,7 +148,7 @@ class Rocket(Game):
                     (_("NEW GAME"), on_play),
                     (_("SETTINGS"), on_settings),
                     (_("HIGH SCORES"), on_records),
-                    (_("EXIT"), on_quit))):
+                    (_("QUIT"), on_quit))):
                 b = Button(
                     c.menu_offset_x,
                     c.menu_offset_y + (c.menu_button_h + 50) * i,
