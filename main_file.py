@@ -140,7 +140,7 @@ class Rocket(Game):
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.is_game_running = True
- 
+
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
             for i, (text, click_handler) in \
@@ -218,7 +218,7 @@ class Rocket(Game):
         else:
             pass
 
-    def create_wall(self, speed_x: int, speed_y:int = 0):
+    def create_wall(self, speed_x: int, speed_y: int = 0):
         """Create a layer of walls.
 
         Create a layer of walls with a random amount of objects.
@@ -305,10 +305,10 @@ class Rocket(Game):
         # self.objects.append(wall)
 
     def create_bonus(
-                    self, 
-                    location_x: int, 
-                    location_y: int, 
-                    speed_x: int, 
+                    self,
+                    location_x: int,
+                    location_y: int,
+                    speed_x: int,
                     speed_y: int = 0):
         """Create a bonus in game window.
 
