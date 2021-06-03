@@ -93,6 +93,30 @@ class Rocket(Game):
             self.is_game_running = True
             self.start_level = True
 
+
+        def on_main_menu(button):
+            self.is_game_running = False
+            self.duck.delete()
+            for wall in self.walls_current:
+                wall.delete()
+            for bonus in self.bonuses_current:
+                bonus.delete()
+            for live_label in self.label_objects:
+                live_label.delete()
+            self.lives = c.initial_lives
+            self.last_bonus_app = c.bonus_offset
+            self.last_wall_app = 0
+            self.pause_duration = 0
+            self.current_timer = 0
+              
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.mode = 'main' 
+            self.create_menu()
+        
+        
+
         def on_quit(button):
             self.game_over = True
             self.is_game_running = False
@@ -117,16 +141,17 @@ class Rocket(Game):
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.is_game_running = True
-            for obj in self.character_objects:
-                obj.character = self.character_id
-                obj.change_character()
-                self.objects.append(obj)
+            #for obj in self.character_objects:
+            #    obj.character = self.character_id
+            #    obj.change_character()
+            #
+            #     self.objects.append(obj)
 
-        def on_character(button):
-            for b in self.menu_buttons:
-                self.objects.remove(b)
-                self.mouse_handlers.remove(b.handle_mouse_event)
-            self.create_character()
+        #def on_character(button):
+        #    for b in self.menu_buttons:
+        #        self.objects.remove(b)
+        #        self.mouse_handlers.remove(b.handle_mouse_event)
+        #    self.create_character()
 
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
@@ -159,8 +184,7 @@ class Rocket(Game):
                 for i, (text, click_handler) in \
                     enumerate((("ВЕРНУТЬСЯ", on_continue_game),
                                ("НОВАЯ ИГРА", on_new),
-                               ("ПЕРСОНАЖ", on_character),
-                               ("ВЫХОД", on_quit))):
+                               ("ГЛАВНОЕ МЕНЮ", on_main_menu))):
                     b = Button(
                         c.menu_offset_x,
                         c.menu_offset_y + (c.menu_button_h + 50) * i,
@@ -202,8 +226,8 @@ class Rocket(Game):
             self.is_game_running = False
             pause_start = pg.time.get_ticks()
             self.mode = 'short'
-            for obj in self.character_objects:
-                self.objects.remove(obj)
+            #for obj in self.character_objects:
+                #self.objects.remove(obj)
                 # self.keydown_handlers.remove(obj.handle)
                 # self.keyup_handlers.remove(obj.handle)
             self.create_menu()
