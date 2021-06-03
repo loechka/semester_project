@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-03 23:01+0300\n"
+"POT-Creation-Date: 2021-06-03 23:05+0300\n"
 "PO-Revision-Date: 2021-06-03 15:05+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -33,12 +33,11 @@ msgstr "РЕКОРДЫ"
 
 #: main_file.py:151
 msgid "QUIT"
-msgstr ""
+msgstr "ВЫХОД"
 
-#: main_file.py:173 main_file.py:417 main_file.py:475 main_file.py:554
-#: main_file.py:605
-msgid "RETURN"
-msgstr "НАЗАД"
+#: main_file.py:173
+msgid "CONTINUE"
+msgstr "ПРОДОЛЖИТЬ"
 
 #: main_file.py:175
 msgid "MAIN MENU"
@@ -63,6 +62,10 @@ msgstr "РЕЖИМ ИГРЫ"
 #: main_file.py:416
 msgid "LANGUAGE"
 msgstr "ЯЗЫК"
+
+#: main_file.py:417 main_file.py:475 main_file.py:554 main_file.py:605
+msgid "RETURN"
+msgstr "НАЗАД"
 
 #: main_file.py:464
 msgid " sec"

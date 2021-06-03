@@ -170,7 +170,7 @@ class Rocket(Game):
             elif self.mode == 'short':
                 self.menu_buttons = []
                 for i, (text, click_handler) in \
-                    enumerate(((_("RETURN"), on_continue_game),
+                    enumerate(((_("CONTINUE"), on_continue_game),
                                (_("NEW GAME"), on_new),
                                (_("MAIN MENU"), on_main_menu))):
                     b = Button(
