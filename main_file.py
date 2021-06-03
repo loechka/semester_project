@@ -103,7 +103,6 @@ class Rocket(Game):
         def on_main_menu(button):
             pass
         
-        
 
         def on_quit(button):
             self.game_over = True
@@ -876,7 +875,12 @@ class Rocket(Game):
                 del current_scores['11']
         self.set_high_score()
 
-    def set_language(self, id_new):
+    def set_language(self, id_new: str):
+        """Set game language.
+        
+        Keyword Arguments:
+        :param id_new: new language id ('ru' or 'en')
+        """
         lang_curr = self.language_id
         self.language_id = id_new
         if id_new == 'ru':
