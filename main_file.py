@@ -14,9 +14,12 @@ import time
 from collections import deque
 import shelve
 import gettext
+import os.path
+import sys
 
-lang_ru = gettext.translation('game', languages=['ru'], localedir='./po')
-lang_en = gettext.translation('game', languages=['en'], localedir='./po')
+datapath = os.path.dirname(sys.argv[0])
+lang_ru = gettext.translation('game', languages=['ru'], localedir=os.path.join(datapath, 'po'))
+lang_en = gettext.translation('game', languages=['en'], localedir=os.path.join(datapath, 'po'))
 lang_en.install()
 
 
