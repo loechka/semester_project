@@ -13,7 +13,11 @@ import random
 import time
 from collections import deque
 import shelve
+import locale
 import copy
+
+def _(str: str):
+    return str
 
 
 class Rocket(Game):
@@ -139,10 +143,10 @@ class Rocket(Game):
         if len(self.menu_buttons) == 0:
             for i, (text, click_handler) in \
                 enumerate((
-                    ("НОВАЯ ИГРА", on_play),
-                    ("НАСТРОЙКИ", on_settings),
-                    ("РЕКОРДЫ", on_records),
-                    ("ВЫХОД", on_quit))):
+                    (_("НОВАЯ ИГРА"), on_play),
+                    (_("НАСТРОЙКИ"), on_settings),
+                    (_("РЕКОРДЫ"), on_records),
+                    (_("ВЫХОД"), on_quit))):
                 b = Button(
                     c.menu_offset_x,
                     c.menu_offset_y + (c.menu_button_h + 50) * i,
@@ -164,9 +168,9 @@ class Rocket(Game):
             elif self.mode == 'short':
                 self.menu_buttons = []
                 for i, (text, click_handler) in \
-                    enumerate((("ВЕРНУТЬСЯ", on_continue_game),
-                               ("НОВАЯ ИГРА", on_new),
-                               ("ГЛАВНОЕ МЕНЮ", on_main_menu))):
+                    enumerate(((_("ВЕРНУТЬСЯ"), on_continue_game),
+                               (_("НОВАЯ ИГРА"), on_new),
+                               (_("ГЛАВНОЕ МЕНЮ"), on_main_menu))):
                     b = Button(
                         c.menu_offset_x,
                         c.menu_offset_y + (c.menu_button_h + 50) * i,
@@ -346,7 +350,7 @@ class Rocket(Game):
         self.time_label = TextObject(
                                 c.time_offset,
                                 c.status_offset_y,
-                                lambda: "ВРЕМЯ" + f": {self.current_timer}",
+                                lambda: _("ВРЕМЯ") + f": {self.current_timer}",
                                 c.text_color,
                                 c.font_name,
                                 c.font_size)
@@ -354,7 +358,7 @@ class Rocket(Game):
         self.high_score_label = TextObject(
                                 c.time_offset,
                                 c.status_offset_y + c.font_size,
-                                lambda: "ЛУЧШИЙ РЕЗУЛЬТАТ" + f": {self.high_score}",
+                                lambda: _("ЛУЧШИЙ РЕЗУЛЬТАТ") + f": {self.high_score}",
                                 c.text_color,
                                 c.font_name,
                                 c.font_size)
@@ -398,10 +402,10 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.settings_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((("ПЕРСОНАЖ", on_character),
-                           ("РЕЖИМ ИГРЫ", on_difficulty),
-                           ("ЯЗЫК", on_language),
-                           ("НАЗАД", on_back_from_settings))):
+                enumerate(((_("ПЕРСОНАЖ"), on_character),
+                           (_("РЕЖИМ ИГРЫ"), on_difficulty),
+                           (_("ЯЗЫК"), on_language),
+                           (_("НАЗАД"), on_back_from_settings))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -456,8 +460,8 @@ class Rocket(Game):
                     self.objects.append(obj)
 
         for i, (text, click_handler) in \
-            enumerate((("СБРОСИТЬ РЕКОРДЫ", drop_records),
-                        ("НАЗАД", on_back_from_records))):
+            enumerate(((_("СБРОСИТЬ РЕКОРДЫ"), drop_records),
+                        (_("НАЗАД"), on_back_from_records))):
             b = Button(c.settings_offset_x,
                         c.settings_offset_y +
                         50 * 5 + (c.settings_button_h + 50) * i,
@@ -486,9 +490,9 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.language_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((("АНГЛИЙСКИЙ", on_eng),
-                           ("РУССКИЙ", on_rus),
-                           ("НАЗАД", on_back_from_language))):
+                enumerate(((_("АНГЛИЙСКИЙ"), on_eng),
+                           (_("РУССКИЙ"), on_rus),
+                           (_("НАЗАД"), on_back_from_language))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -523,9 +527,9 @@ class Rocket(Game):
         # first rendering of settings buttons
         if len(self.difficulty_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((("БЕСКОНЕЧНЫЙ РЕЖИМ", on_infinite),
-                           ("ДОБРАТЬСЯ ДО ФИНИША", on_until_finish),
-                           ("НАЗАД", on_back_from_difficulty))):
+                enumerate(((_("БЕСКОНЕЧНЫЙ РЕЖИМ"), on_infinite),
+                           (_("ДОБРАТЬСЯ ДО ФИНИША"), on_until_finish),
+                           (_("НАЗАД"), on_back_from_difficulty))):
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -568,10 +572,10 @@ class Rocket(Game):
         # first rendering of character buttons
         if len(self.character_buttons) == 0:
             for i, (text, click_handler) in \
-                enumerate((("КВАДРАТ", on_face_default),
-                           ("УТОЧКА", on_face_duck),
-                           ("КОНЬ", on_face_horse),
-                           ("НАЗАД", on_back_from_character))):
+                enumerate(((_("КВАДРАТ"), on_face_default),
+                           (_("УТОЧКА"), on_face_duck),
+                           (_("КОНЬ"), on_face_horse),
+                           (_("НАЗАД"), on_back_from_character))):
                 b = Button(c.character_offset_x,
                            c.character_offset_y +
                            (c.character_button_h + 50) * i,
@@ -585,9 +589,9 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
 
             for i, (text, file_path) in \
-                enumerate((("КВАДРАТ", 'images/square.png'),
-                           ("УТОЧКА", 'images/duck.png'),
-                           ("КОНЬ", 'images/horse.png'))):
+                enumerate(((_("КВАДРАТ"), 'images/square.png'),
+                           (_("УТОЧКА"), 'images/duck.png'),
+                           (_("КОНЬ"), 'images/horse.png'))):
                 p = Image(c.character_offset_x +
                           c.character_button_w + c.image_w,
                           c.character_offset_y +
@@ -697,7 +701,7 @@ class Rocket(Game):
             self.keyup_handlers[pg.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.create_labels()
-            self.show_message("ПОЛЕТЕЛИ!", centralized=True, start = True)
+            self.show_message(_("ПОЛЕТЕЛИ!"), centralized=True, start = True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pg.time.get_ticks()
 
@@ -775,7 +779,7 @@ class Rocket(Game):
                 self.menu_buttons = []
                 self.is_game_running = False
                 self.show_message(
-                                "ПОБЕДА!",
+                                _("ПОБЕДА!"),
                                 centralized=True)
                 self.duck.delete()
                 self.finish_line.delete()
@@ -814,21 +818,21 @@ class Rocket(Game):
         rules1 = TextObject(
                             c.screen_width // 3 - 50,
                             c.screen_height // 5 * 3,
-                            lambda: " - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ",
+                            lambda: _(" - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ"),
                             color,
                             font_name,
                             20)
         rules2 = TextObject(
                             c.screen_width // 3 - 50,
                             c.screen_height // 5 * 3 + 30,
-                            lambda: " - ИЗБЕГАЙ СТЕН И БОМБ",
+                            lambda: _(" - ИЗБЕГАЙ СТЕН И БОМБ"),
                             color,
                             font_name,
                             20)
         rules3 = TextObject(
                             c.screen_width // 3 - 50,
                             c.screen_height // 5 * 3 + 60,
-                            lambda: " - СОБИРАЙ ЗВЕЗДЫ",
+                            lambda: _(" - СОБИРАЙ ЗВЕЗДЫ"),
                             color,
                             font_name,
                             20)
