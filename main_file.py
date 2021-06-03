@@ -809,12 +809,22 @@ class Rocket(Game):
 
     def show_message(
                     self,
-                    text,
-                    color=c.button_normal_back_color,
-                    font_name='Times New Roman',
-                    font_size=40,
-                    centralized=False,
-                    start = False):
+                    text: str,
+                    color: tuple = c.button_normal_back_color,
+                    font_name: str = 'Times New Roman',
+                    font_size: int = 40,
+                    centralized: bool = False,
+                    start: bool = False):
+        """Show message on screen.
+        
+        Keyword Arguments:
+        :param text: message text
+        :param color: message text color
+        :param font_name: message text font (default 'Times New Roman')
+        :param font_size: message text size (default 40)
+        :param centralized: is message centralized (default False)
+        :param start: is it a start message (default False)
+        """
         message = TextObject(
                             c.screen_width // 2,
                             c.screen_height // 2 - 50,
