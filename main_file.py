@@ -830,24 +830,33 @@ class Rocket(Game):
                             font_name,
                             font_size)
         rules1 = TextObject(
-                            c.screen_width // 4,
-                            c.screen_height // 3 * 2,
-                            lambda: "СОБИРАЙ ЗВЕЗДЫ",
+                            c.screen_width // 3 - 50,
+                            c.screen_height // 5 * 3,
+                            lambda: " - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ",
                             color,
                             font_name,
-                            30)
+                            20)
         rules2 = TextObject(
-                            c.screen_width // 4 * 3,
-                            c.screen_height // 3 * 2,
-                            lambda: "ИЗБЕГАЙ БОМБ",
+                            c.screen_width // 3 - 50,
+                            c.screen_height // 5 * 3 + 30,
+                            lambda: " - ИЗБЕГАЙ СТЕН И БОМБ",
                             color,
                             font_name,
-                            30)
+                            20)
+        rules3 = TextObject(
+                            c.screen_width // 3 - 50,
+                            c.screen_height // 5 * 3 + 60,
+                            lambda: " - СОБИРАЙ ЗВЕЗДЫ",
+                            color,
+                            font_name,
+                            20)
         self.draw()
         message.draw(self.surface, centralized)
         if start:
-            rules1.draw(self.surface, centralized)
-            rules2.draw(self.surface, centralized)
+            #centralized = False
+            rules1.draw(self.surface, False)
+            rules2.draw(self.surface, False)
+            rules3.draw(self.surface, False)
         pg.display.update()
         time.sleep(c.message_duration)
 
