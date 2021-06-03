@@ -239,7 +239,7 @@ class Rocket(Game):
         walls_distance = []
         space_left = c.screen_height - c.wall_height * walls_num - free_space
         for i in range(walls_num):
-            new_distance = random.choice(range(1, 80))
+            new_distance = random.choice(range(5, 80))
             walls_distance.append(new_distance)
         walls_distance = [
             i / sum(walls_distance) * space_left for i in walls_distance
@@ -248,7 +248,7 @@ class Rocket(Game):
         random.shuffle(walls_distance)
 
         for i in range(walls_num):
-            space_ttl = sum(walls_distance[0:i])
+            space_ttl = sum(walls_distance[0:i+1])
             walls_ttl = c.wall_height * (i + 1)
             wall = Wall(
                 c.screen_width,
