@@ -1,3 +1,7 @@
+"""Main game file.
+
+Contain Rocket class and handle game running process.
+"""
 import config as c
 from button import Button
 from game import Game
@@ -74,7 +78,9 @@ class Rocket(Game):
 
     # MENU
     def create_menu(self):
+        """Create game menu."""
         def on_play(button):
+            """Handle pressing NEW GAME button in main menu."""
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -83,6 +89,7 @@ class Rocket(Game):
             self.start_level = True
 
         def on_new(button):
+            """Handle pressing NEW GAME button during game."""
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -102,26 +109,31 @@ class Rocket(Game):
             self.start_level = True
 
         def on_main_menu(button):
+            """Handle pressing MAIN MEN button."""
             pass
 
         def on_quit(button):
+            """Handle pressing EXIT button."""
             self.game_over = True
             self.is_game_running = False
             self.game_over = True
 
         def on_settings(button):
+            """Handle pressing SETTINGS button."""
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_settings()
 
         def on_records(button):
+            """Handle pressingHIGH SCORES button."""
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_records()
 
         def on_continue_game(button):
+            """Handle pressing CONTINUE button."""
             global pause_start
             self.pause_duration += pg.time.get_ticks() - pause_start
             for b in self.menu_buttons:
@@ -196,6 +208,7 @@ class Rocket(Game):
         self.character_objects.append(self.duck)
 
     def handle_stop_game(self, key):
+        """Handle pressing Esc key."""
         global pause_start
         if self.is_game_running is True and key == pg.K_ESCAPE:
             self.is_game_running = False
@@ -324,6 +337,7 @@ class Rocket(Game):
         self.objects.append(bonus)
 
     def create_final_line(self):
+        """Create final line image."""
         p = Image(
                 c.screen_width - 100,
                 0,
@@ -337,6 +351,7 @@ class Rocket(Game):
         self.create_menu()
 
     def create_labels(self):
+        """Create timer and high score on the top of game window."""
         self.time_label = TextObject(
                                 c.time_offset,
                                 c.status_offset_y,
@@ -364,25 +379,30 @@ class Rocket(Game):
 
     # SETTINGS
     def create_settings(self):
+        """Create settings menu."""
         def on_character(button):
+            """Handle pressing CHARACTER button."""
             for b in self.settings_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_character()
 
         def on_difficulty(button):
+            """Handle pressing GAME MODE button."""
             for b in self.settings_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_difficulty()
 
         def on_language(button):
+            """Handle pressing LANGUAGE button."""
             for b in self.settings_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.create_language()
 
         def on_back_from_settings(button):
+            """Handle pressing RETURN from settings button."""
             for b in self.settings_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -413,6 +433,7 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_records(self):
+        """Create high scores table and menu."""
         def on_back_from_records(button):
             for b in self.record_buttons:
                 self.objects.remove(b)
@@ -424,6 +445,7 @@ class Rocket(Game):
             self.create_menu()
 
         def drop_records(button):
+            """Handle pressing RESET button."""
             with shelve.open(c.high_score_file) as current_scores:
                 for i in range(1, 11):
                     if str(i) in current_scores:
@@ -465,13 +487,17 @@ class Rocket(Game):
             self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_language(self):
+        """Create language switching menu."""
         def on_eng(button):
+            """Handle pressing ENGLISH button."""
             self.set_language('en')
 
         def on_rus(button):
+            """Handle pressing RUSSIAN button."""
             self.set_language('ru')
 
         def on_back_from_language(button):
+            """Handle pressing RETURN from language settings button."""
             for b in self.language_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -504,13 +530,17 @@ class Rocket(Game):
                 self.mouse_handlers.append(b.handle_mouse_event)
 
     def create_difficulty(self):
+        """Create difficulty switching menu."""
         def on_infinite(button):
+            """Handle pressing ENDLESS button."""
             self.wall_app_mode = 0
 
         def on_until_finish(button):
+            """Handle pressing REACH FINISH button."""
             self.wall_app_mode = 1
 
         def on_back_from_difficulty(button):
+            """Handle pressing RETURN from difficulty menu button."""
             for b in self.difficulty_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -541,16 +571,21 @@ class Rocket(Game):
 
     # CHARACTER
     def create_character(self):
+        """Create character switching menu."""
         def on_face_default(button):
+            """Handle pressing SQUARE button."""
             self.character_id = 0
 
         def on_face_duck(button):
+            """Handle pressing DUCK button."""
             self.character_id = 1
 
         def on_face_horse(button):
+            """Handle pressing HORSE button."""
             self.character_id = 2
 
         def on_back_from_character(button):
+            """Handle pressing RETURN from character switching menu."""
             for b in self.character_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
