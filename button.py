@@ -20,7 +20,7 @@ class Button(GameObject):
                  h: int,
                  text: str,
                  on_click=lambda x: None,
-                 padding:int = 0):
+                 padding: int = 0):
         """
         Init Button object with certain features.
 

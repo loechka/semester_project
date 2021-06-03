@@ -14,7 +14,6 @@ import time
 from collections import deque
 import shelve
 import gettext
-import copy
 
 lang_ru = gettext.translation('game', languages=['ru'], localedir='./po')
 lang_en = gettext.translation('game', languages=['en'], localedir='./po')
@@ -29,7 +28,7 @@ class Rocket(Game):
     """
 
     def __init__(self):
-        """Init Rocket class object with certain features, based on Game class."""
+        """Init Rocket class object with certain features."""
         Game.__init__(self,
                       'Rocket',
                       c.screen_width,
@@ -99,10 +98,8 @@ class Rocket(Game):
             self.is_game_running = True
             self.start_level = True
 
-
         def on_main_menu(button):
             pass
-        
 
         def on_quit(button):
             self.game_over = True
@@ -128,18 +125,6 @@ class Rocket(Game):
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.is_game_running = True
-            #for obj in self.character_objects:
-            #    obj.character = self.character_id
-            #    obj.change_character()
-            #
-            #     self.objects.append(obj)
-
-        #def on_character(button):
-        #    for b in self.menu_buttons:
-        #        self.objects.remove(b)
-        #        self.mouse_handlers.remove(b.handle_mouse_event)
-        #    self.create_character()
-
  
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
@@ -185,7 +170,6 @@ class Rocket(Game):
                     self.menu_buttons.append(b)
                     self.mouse_handlers.append(b.handle_mouse_event)
 
-
     def create_duck(self):
         """Create game character on screen and set keyboard events handling."""
         duck = Duck((
@@ -214,17 +198,13 @@ class Rocket(Game):
             self.is_game_running = False
             pause_start = pg.time.get_ticks()
             self.mode = 'short'
-            #for obj in self.character_objects:
-                #self.objects.remove(obj)
-                # self.keydown_handlers.remove(obj.handle)
-                # self.keyup_handlers.remove(obj.handle)
             self.create_menu()
         else:
             pass
 
     def create_wall(self, speed_x, speed_y=0):
         """Create a layer of walls.
-        
+
         Create a layer of walls with a random amount of objects.
         Set free spaces between walls in a special way that allows
         game character to fly by. Create and refresh a set of existing walls.
@@ -310,7 +290,7 @@ class Rocket(Game):
 
     def create_bonus(self, location_x, location_y, speed_x, speed_y=0):
         """Create a bonus in game window.
-        
+
         Creates a bonus of one of determined types randomly.
 
         Keyword arguments:
@@ -437,8 +417,7 @@ class Rocket(Game):
 
         def drop_records(button):
             with shelve.open(c.high_score_file) as current_scores:
-                current_scores_len = len(current_scores)
-                for i in range(1,11):
+                for i in range(1, 11):
                     if str(i) in current_scores:
                         del current_scores[str(i)]
                 self.high_score = 0
@@ -447,7 +426,7 @@ class Rocket(Game):
             self.records_texts = []
 
         with shelve.open(c.high_score_file) as current_scores:
-            for i in range(1,6):
+            for i in range(1, 6):
                 if str(i) in current_scores:
                     obj = TextObject(
                             c.settings_offset_x,
@@ -461,9 +440,11 @@ class Rocket(Game):
                     self.objects.append(obj)
 
         for i, (text, click_handler) in \
-            enumerate(((_("RESET"), drop_records),
+            enumerate((
+                        (_("RESET"), drop_records),
                         (_("RETURN"), on_back_from_records))):
-            b = Button(c.settings_offset_x,
+            b = Button(
+                        c.settings_offset_x,
                         c.settings_offset_y +
                         50 * 5 + (c.settings_button_h + 50) * i,
                         c.settings_button_w,
@@ -478,17 +459,14 @@ class Rocket(Game):
     def create_language(self):
         def on_eng(button):
             self.set_language('en')
-        
+
         def on_rus(button):
             self.set_language('ru')
-            
 
         def on_back_from_language(button):
             for b in self.language_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
-            
-            
             self.create_settings()
 
         # first rendering of settings buttons
@@ -517,7 +495,6 @@ class Rocket(Game):
                 self.objects.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
 
-        
     def create_difficulty(self):
         def on_infinite(button):
             self.wall_app_mode = 0
@@ -618,13 +595,13 @@ class Rocket(Game):
                 self.objects.append(p)
 
     def handle_collisions(self):
-        """Handle game objects collisions. 
+        """Handle game objects collisions.
 
         Such as game character hitting walls and collecting bonuses.
         """
         def intersect(obj, duck):
             """Check intersection of game character and other object.
-            
+
             Keyword arguments:
             :param obj: one of game objects
             :param duck: game character object
@@ -708,7 +685,7 @@ class Rocket(Game):
             self.keyup_handlers[pg.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
             self.create_labels()
-            self.show_message(_("LET'S GO!"), centralized=True, start = True)
+            self.show_message(_("LET'S GO!"), centralized=True, start=True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pg.time.get_ticks()
 
@@ -816,7 +793,7 @@ class Rocket(Game):
                     centralized: bool = False,
                     start: bool = False):
         """Show message on screen.
-        
+
         Keyword Arguments:
         :param text: message text
         :param color: message text color
@@ -856,7 +833,6 @@ class Rocket(Game):
         self.draw()
         message.draw(self.surface, centralized)
         if start:
-            #centralized = False
             rules1.draw(self.surface, False)
             rules2.draw(self.surface, False)
             rules3.draw(self.surface, False)
@@ -871,7 +847,7 @@ class Rocket(Game):
 
     def record_high_score(self, score):
         """Record best 10 results in a special file.
-        
+
         Keyword Arguments:
         :param score: new game score
         """
@@ -887,7 +863,7 @@ class Rocket(Game):
 
     def set_language(self, id_new: str):
         """Set game language.
-        
+
         Keyword Arguments:
         :param id_new: new language id ('ru' or 'en')
         """
@@ -904,6 +880,7 @@ class Rocket(Game):
             self.character_buttons = []
             self.difficulty_buttons = []
             self.record_buttons = []
+
 
 def main():
     Rocket().run()
