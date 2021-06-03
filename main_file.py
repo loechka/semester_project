@@ -74,6 +74,25 @@ class Rocket(Game):
             self.is_game_running = True
             self.start_level = True
 
+        def on_new(button):
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.duck.delete()
+            for wall in self.walls_current:
+                wall.delete()
+            for bonus in self.bonuses_current:
+                bonus.delete()
+            for live_label in self.label_objects:
+                live_label.delete()
+            self.lives = c.initial_lives
+            self.last_bonus_app = c.bonus_offset
+            self.last_wall_app = 0
+            self.pause_duration = 0
+            self.current_timer = 0
+            self.is_game_running = True
+            self.start_level = True
+
         def on_quit(button):
             self.game_over = True
             self.is_game_running = False
@@ -139,6 +158,7 @@ class Rocket(Game):
                 self.menu_buttons = []
                 for i, (text, click_handler) in \
                     enumerate((("ВЕРНУТЬСЯ", on_continue_game),
+                               ("НОВАЯ ИГРА", on_new),
                                ("ПЕРСОНАЖ", on_character),
                                ("ВЫХОД", on_quit))):
                     b = Button(
