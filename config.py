@@ -79,7 +79,7 @@ bonus_width = 40
 bonus_color = (255, 0, 0)
 bonuses_amount = 7
 bonuses_regularity = walls_regularity * 4
-bonus_offset = 1100
+bonus_offset = 1200
 
 record_offset_x = 200
 record_offset_y = 100

@@ -702,7 +702,7 @@ class Rocket(Game):
                 if not ((self.wall_speed % 1) > (1 - c.wall_acceleration)):
                     self.create_wall(self.wall_speed)
             if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
-                if (pg.time.get_ticks() - self.last_wall_app) > 400:
+                if (pg.time.get_ticks() - self.last_wall_app) > c.bonus_offset:
                     self.last_bonus_app = pg.time.get_ticks()
                     self.create_bonus(
                         c.screen_width,
@@ -815,7 +815,7 @@ class Rocket(Game):
         rules1 = TextObject(
                             c.screen_width // 3 - 50,
                             c.screen_height // 5 * 3,
-                            lambda: _(" - USE ARROR KEYS"),
+                            lambda: _(" - USE ARROW KEYS"),
                             color,
                             font_name,
                             20)
