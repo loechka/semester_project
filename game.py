@@ -28,10 +28,7 @@ class Game:
         :param back_image_filename: path to back image
         :params frame_rate: frame rate
         """
-        self.background_image = pygame.image.load(back_image_filename)
-        self.background_image = pygame.transform.scale(
-                                        self.background_image,
-                                        (width, height))
+        
         self.frame_rate = frame_rate
         self.game_over = False
         self.objects = []
@@ -39,13 +36,26 @@ class Game:
         pygame.mixer.pre_init(44100, -16, 2, 512)
         pygame.init()
         pygame.font.init()
-        self.surface = pygame.display.set_mode((width, height))
+        self.surface = pygame.display.set_mode((width, height), flags = pygame.DOUBLEBUF)
         pygame.display.set_caption(caption)
+        self.surface.set_alpha(None)
+        self.background_image = pygame.image.load(back_image_filename).convert_alpha()
+        self.background_image = pygame.transform.scale(
+                                        self.background_image,
+                                        (width, height))
         self.clock = pygame.time.Clock()
-        self.clock.tick(60)
+        #self.clock.tick(60)
         self.keydown_handlers = defaultdict(list)
         self.keyup_handlers = defaultdict(list)
         self.mouse_handlers = []
+        pygame.event.wait()
+        pygame.event.set_allowed = [[
+                                    pygame.QUIT, 
+                                    pygame.KEYDOWN,
+                                    pygame.KEYUP,
+                                    pygame.MOUSEBUTTONDOWN,
+                                    pygame.MOUSEBUTTONUP,
+                                    pygame.MOUSEMOTION]]
 
     def update(self):
         """Update game objects."""

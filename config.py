@@ -10,7 +10,7 @@ wall_image = 'images/block.png'
 star_image = 'images/bonus_star.png'
 bomb_image = 'images/bonus_bomb.png'
 heart_image = 'images/bonus_heart.png'
-frame_rate = 60
+frame_rate = 70
 
 status_offset_y = 5
 time_offset = 150
@@ -72,14 +72,14 @@ wall_width = 40
 wall_color = (255, 255, 255)
 wall_speed_initial = 3
 wall_acceleration = 0.05
-wall_amount = 50
+wall_amount = 15
 walls_regularity = 2000
 walls_regularity_finish = 450
 
 bonus_height = 40
 bonus_width = 40
 bonus_color = (255, 0, 0)
-bonuses_amount = 7
+bonuses_amount = 3
 bonuses_regularity = walls_regularity * 4
 bonuses_regularity_finish = walls_regularity_finish * 8
 bonus_offset = 1200

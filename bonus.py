@@ -64,7 +64,7 @@ class Bonus(GameObject):
             self.filepath = c.star_image
         else:
             self.filepath = c.bomb_image
-        self.myImage = pygame.image.load(self.filepath)
+        self.myImage = pygame.image.load(self.filepath).convert_alpha()
         self.myImage = pygame.transform.scale(
                                     self.myImage,
                                     (self.bounds.width, self.bounds.height))

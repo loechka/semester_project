@@ -269,7 +269,8 @@ class Rocket(Game):
                     c.wall_height,
                     c.wall_color,
                     [-(speed_x), speed_y])
-        if len(self.walls_current) > c.wall_amount:
+        if len(self.walls_current) > c.wall_amount * 2:
+            self.objects.remove(self.walls_current[0])
             self.walls_current.popleft()
         if self.is_final_line == 0:
             self.walls_current.append(wall)
@@ -282,7 +283,8 @@ class Rocket(Game):
                     c.wall_height,
                     c.wall_color,
                     [-(speed_x), speed_y])
-        if len(self.walls_current) > c.wall_amount:
+        if len(self.walls_current) > c.wall_amount * 2:
+            self.objects.remove(self.walls_current[0])
             self.walls_current.popleft()
         if self.is_final_line == 0:
             self.walls_current.append(wall)
@@ -318,6 +320,7 @@ class Rocket(Game):
             bonus_good,
             bonus_type)
         if len(self.bonuses_current) > c.bonuses_amount:
+            self.objects.remove(self.bonuses_current[0])
             self.bonuses_current.popleft()
         self.bonuses_current.append(bonus)
         self.objects.append(bonus)

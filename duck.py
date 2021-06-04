@@ -45,7 +45,7 @@ class Duck(GameObject):
         self.coordinates = (x, y)
         self.character = character
         self.file_path = c.character_images[self.character]
-        self.myImage = pygame.image.load(self.file_path)
+        self.myImage = pygame.image.load(self.file_path).convert_alpha()
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
