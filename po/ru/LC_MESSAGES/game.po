@@ -1,0 +1,139 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-03 23:05+0300\n"
+"PO-Revision-Date: 2021-06-03 15:05+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: main_file.py:148 main_file.py:174
+msgid "NEW GAME"
+msgstr "НОВАЯ ИГРА"
+
+#: main_file.py:149
+msgid "SETTINGS"
+msgstr "НАСТРОЙКИ"
+
+#: main_file.py:150
+msgid "HIGH SCORES"
+msgstr "РЕКОРДЫ"
+
+#: main_file.py:151
+msgid "QUIT"
+msgstr "ВЫХОД"
+
+#: main_file.py:173
+msgid "CONTINUE"
+msgstr "ПРОДОЛЖИТЬ"
+
+#: main_file.py:175
+msgid "MAIN MENU"
+msgstr "ГЛАВНОЕ МЕНЮ"
+
+#: main_file.py:358
+msgid "TIME"
+msgstr "ВРЕМЯ"
+
+#: main_file.py:366
+msgid "HIGH SCORE"
+msgstr "РЕКОРД"
+
+#: main_file.py:414
+msgid "CHARACTER"
+msgstr "ПЕРСОНАЖ"
+
+#: main_file.py:415
+msgid "GAME MODE"
+msgstr "РЕЖИМ ИГРЫ"
+
+#: main_file.py:416
+msgid "LANGUAGE"
+msgstr "ЯЗЫК"
+
+#: main_file.py:417 main_file.py:475 main_file.py:554 main_file.py:605
+msgid "RETURN"
+msgstr "НАЗАД"
+
+#: main_file.py:464
+msgid " sec"
+msgstr "сек"
+
+#: main_file.py:474
+msgid "RESET"
+msgstr "СБРОС"
+
+#: main_file.py:512
+msgid "ENGLISH"
+msgstr "АНГЛИЙСКИЙ"
+
+#: main_file.py:513
+msgid "RUSSIAN"
+msgstr "РУССКИЙ"
+
+#: main_file.py:514
+msgid "APPLY"
+msgstr "ПРИМЕНИТЬ"
+
+#: main_file.py:552
+msgid "ENDLESS"
+msgstr "БЕСКОНЕЧНЫЙ"
+
+#: main_file.py:553
+msgid "REACH FINISH"
+msgstr "ДОБРАТЬСЯ ДО ФИНИША"
+
+#: main_file.py:602 main_file.py:619
+msgid "SQUARE"
+msgstr "КВАДРАТ"
+
+#: main_file.py:603 main_file.py:620
+msgid "DUCK"
+msgstr "УТОЧКА"
+
+#: main_file.py:604 main_file.py:621
+msgid "HORSE"
+msgstr "ЛОШАДЬ"
+
+#: main_file.py:731
+msgid "LET'S GO!"
+msgstr "ПОЛЕТЕЛИ!"
+
+#: main_file.py:780
+msgid "sec"
+msgstr "сек"
+
+#: main_file.py:809
+msgid "YOU WIN!"
+msgstr "ПОБЕДА!"
+
+#: main_file.py:858
+msgid " - USE ARROW KEYS"
+msgstr " - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ"
+
+#: main_file.py:865
+msgid " - AVOID WALLS AND BOMBS"
+msgstr " - ИЗБЕГАЙ СТЕН И БОМБ"
+
+#: main_file.py:872
+msgid " - COLLECT STARS"
+msgstr " - СОБИРАЙ ЗВЕЗДЫ"
+
+#~ msgid " - USE ARROR KEYS"
+#~ msgstr " - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ"
+
+#~ msgid "EXIT"
+#~ msgstr "ВЫХОД"
+

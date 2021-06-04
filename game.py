@@ -1,16 +1,33 @@
-import pygame
+"""Module contains Game class."""
 
+import pygame
 from collections import defaultdict
 import sys
 
 
 class Game:
+    """
+    Base Game class.
+
+    Responsible for game window creation, handling events and game time.
+    """
+
     def __init__(self,
-                 caption,
-                 width,
-                 height,
-                 back_image_filename,
-                 frame_rate):
+                 caption: str,
+                 width: int,
+                 height: int,
+                 back_image_filename: str,
+                 frame_rate: int):
+        """
+        Init Game with certain features.
+
+        Keyword arguments:
+        :param caption: window name
+        :param width: window width
+        :param height: window height
+        :param back_image_filename: path to back image
+        :params frame_rate: frame rate
+        """
         self.background_image = pygame.image.load(back_image_filename)
         self.background_image = pygame.transform.scale(
                                         self.background_image,
@@ -25,20 +42,23 @@ class Game:
         self.surface = pygame.display.set_mode((width, height))
         pygame.display.set_caption(caption)
         self.clock = pygame.time.Clock()
-        self.clock.tick(100)
+        self.clock.tick(60)
         self.keydown_handlers = defaultdict(list)
         self.keyup_handlers = defaultdict(list)
         self.mouse_handlers = []
 
     def update(self):
+        """Update game objects."""
         for o in self.objects:
             o.update()
 
     def draw(self):
+        """Draw game object."""
         for o in self.objects:
             o.draw(self.surface)
 
     def handle_events(self):
+        """Handle keyboard and mouse events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -56,6 +76,7 @@ class Game:
                     handler(event.type, event.pos)
 
     def run(self):
+        """Handle game running."""
         while not self.game_over:
             self.surface.blit(self.background_image, (0, 0))
             # self.surface.fill((0, 0, 0))
