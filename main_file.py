@@ -284,8 +284,9 @@ class Rocket(Game):
                     [-(speed_x), 0])
         if len(self.walls_current) > c.wall_amount:
             self.walls_current.popleft()
-        self.walls_current.append(wall)
-        self.objects.append(wall)
+        if self.is_final_line == 0:
+            self.walls_current.append(wall)
+            self.objects.append(wall)
 
         wall = Wall(c.screen_width,
                     random.choice(range(bias_key, bias_key + 30, 10)),
@@ -295,8 +296,9 @@ class Rocket(Game):
                     [-(speed_x), 0])
         if len(self.walls_current) > c.wall_amount:
             self.walls_current.popleft()
-        self.walls_current.append(wall)
-        self.objects.append(wall)
+        if self.is_final_line == 0:
+            self.walls_current.append(wall)
+            self.objects.append(wall)
         # wall = Wall(c.screen_width,
         #             random.choice(range(c.screen_height - 300,
         #                                 c.screen_height - 250, 10)),
@@ -784,9 +786,9 @@ class Rocket(Game):
             self.create_objects()
 
         if self.wall_app_mode == 1:
-            if self.current_timer >= 100 and self.current_timer <= 103:
+            if self.current_timer >= 100 and self.current_timer <= 110:
                 self.is_final_line = 1
-            if self.current_timer > 13:
+            if self.current_timer > 110:
                 self.is_final_line = 0
                 self.create_final_line()
                 self.mode = 'main'
