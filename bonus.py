@@ -22,6 +22,7 @@ class Bonus(GameObject):
                 h: int,
                 color: tuple,
                 speed: int,
+                one_type: str = 'default',
                 good: bool = True,
                 type: int = 0,
                 seen: bool = True):
@@ -40,7 +41,13 @@ class Bonus(GameObject):
         :param seen: is bonus seen (default True)
         """
         GameObject.__init__(self, x, y, w, h, speed)
-        self.good = good
+        self.one_type = one_type
+        if self.one_type == 'default':
+            self.good = good
+        elif self.one_type == 'bomb':
+            self.good = False
+        else:
+            self.good = True
         self.type = type
         self.seen = seen
         self.color = color

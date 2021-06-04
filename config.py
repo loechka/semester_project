@@ -74,17 +74,27 @@ wall_speed_initial = 3
 wall_acceleration = 0.05
 wall_amount = 50
 walls_regularity = 2000
+walls_regularity_finish = 450
 
 bonus_height = 40
 bonus_width = 40
 bonus_color = (255, 0, 0)
 bonuses_amount = 7
 bonuses_regularity = walls_regularity * 4
+bonuses_regularity_finish = walls_regularity_finish * 8
 bonus_offset = 1200
 
 record_offset_x = 200
 record_offset_y = 100
 
 offset = 10
+
+game_duration = 80
+
+stars_max = 3
+star_offset = 100
+
+bias_up_offset = 300
+bias_down_offset = 400
 
 high_score_file = 'score.txt'
