@@ -40,6 +40,7 @@ class Game:
         pygame.display.set_caption(caption)
         self.surface.set_alpha(None)
         self.background_image = pygame.image.load(back_image_filename).convert_alpha()
+        self.background_image.set_colorkey((0,0,0))
         self.background_image = pygame.transform.scale(
                                         self.background_image,
                                         (width, height))
