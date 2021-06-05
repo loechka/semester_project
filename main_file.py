@@ -73,7 +73,9 @@ class Rocket(Game):
         self.last_bias_change_down = c.bias_down_offset
         self.bias_key = [80, 1, 80, 1]
         self.exist_stars = 0
+        self.earned_points = 0
         self.is_final_line = 0
+        self.finish_line = None
         self.score = list()
         self.language_id = 'en'
         self.lang_change = False
@@ -689,6 +691,7 @@ class Rocket(Game):
                 if (bonus.type == 0) & (self.lives < 3):
                     self.lives += 1
                     self.objects.append(self.label_objects[self.lives - 1])
+                    self.earned_points += 1
                 elif (bonus.type == 1):
                     self.duck.change_size(
                         c.duck_width_small,
@@ -722,14 +725,16 @@ class Rocket(Game):
             self.record_high_score(round(self.result / 1000, 2))
         else:
             self.show_message(
-                                _("YOU WIN!"),
+                                _("YOU WIN ") + str(self.earned_points) + _(" points"),
                                 centralized=True)
-            self.finish_line.delete()
+            if self.finish_line:
+                self.finish_line.delete()
             self.last_star_app = c.star_offset
             self.exist_stars = 0
             self.last_bias_change_up = c.bias_up_offset
             self.last_bias_change_down = c.bias_down_offset
             self.bias_key = [80, 1, 80, 1]
+            self.earned_points = 0
         self.duck.delete()
         for wall in self.walls_current:
             wall.delete()
