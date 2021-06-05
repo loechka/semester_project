@@ -691,12 +691,12 @@ class Rocket(Game):
                 if (bonus.type == 0) & (self.lives < 3):
                     self.lives += 1
                     self.objects.append(self.label_objects[self.lives - 1])
-                    self.earned_points += 1
                 elif (bonus.type == 1):
                     self.duck.change_size(
                         c.duck_width_small,
                         c.duck_height_small)
                     self.last_size_change = pg.time.get_ticks()
+                self.earned_points += 1
             elif not bonus.good:
                 if (bonus.type == 0):
                     if (self.lives <= 2):
