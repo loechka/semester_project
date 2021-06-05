@@ -264,6 +264,15 @@ class Rocket(Game):
             self.objects.insert(0, wall)
 
     def create_wall_determined_down(self, bias_key: int, speed_x: int, speed_y: int = 0):
+        """Create bottom row of walls.
+
+        Creates walls in bottom row for special level.
+
+        Keyword arguments:
+        :param bias_key: changing parameter for vertical coordinate
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         wall = Wall(c.screen_width + 50,
                     random.choice(range(c.screen_height - bias_key - 30,
                                         c.screen_height - bias_key, 5)),
@@ -279,6 +288,15 @@ class Rocket(Game):
             self.objects.append(wall)
 
     def create_wall_determined_up(self, bias_key: int, speed_x: int, speed_y: int = 0):
+        """Create top row of walls.
+
+        Creates walls in top row for special level.
+
+        Keyword arguments:
+        :param bias_key: changing parameter for vertical coordinate
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         wall = Wall(c.screen_width,
                     random.choice(range(bias_key - 30, bias_key + 30 - 30, 5)),
                     c.wall_width,
@@ -291,7 +309,6 @@ class Rocket(Game):
         if self.is_final_line == 0:
             self.walls_current.append(wall)
             self.objects.append(wall)
-        
 
     def create_bonus(
                     self,
@@ -784,7 +801,7 @@ class Rocket(Game):
                 self.last_wall_app = pg.time.get_ticks()
                 self.create_wall_determined_up(self.bias_key[0], self.wall_speed)
                 self.create_wall_determined_down(self.bias_key[2], self.wall_speed)
-            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity_finish\
+            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity_finish \
                 and (pg.time.get_ticks() - self.last_star_app) >= 200:
                 self.last_bonus_app = pg.time.get_ticks()
                 self.create_bonus(
@@ -829,7 +846,8 @@ class Rocket(Game):
             self.finish_procedures(self.wall_app_mode)
 
         if self.wall_app_mode == 1:
-            if self.current_timer >= c.game_duration and self.current_timer <= c.game_duration + 10:
+            if self.current_timer >= c.game_duration and \
+                self.current_timer <= c.game_duration + 10:
                 self.is_final_line = 1
             if self.current_timer > c.game_duration + 10:
                 self.is_final_line = 0
