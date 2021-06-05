@@ -341,24 +341,25 @@ class Rocket(Game):
     def create_objects(self):
         self.create_menu()
 
-    def create_labels(self):
+    def create_labels(self, wall_app_mode):
         """Create timer and high score on the top of game window."""
-        self.time_label = TextObject(
-                                c.time_offset,
-                                c.status_offset_y,
-                                lambda: _("TIME") + f": {self.current_timer}",
-                                c.text_color,
-                                c.font_name,
-                                c.font_size)
-        self.objects.append(self.time_label)
-        self.high_score_label = TextObject(
-                                c.time_offset,
-                                c.status_offset_y + c.font_size,
-                                lambda: _("HIGH SCORE") + f": {self.high_score}",
-                                c.text_color,
-                                c.font_name,
-                                c.font_size)
-        self.objects.append(self.high_score_label)
+        if wall_app_mode == 0:
+            self.time_label = TextObject(
+                                    c.time_offset,
+                                    c.status_offset_y,
+                                    lambda: _("TIME") + f": {self.current_timer}",
+                                    c.text_color,
+                                    c.font_name,
+                                    c.font_size)
+            self.objects.append(self.time_label)
+            self.high_score_label = TextObject(
+                                    c.time_offset,
+                                    c.status_offset_y + c.font_size,
+                                    lambda: _("HIGH SCORE") + f": {self.high_score}",
+                                    c.text_color,
+                                    c.font_name,
+                                    c.font_size)
+            self.objects.append(self.high_score_label)
         for i in range(3):
             self.label_objects[i] = Image(
                                 c.lives_offset + (c.image_w + 20) * i,
@@ -757,7 +758,7 @@ class Rocket(Game):
             self.start_level = False
             self.keyup_handlers[pg.K_ESCAPE].append(self.handle_stop_game)
             self.create_duck()
-            self.create_labels()
+            self.create_labels(self.wall_app_mode)
             self.show_message(_("LET'S GO!"), centralized=True, start=True)
             self.wall_speed = c.wall_speed_initial
             self.start_time = pg.time.get_ticks()
