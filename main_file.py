@@ -709,6 +709,42 @@ class Rocket(Game):
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
 
+    def finish_procedures(self, wall_app_mode):
+        self.mode = 'main'
+        self.is_game_running = False
+        self.menu_buttons = []
+        if wall_app_mode == 0:
+            self.set_high_score()
+            self.result = (pg.time.get_ticks() - self.start_time) - self.pause_duration
+            self.show_message(
+                            str(round(self.result / 1000, 2)) + _("sec"),
+                            centralized=True)
+            self.record_high_score(round(self.result / 1000, 2))
+        else:
+            self.show_message(
+                                _("YOU WIN!"),
+                                centralized=True)
+            self.finish_line.delete()
+            self.last_star_app = c.star_offset
+            self.exist_stars = 0
+            self.last_bias_change_up = c.bias_up_offset
+            self.last_bias_change_down = c.bias_down_offset
+            self.bias_key = [80, 1, 80, 1]
+        self.duck.delete()
+        for wall in self.walls_current:
+            wall.delete()
+        for bonus in self.bonuses_current:
+            bonus.delete()
+        for live_label in self.label_objects:
+            live_label.delete()
+        self.lives = c.initial_lives
+        self.last_bonus_app = c.bonus_offset
+        self.last_wall_app = 0
+        self.pause_duration = 0
+        self.current_timer = 0  
+        self.create_objects()
+
+
     def update(self):
         if not self.is_game_running:
             return
@@ -784,30 +820,7 @@ class Rocket(Game):
             self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
-            self.mode = 'main'
-            self.menu_buttons = []
-            self.set_high_score()
-            self.is_game_running = False
-            self.result = (pg.time.get_ticks() - self.start_time) - self.pause_duration
-            self.show_message(
-                            str(round(self.result / 1000, 2)) + _("sec"),
-                            centralized=True)
-            self.record_high_score(round(self.result / 1000, 2))
-            self.duck.delete()
-            for wall in self.walls_current:
-                wall.delete()
-            for bonus in self.bonuses_current:
-                bonus.delete()
-            for live_label in self.label_objects:
-                live_label.delete()
-            self.lives = c.initial_lives
-            self.last_bonus_app = c.bonus_offset
-            self.last_wall_app = 0
-            self.pause_duration = 0
-            self.current_timer = 0
-            if self.wall_app_mode == 1:
-                self.bias_key = [80, 1, 80, 1]
-            self.create_objects()
+            self.finish_procedures(self.wall_app_mode)
 
         if self.wall_app_mode == 1:
             if self.current_timer >= c.game_duration and self.current_timer <= c.game_duration + 10:
@@ -815,31 +828,7 @@ class Rocket(Game):
             if self.current_timer > c.game_duration + 10:
                 self.is_final_line = 0
                 self.create_final_line()
-                self.mode = 'main'
-                self.menu_buttons = []
-                self.is_game_running = False
-                self.show_message(
-                                _("YOU WIN!"),
-                                centralized=True)
-                self.duck.delete()
-                self.finish_line.delete()
-                for wall in self.walls_current:
-                    wall.delete()
-                for bonus in self.bonuses_current:
-                    bonus.delete()
-                for live_label in self.label_objects:
-                    live_label.delete()
-                self.lives = c.initial_lives
-                self.last_bonus_app = c.bonus_offset
-                self.last_star_app = c.star_offset
-                self.last_wall_app = 0
-                self.exist_stars = 0
-                self.last_bias_change_up = c.bias_up_offset
-                self.last_bias_change_down = c.bias_down_offset
-                self.pause_duration = 0
-                self.current_timer = 0
-                self.bias_key = [80, 1, 80, 1]
-                self.create_objects()
+                self.finish_procedures(self.wall_app_mode)
 
         super().update()
 
