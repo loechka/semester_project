@@ -55,12 +55,10 @@ class Rocket(Game):
         self.label_objects = [0] * 3
         self.character_id = 1
         self.wall_app_mode = 0
-        self.mode = 'main'
         self.is_game_running = False
         self.walls_current = deque()
         self.bonuses_current = deque()
         self.lives = c.initial_lives
-        self.create_objects()
         self.pause_duration = 0
         self.current_timer = 0
         self.high_score = 0
@@ -79,7 +77,10 @@ class Rocket(Game):
         self.score = list()
         self.language_id = 'en'
         self.lang_change = False
+        self.mode = 'main'
+        self.create_menu()
         self.set_high_score()
+
 
     # MENU
     def create_menu(self):
@@ -248,7 +249,6 @@ class Rocket(Game):
         Set free spaces between walls in a special way that allows
         game character to fly by. Create and refresh a set of existing walls.
 
-        Keyword arguments:
         :param speed_x: horisontal speed
         :param speed_y: vertical speed (default 0)
         """
@@ -281,7 +281,18 @@ class Rocket(Game):
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined_down(self, bias_key: int, speed_x: int, speed_y: int = 0):
+    def create_wall_determined_down(self, 
+                                    bias_key: int, 
+                                    speed_x: int, 
+                                    speed_y: int = 0):
+        """Create bottom row of walls.
+
+        Creates walls in bottom row for special level.
+
+        :param bias_key: changing parameter for vertical coordinate
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         wall = Wall(c.screen_width + 50,
                     random.choice(range(c.screen_height - bias_key - 30,
                                         c.screen_height - bias_key, 5)),
@@ -297,6 +308,14 @@ class Rocket(Game):
             self.objects.append(wall)
 
     def create_wall_determined_up(self, bias_key: int, speed_x: int, speed_y: int = 0):
+        """Create top row of walls.
+
+        Creates walls in top row for special level.
+
+        :param bias_key: changing parameter for vertical coordinate
+        :param speed_x: horisontal speed
+        :param speed_y: vertical speed (default 0)
+        """
         wall = Wall(c.screen_width,
                     random.choice(range(bias_key - 30, bias_key + 30 - 30, 5)),
                     c.wall_width,
@@ -321,7 +340,6 @@ class Rocket(Game):
 
         Creates a bonus of one of determined types randomly.
 
-        Keyword arguments:
         :param location_x: left coordinate
         :param location_y: top coordinate
         :param speed_x: horisontal speed
@@ -355,9 +373,6 @@ class Rocket(Game):
                 'images/finish_line.png')
         self.finish_line = p
         self.objects.append(p)
-
-    def create_objects(self):
-        self.create_menu()
 
     def create_labels(self):
         """Create timer and high score on the top of game window."""
@@ -654,7 +669,6 @@ class Rocket(Game):
         def intersect(obj, duck):
             """Check intersection of game character and other object.
 
-            Keyword arguments:
             :param obj: one of game objects
             :param duck: game character object
             """
@@ -730,7 +744,11 @@ class Rocket(Game):
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
 
-    def finish_procedures(self, wall_app_mode):
+    def finish_procedures(self, wall_app_mode: int):
+        """Handle game finish.
+        
+        :param wall_app_mode: game mode (0 - endless, 1 - reach finish)
+        """
         self.mode = 'main'
         self.is_game_running = False
         self.menu_buttons = []
@@ -765,10 +783,11 @@ class Rocket(Game):
         self.last_wall_app = 0
         self.pause_duration = 0
         self.current_timer = 0  
-        self.create_objects()
+        self.create_menu()
 
 
     def update(self):
+        """Update game window."""
         if not self.is_game_running:
             return
         if self.start_level:
@@ -865,7 +884,6 @@ class Rocket(Game):
                     start: bool = False):
         """Show message on screen.
 
-        Keyword Arguments:
         :param text: message text
         :param color: message text color
         :param font_name: message text font (default 'Times New Roman')
@@ -919,7 +937,6 @@ class Rocket(Game):
     def record_high_score(self, score: float):
         """Record best 10 results in a special file.
 
-        Keyword Arguments:
         :param score: new game score
         """
         with shelve.open(c.high_score_file) as current_scores:
@@ -935,7 +952,6 @@ class Rocket(Game):
     def set_language(self, id_new: str):
         """Set game language.
 
-        Keyword Arguments:
         :param id_new: new language id ('ru' or 'en')
         """
         lang_curr = self.language_id
@@ -954,6 +970,7 @@ class Rocket(Game):
 
 
 def main():
+    """Run the game."""
     Rocket().run()
 
 

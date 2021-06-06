@@ -18,7 +18,7 @@ class GameObject:
     """
 
     def __init__(self, x: int, y: int, w: int, h: int, speed: tuple = (0, 0)):
-        """Init GameObject with certain features. """
+        """Init GameObject with certain features."""
         self.bounds = Rect(x, y, w, h)
         self.speed = speed
 

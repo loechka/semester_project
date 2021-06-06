@@ -25,7 +25,6 @@ class Game:
                  back_image_filename: str,
                  frame_rate: int):
         """Init Game with certain features."""
-        
         self.frame_rate = frame_rate
         self.game_over = False
         self.objects = []
