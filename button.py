@@ -11,6 +11,14 @@ class Button(GameObject):
     Button object class, based on GameObject class.
 
     Every Button object is a rectangle that can handle mouse events.
+
+    :param x: left coordinate
+    :param y: top coordinate
+    :param w: object width
+    :param h: object height
+    :param text: text on the button
+    :param on_click: mouse click event
+    :param padding: text padding
     """
 
     def __init__(self,
@@ -21,18 +29,7 @@ class Button(GameObject):
                  text: str,
                  on_click=lambda x: None,
                  padding: int = 0):
-        """
-        Init Button object with certain features.
-
-        Keyword arguments:
-        :param x: left coordinate
-        :param y: top coordinate
-        :param w: object width
-        :param h: object height
-        :param text: text on the button
-        :params on_click: mouse click event
-        :param padding: text padding
-        """
+        """Init Button object with certain features."""
         super().__init__(x, y, w, h)
         self.state = 'normal'
         self.on_click = on_click
@@ -54,7 +51,6 @@ class Button(GameObject):
         """
         Draw buttton with text.
 
-        Keyword arguments:
         :param surface: pygame Surface
         """
         pygame.draw.rect(surface,
@@ -66,7 +62,6 @@ class Button(GameObject):
         """
         Handle mouse events.
 
-        Keyword arguments:
         :param type: type of mouse event
         :param pos: mouse position
         """
@@ -81,7 +76,6 @@ class Button(GameObject):
         """
         Handle mouse movement.
 
-        Keyword arguments:
         :param pos: mouse position
         """
         if self.bounds.collidepoint(pos):
@@ -94,7 +88,6 @@ class Button(GameObject):
         """
         Handle pressed mouse button.
 
-        Keyword arguments:
         :param pos: mouse position
         """
         if self.bounds.collidepoint(pos):
@@ -104,7 +97,6 @@ class Button(GameObject):
         """
         Handle released mouse button.
 
-        Keyword arguments:
         :param pos: mouse position
         """
         if self.state == 'pressed':

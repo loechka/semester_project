@@ -10,6 +10,12 @@ class Game:
     Base Game class.
 
     Responsible for game window creation, handling events and game time.
+
+    :param caption: window name
+    :param width: window width
+    :param height: window height
+    :param back_image_filename: path to back image
+    :params frame_rate: frame rate
     """
 
     def __init__(self,
@@ -18,16 +24,7 @@ class Game:
                  height: int,
                  back_image_filename: str,
                  frame_rate: int):
-        """
-        Init Game with certain features.
-
-        Keyword arguments:
-        :param caption: window name
-        :param width: window width
-        :param height: window height
-        :param back_image_filename: path to back image
-        :params frame_rate: frame rate
-        """
+        """Init Game with certain features."""
         
         self.frame_rate = frame_rate
         self.game_over = False

@@ -12,6 +12,18 @@ class Bonus(GameObject):
     There are two types of bonuses: good - star, bad - bomb.
     Every good or bad bonus can have two different effects:
     change amount of lives, change charecter size.
+
+    :param x: left coordinate
+    :param y: top coordinate
+    :param w: object width
+    :param h: object height
+    :param color: object color
+    :param speed: object speed
+    :param one_type: key for generating same bonuses - 'deafult' - use param good, \
+        'star' - star, 'bomb' - bomb
+    :param good: is bonus good - True - star, False - bomb (default True)
+    :param type: bonus type: 0 - +/- lives, 1 - change size (default 0)
+    :param seen: is bonus seen (default True)
     """
 
     def __init__(
@@ -26,22 +38,7 @@ class Bonus(GameObject):
                 good: bool = True,
                 type: int = 0,
                 seen: bool = True):
-        """
-        Init Bonus object with certain features.
-
-        Keyword arguments:
-        :param x: left coordinate
-        :param y: top coordinate
-        :param w: object width
-        :param h: object height
-        :param color: object color
-        :params speed: object speed
-        :params one_type: key for generating same bonuses - 'deafult' - use param good, \
-            'star' - star, 'bomb' - bomb
-        :param good: is bonus good - True - star, False - bomb (default True)
-        :param type: bonus type: 0 - +/- lives, 1 - change size (default 0)
-        :param seen: is bonus seen (default True)
-        """
+        """Init Bonus object with certain features."""
         GameObject.__init__(self, x, y, w, h, speed)
         self.one_type = one_type
         if self.one_type == 'default':
@@ -59,7 +56,6 @@ class Bonus(GameObject):
         """
         Load certain image according to bonus type.
 
-        Keyword arguments:
         :param good: is bonus good: True - star, False - bomb (default True)
         """
         if good:
@@ -75,7 +71,6 @@ class Bonus(GameObject):
         """
         Draw bonus.
 
-        Keyword arguments:
         :param surface: pygame Surface
         """
         if self.seen:
