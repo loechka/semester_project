@@ -729,7 +729,9 @@ class Rocket(Game):
                     self.lives += 1
                     self.objects.append(self.label_objects[self.lives - 1])
                 elif (bonus.type == 1):
-                    self.duck.change_size('small')
+                    self.duck.change_size(
+                        c.duck_width_small,
+                        c.duck_height_small)
                     self.last_size_change = pg.time.get_ticks()
                 self.earned_points += 1
             elif not bonus.good:
@@ -742,7 +744,9 @@ class Rocket(Game):
                         self.objects.remove(self.label_objects[self.lives - 1])
                     self.lives -= 2
                 elif (bonus.type == 1):
-                    self.duck.change_size('large')
+                    self.duck.change_size(
+                        c.duck_width_large,
+                        c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
 
     def finish_procedures(self, wall_app_mode: int):
@@ -860,7 +864,7 @@ class Rocket(Game):
 
         self.handle_collisions()
         if (pg.time.get_ticks() - self.last_size_change) >= 10000:
-            self.duck.change_size()
+            self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
             self.finish_procedures(self.wall_app_mode)

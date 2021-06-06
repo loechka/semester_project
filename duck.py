@@ -10,14 +10,6 @@ class Duck(GameObject):
     Duck object class, based on GameObject class.
 
     Every Duck object is a rectangle moving by arrow keys.
-
-    :param x: left coordinate
-    :param y: top coordinate
-    :param w: object width
-    :param h: object height
-    :param offset: object offset from the window border
-    :param character: character - 0: square, 1: duck (default), 2: horse
-    :param seen: is character seen (default True)
     """
 
     def __init__(
@@ -30,7 +22,18 @@ class Duck(GameObject):
                 offset: int,
                 character: int,
                 seen: bool = True):
-        """Init Duck object with certain features."""
+        """
+        Init Duck object with certain features.
+
+        Keyword arguments:
+        :param x: left coordinate
+        :param y: top coordinate
+        :param w: object width
+        :param h: object height
+        :param offset: object offset from the window border
+        :params character: character - 0: square, 1: duck (default), 2: horse
+        :param seen: is character seen (default True)
+        """
         GameObject.__init__(self, x, y, w, h)
         self.seen = seen
         self.color = color
@@ -40,18 +43,18 @@ class Duck(GameObject):
         self.moving_left = False
         self.moving_right = False
         self.coordinates = (x, y)
-        self.size = (w,h)
         self.character = character
         self.file_path = c.character_images[self.character]
+        self.myImage = pygame.image.load(self.file_path).convert_alpha()
+        self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
         """
         Draw duck.
 
+        Keyword arguments:
         :param surface: pygame Surface
         """
-        self.myImage = pygame.image.load(self.file_path).convert_alpha()
-        self.myImage = pygame.transform.scale(self.myImage, self.size)
         if self.seen:
             surface.blit(self.myImage, self.bounds)
 
@@ -59,6 +62,7 @@ class Duck(GameObject):
         """
         Handle keyboard events.
 
+        Keyword arguments:
         :param key: key pressed
         """
         if key == pygame.K_LEFT:
@@ -73,25 +77,21 @@ class Duck(GameObject):
             self.moving_down = not self.moving_down
 
     def change_size(self,
-                    key: str = 'default'):
+                    new_width: int,
+                    new_height: int):
         """
         Change character size.
 
-        :param key: key for changing type (default 'default')
+        Keyword arguments:
+        :param new_width: new width
+        :param new_height: new height
         """
         center = self.bounds.center
-        if key == 'default':
-            self.bounds.width = c.duck_width
-            self.bounds.height = c.duck_height
-        elif key == 'small':
-            self.bounds.width = c.duck_width_small
-            self.bounds.height = c.duck_height_small
-        elif key == 'large':
-            self.bounds.width = c.duck_width_large
-            self.bounds.height = c.duck_height_large
+        self.bounds.width = new_width
+        self.bounds.height = new_height
         self.bounds.center = center
         self.myImage = pygame.image.load(self.file_path)
-        self.myImage = pygame.transform.scale(self.myImage, (self.bounds.width, self.bounds.height))
+        self.myImage = pygame.transform.scale(self.myImage, (new_width, new_height))
 
     def change_character(self):
         """Change character image according to self.character."""
