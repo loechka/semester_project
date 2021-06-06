@@ -40,10 +40,9 @@ class Duck(GameObject):
         self.moving_left = False
         self.moving_right = False
         self.coordinates = (x, y)
+        self.size = (w,h)
         self.character = character
         self.file_path = c.character_images[self.character]
-        self.myImage = pygame.image.load(self.file_path).convert_alpha()
-        self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
         """
@@ -51,6 +50,8 @@ class Duck(GameObject):
 
         :param surface: pygame Surface
         """
+        self.myImage = pygame.image.load(self.file_path).convert_alpha()
+        self.myImage = pygame.transform.scale(self.myImage, self.size)
         if self.seen:
             surface.blit(self.myImage, self.bounds)
 
@@ -72,20 +73,25 @@ class Duck(GameObject):
             self.moving_down = not self.moving_down
 
     def change_size(self,
-                    new_width: int,
-                    new_height: int):
+                    key: str = 'default'):
         """
         Change character size.
 
-        :param new_width: new width
-        :param new_height: new height
+        :param key: key for changing type (default 'default')
         """
         center = self.bounds.center
-        self.bounds.width = new_width
-        self.bounds.height = new_height
+        if key == 'default':
+            self.bounds.width = c.duck_width
+            self.bounds.height = c.duck_height
+        elif key == 'small':
+            self.bounds.width = c.duck_width_small
+            self.bounds.height = c.duck_height_small
+        elif key == 'large':
+            self.bounds.width = c.duck_width_large
+            self.bounds.height = c.duck_height_large
         self.bounds.center = center
         self.myImage = pygame.image.load(self.file_path)
-        self.myImage = pygame.transform.scale(self.myImage, (new_width, new_height))
+        self.myImage = pygame.transform.scale(self.myImage, (self.bounds.width, self.bounds.height))
 
     def change_character(self):
         """Change character image according to self.character."""
