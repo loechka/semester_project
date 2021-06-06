@@ -115,7 +115,25 @@ class Rocket(Game):
 
         def on_main_menu(button):
             """Handle pressing MAIN MEN button."""
-            pass
+            for b in self.menu_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.menu_buttons = []
+            self.duck.delete()
+            for wall in self.walls_current:
+                wall.delete()
+            for bonus in self.bonuses_current:
+                bonus.delete()
+            for live_label in self.label_objects:
+                live_label.delete()
+            self.lives = c.initial_lives
+            self.last_bonus_app = c.bonus_offset
+            self.last_wall_app = 0
+            self.pause_duration = 0
+            self.current_timer = 0
+            self.mode = 'main'
+            self.create_menu()
+
 
         def on_quit(button):
             """Handle pressing QUIT button."""
