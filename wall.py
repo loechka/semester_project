@@ -10,6 +10,14 @@ class Wall(GameObject):
     Wall object class, based on GameObject class.
 
     Every class object is a moving left rectangle.
+
+    :param x: left coordinate
+    :param y: top coordinate
+    :param w: object width
+    :param h: object height
+    :param color: object color
+    :param speed: object speed
+    :param seen: is object seen (default True)
     """
 
     def __init__(
@@ -21,18 +29,7 @@ class Wall(GameObject):
                 color: tuple,
                 speed: int,
                 seen: bool = True):
-        """
-        Init Wall object with certain features.
-
-        Keyword arguments:
-        :param x: left coordinate
-        :param y: top coordinate
-        :param w: object width
-        :param h: object height
-        :param color: object color
-        :params speed: object speed
-        :param seen: is object seen (default True)
-        """
+        """Init Wall object with certain features."""
         GameObject.__init__(self, x, y, w, h, speed)
         self.seen = seen
         self.color = color
@@ -44,7 +41,6 @@ class Wall(GameObject):
         """
         Draw wall.
 
-        Keyword arguments:
         :param surface: pygame Surface
         """
         if self.seen:
