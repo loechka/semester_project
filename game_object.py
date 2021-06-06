@@ -9,19 +9,16 @@ class GameObject:
 
     This is a simple square object with bounds properties,
     which also has speed and can move.
+
+    :param x: left coordinate
+    :param y: top coordinate
+    :param w: object width
+    :param h: object height
+    :param speed: object speed
     """
 
     def __init__(self, x: int, y: int, w: int, h: int, speed: tuple = (0, 0)):
-        """
-        Init GameObject with certain features.
-
-        Keyword arguments:
-        :param x: left coordinate
-        :param y: top coordinate
-        :param w: object width
-        :param h: object height
-        :params speed: object speed
-        """
+        """Init GameObject with certain features."""
         self.bounds = Rect(x, y, w, h)
         self.speed = speed
 
@@ -81,7 +78,6 @@ class GameObject:
     def move(self, dx: int, dy: int):
         """Move object.
 
-        Keyword arguments:
         :param dx: horisontal step
         :param dy: vertical step
         """

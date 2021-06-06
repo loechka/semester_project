@@ -10,6 +10,14 @@ class Duck(GameObject):
     Duck object class, based on GameObject class.
 
     Every Duck object is a rectangle moving by arrow keys.
+
+    :param x: left coordinate
+    :param y: top coordinate
+    :param w: object width
+    :param h: object height
+    :param offset: object offset from the window border
+    :param character: character - 0: square, 1: duck (default), 2: horse
+    :param seen: is character seen (default True)
     """
 
     def __init__(
@@ -22,18 +30,7 @@ class Duck(GameObject):
                 offset: int,
                 character: int,
                 seen: bool = True):
-        """
-        Init Duck object with certain features.
-
-        Keyword arguments:
-        :param x: left coordinate
-        :param y: top coordinate
-        :param w: object width
-        :param h: object height
-        :param offset: object offset from the window border
-        :params character: character - 0: square, 1: duck (default), 2: horse
-        :param seen: is character seen (default True)
-        """
+        """Init Duck object with certain features."""
         GameObject.__init__(self, x, y, w, h)
         self.seen = seen
         self.color = color
@@ -52,7 +49,6 @@ class Duck(GameObject):
         """
         Draw duck.
 
-        Keyword arguments:
         :param surface: pygame Surface
         """
         if self.seen:
@@ -62,7 +58,6 @@ class Duck(GameObject):
         """
         Handle keyboard events.
 
-        Keyword arguments:
         :param key: key pressed
         """
         if key == pygame.K_LEFT:
@@ -82,7 +77,6 @@ class Duck(GameObject):
         """
         Change character size.
 
-        Keyword arguments:
         :param new_width: new width
         :param new_height: new height
         """

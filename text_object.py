@@ -8,6 +8,14 @@ class TextObject:
     TextObject class.
 
     Create a message on screen.
+
+    :param x: horisontal coordinate
+    :param y: vertical coordinate
+    :param text_func: message text
+    :param color: message text color
+    :param font_name:  message text font name
+    :param font_size:  message text font size
+    :param text_type: text type (default 0)
     """
 
     def __init__(
@@ -19,18 +27,7 @@ class TextObject:
                 font_name: str,
                 font_size: int,
                 text_type: int = 0):
-        """
-        Init TextObject with certain features.
-
-        Keyword arguments:
-        :param x: horisontal coordinate
-        :param y: vertical coordinate
-        :param text_func: message text
-        :param color: message text color
-        :param font_name:  message text font name
-        :params font_size:  message text font size
-        :param text_type: text type (default 0)
-        """
+        """Init TextObject with certain features."""
         self.pos = (x, y)
         self.text_type = text_type
         if self.text_type == 0:
@@ -48,7 +45,6 @@ class TextObject:
         """
         Draw message.
 
-        Keyword arguments:
         :param surface: pygame Surface
         :param centralized: is the message centralized (default False)
         """
@@ -66,7 +62,6 @@ class TextObject:
         """
         Render message.
 
-        Keyword arguments:
         :param text: message text
         """
         text_surface = self.font.render(text, False, self.color)
