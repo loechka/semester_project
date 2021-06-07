@@ -534,10 +534,20 @@ class Rocket(Game):
         def on_eng(button):
             """Handle pressing ENGLISH button."""
             self.set_language('en')
+            for b in self.language_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.language_buttons = []
+            self.create_language()
 
         def on_rus(button):
             """Handle pressing RUSSIAN button."""
             self.set_language('ru')
+            for b in self.language_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.language_buttons = []
+            self.create_language()
 
         def on_back_from_language(button):
             """Handle pressing RETURN from language settings button."""
@@ -551,10 +561,14 @@ class Rocket(Game):
             self.lang_change = False
             self.language_buttons = []
         if len(self.language_buttons) == 0:
-            for i, (text, click_handler) in \
-                enumerate(((_("ENGLISH"), on_eng),
-                           (_("RUSSIAN"), on_rus),
-                           (_("APPLY"), on_back_from_language))):
+            for i, (text, click_handler, language) in \
+                enumerate(((_("ENGLISH"), on_eng, 'en'),
+                           (_("RUSSIAN"), on_rus, 'ru'),
+                           (_("APPLY"), on_back_from_language, ''))):
+                if self.language_id == language:
+                    text_color = c.button_text_color_chosen
+                else:
+                    text_color = c.button_text_color
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -562,7 +576,8 @@ class Rocket(Game):
                            c.settings_button_h,
                            text,
                            click_handler,
-                           padding=5)
+                           padding=5,
+                           text_color = text_color)
                 self.objects.append(b)
                 self.language_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
@@ -577,6 +592,11 @@ class Rocket(Game):
         def on_infinite(button):
             """Handle pressing ENDLESS button."""
             self.wall_app_mode = 0
+            for b in self.difficulty_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.difficulty_buttons = []
+            self.create_difficulty()
 
         def on_until_finish(button):
             """Handle pressing REACH FINISH button."""
@@ -584,7 +604,12 @@ class Rocket(Game):
             if self.time_label in self.objects:
                 self.objects.remove(self.time_label)
             if self.high_score_label in self.objects:
-                self.objects.remove(self.high_score_label)    
+                self.objects.remove(self.high_score_label)   
+            for b in self.difficulty_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.difficulty_buttons = []
+            self.create_difficulty()
 
         def on_back_from_difficulty(button):
             """Handle pressing RETURN from difficulty menu button."""
@@ -599,6 +624,10 @@ class Rocket(Game):
                 enumerate(((_("ENDLESS"), on_infinite),
                            (_("REACH FINISH"), on_until_finish),
                            (_("RETURN"), on_back_from_difficulty))):
+                if self.wall_app_mode == i:
+                    text_color = c.button_text_color_chosen
+                else:
+                    text_color = c.button_text_color
                 b = Button(c.settings_offset_x,
                            c.settings_offset_y +
                            (c.settings_button_h + 50) * i,
@@ -606,7 +635,8 @@ class Rocket(Game):
                            c.settings_button_h,
                            text,
                            click_handler,
-                           padding=5)
+                           padding=5,
+                           text_color = text_color)
                 self.objects.append(b)
                 self.difficulty_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
@@ -620,16 +650,32 @@ class Rocket(Game):
     def create_character(self):
         """Create character switching menu."""
         def on_face_default(button):
+            
             """Handle pressing SQUARE button."""
             self.character_id = 0
+            for b in self.character_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.character_buttons = []
+            self.create_character()
 
         def on_face_duck(button):
             """Handle pressing DUCK button."""
             self.character_id = 1
+            for b in self.character_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.character_buttons = []
+            self.create_character()
 
         def on_face_horse(button):
             """Handle pressing HORSE button."""
             self.character_id = 2
+            for b in self.character_buttons:
+                self.objects.remove(b)
+                self.mouse_handlers.remove(b.handle_mouse_event)
+            self.character_buttons = []
+            self.create_character()
 
         def on_back_from_character(button):
             """Handle pressing RETURN from character switching menu."""
@@ -650,6 +696,10 @@ class Rocket(Game):
                            (_("DUCK"), on_face_duck),
                            (_("HORSE"), on_face_horse),
                            (_("RETURN"), on_back_from_character))):
+                if self.character_id == i:
+                    text_color = c.button_text_color_chosen
+                else: 
+                    text_color = c.button_text_color
                 b = Button(c.character_offset_x,
                            c.character_offset_y +
                            (c.character_button_h + 50) * i,
@@ -657,7 +707,8 @@ class Rocket(Game):
                            c.character_button_h,
                            text,
                            click_handler,
-                           padding=5)
+                           padding=5,
+                           text_color = text_color)
                 self.objects.append(b)
                 self.character_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
