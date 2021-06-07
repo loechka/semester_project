@@ -318,7 +318,7 @@ class Rocket(Game):
             self.walls_current.popleft()
         if self.is_final_line == 0:
             self.walls_current.append(wall)
-            self.objects.append(wall)
+            self.objects.insert(0, wall)
 
     def create_wall_determined_up(self, bias_key: int, speed_x: int, speed_y: int = 0):
         """Create top row of walls.
@@ -341,7 +341,7 @@ class Rocket(Game):
             self.walls_current.popleft()
         if self.is_final_line == 0:
             self.walls_current.append(wall)
-            self.objects.append(wall)
+            self.objects.insert(0, wall)
 
     def create_bonus(
                     self,
