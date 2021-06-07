@@ -19,7 +19,8 @@ class Bonus(GameObject):
     :param h: object height
     :param color: object color
     :param speed: object speed
-    :param one_type: key for generating same bonuses - 'deafult' - use param good, \
+    :param one_type: key for generating same bonuses \
+        'deafult' - use param good,
         'star' - star, 'bomb' - bomb
     :param good: is bonus good - True - star, False - bomb (default True)
     :param type: bonus type: 0 - +/- lives, 1 - change size (default 0)

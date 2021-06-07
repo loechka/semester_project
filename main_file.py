@@ -22,8 +22,14 @@ import os.path
 import sys
 
 datapath = os.path.dirname(sys.argv[0])
-lang_ru = gettext.translation('game', languages=['ru'], localedir=os.path.join(datapath, 'po'))
-lang_en = gettext.translation('game', languages=['en'], localedir=os.path.join(datapath, 'po'))
+lang_ru = gettext.translation(
+                            'game',
+                            languages=['ru'],
+                            localedir=os.path.join(datapath, 'po'))
+lang_en = gettext.translation(
+                            'game',
+                            languages=['en'],
+                            localedir=os.path.join(datapath, 'po'))
 lang_en.install()
 
 
@@ -68,7 +74,6 @@ class Rocket(Game):
         self.last_bonus_app = c.bonus_offset
         self.last_star_app = c.star_offset
         self.last_size_change = None
-        #self.last_wall_change = 0
         self.last_bias_change_up = c.bias_up_offset
         self.last_bias_change_down = c.bias_down_offset
         self.bias_key = [80, 1, 80, 1]
@@ -82,7 +87,6 @@ class Rocket(Game):
         self.mode = 'main'
         self.create_menu()
         self.set_high_score()
-
 
     # MENU
     def create_menu(self):
@@ -139,7 +143,6 @@ class Rocket(Game):
             self.mode = 'main'
             self.create_menu()
 
-
         def on_quit(button):
             """Handle pressing QUIT button."""
             self.game_over = True
@@ -169,11 +172,8 @@ class Rocket(Game):
             self.last_bonus_app += pause_curr
             self.last_bias_change_down += pause_curr
             self.last_bias_change_up += pause_curr
-            #self.last_wall_change 
-            if not self.last_size_change is None:
+            if self.last_size_change is not None:
                 self.last_size_change += pause_curr
-            #self.last_size_change,
-
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -247,7 +247,7 @@ class Rocket(Game):
 
     def handle_stop_game(self, key):
         """Handle pressing Esc key.
-        
+
         :key: pressed key
         """
         global pause_start
@@ -298,9 +298,9 @@ class Rocket(Game):
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined_down(self, 
-                                    bias_key: int, 
-                                    speed_x: int, 
+    def create_wall_determined_down(self,
+                                    bias_key: int,
+                                    speed_x: int,
                                     speed_y: int = 0):
         """Create bottom row of walls.
 
@@ -325,7 +325,11 @@ class Rocket(Game):
             self.walls_current.append(wall)
             self.objects.insert(0, wall)
 
-    def create_wall_determined_up(self, bias_key: int, speed_x: int, speed_y: int = 0):
+    def create_wall_determined_up(
+                                self,
+                                bias_key: int,
+                                speed_x: int,
+                                speed_y: int = 0):
         """Create top row of walls.
 
         Creates walls in top row for special level.
@@ -336,7 +340,8 @@ class Rocket(Game):
         :param speed_y: vertical speed (default 0)
         """
         wall = Wall(c.screen_width,
-                    random.choice(range(bias_key - 30, bias_key + 30 - 30, 5)),
+                    random.choice(range(bias_key - 30,
+                                        bias_key + 30 - 30, 5)),
                     c.wall_width,
                     c.wall_height,
                     c.wall_color,
@@ -361,8 +366,9 @@ class Rocket(Game):
         :param location_x: left coordinate
         :param location_y: top coordinate
         :param speed_x: horisontal speed
-        :one type: key for generating same bonuses - 'deafult' - use param good, \
-                                                'star' - star, 'bomb' - bomb
+        :one type: key for generating same bonuses
+                        'deafult' - use param good,
+                        'star' - star, 'bomb' - bomb
         """
         bonus_good = bool(random.randint(0, 1))
         bonus_type = (random.randint(0, 1))
@@ -399,7 +405,9 @@ class Rocket(Game):
             self.time_label = TextObject(
                                     c.time_offset,
                                     c.status_offset_y,
-                                    lambda: _("TIME") + f": {self.current_timer}",
+                                    lambda: (
+                                        _("TIME") +
+                                        f": {self.current_timer}"),
                                     c.text_color,
                                     c.font_name,
                                     c.font_size)
@@ -407,7 +415,9 @@ class Rocket(Game):
             self.high_score_label = TextObject(
                                     c.time_offset,
                                     c.status_offset_y + c.font_size,
-                                    lambda: _("HIGH SCORE") + f": {self.high_score}",
+                                    lambda: (
+                                        _("HIGH SCORE") +
+                                        f": {self.high_score}"),
                                     c.text_color,
                                     c.font_name,
                                     c.font_size)
@@ -505,7 +515,9 @@ class Rocket(Game):
                     obj = TextObject(
                             c.settings_offset_x,
                             c.settings_offset_y + 50 * (i - 1),
-                            lambda: f"{str(current_scores[str(i)])}" + _(" sec"),
+                            lambda: (
+                                    f"{str(current_scores[str(i)])}"
+                                    + _(" sec")),
                             c.button_text_color_chosen,
                             c.font_name,
                             c.font_size,
@@ -578,7 +590,7 @@ class Rocket(Game):
                            text,
                            click_handler,
                            padding=5,
-                           text_color = text_color)
+                           text_color=text_color)
                 self.objects.append(b)
                 self.language_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
@@ -605,7 +617,7 @@ class Rocket(Game):
             if self.time_label in self.objects:
                 self.objects.remove(self.time_label)
             if self.high_score_label in self.objects:
-                self.objects.remove(self.high_score_label)   
+                self.objects.remove(self.high_score_label)
             for b in self.difficulty_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
@@ -637,7 +649,7 @@ class Rocket(Game):
                            text,
                            click_handler,
                            padding=5,
-                           text_color = text_color)
+                           text_color=text_color)
                 self.objects.append(b)
                 self.difficulty_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
@@ -698,7 +710,7 @@ class Rocket(Game):
                            (_("RETURN"), on_back_from_character))):
                 if self.character_id == i:
                     text_color = c.button_text_color_chosen
-                else: 
+                else:
                     text_color = c.button_text_color
                 b = Button(c.character_offset_x,
                            c.character_offset_y +
@@ -708,7 +720,7 @@ class Rocket(Game):
                            text,
                            click_handler,
                            padding=5,
-                           text_color = text_color)
+                           text_color=text_color)
                 self.objects.append(b)
                 self.character_buttons.append(b)
                 self.mouse_handlers.append(b.handle_mouse_event)
@@ -820,7 +832,7 @@ class Rocket(Game):
 
     def finish_procedures(self, wall_app_mode: int, win: bool = True):
         """Handle game finish.
-        
+
         :param wall_app_mode: game mode (0 - endless, 1 - reach finish)
         :param win: is the game won (default True)
         """
@@ -829,7 +841,9 @@ class Rocket(Game):
         self.menu_buttons = []
         if wall_app_mode == 0:
             self.set_high_score()
-            self.result = (pg.time.get_ticks() - self.start_time) - self.pause_duration
+            self.result = (
+                        pg.time.get_ticks() - self.start_time -
+                        self.pause_duration)
             self.show_message(
                             str(round(self.result / 1000, 2)) + _("sec"),
                             centralized=True)
@@ -837,9 +851,9 @@ class Rocket(Game):
         else:
             if win:
                 self.show_message(
-                                _("YOU WIN! ({}/3 STARS)").format(self.earned_points),
-                                centralized=True)
-            else: 
+                    _("YOU WIN! ({}/3 STARS)").format(self.earned_points),
+                    centralized=True)
+            else:
                 self.show_message(
                                 _("TRY AGAIN"),
                                 centralized=True)
@@ -863,9 +877,8 @@ class Rocket(Game):
         self.last_size_change = None
         self.last_wall_app = 0
         self.pause_duration = 0
-        self.current_timer = 0  
+        self.current_timer = 0
         self.create_menu()
-
 
     def update(self):
         """Update game window."""
@@ -881,15 +894,20 @@ class Rocket(Game):
             self.start_time = pg.time.get_ticks()
 
         self.current_timer = round(
-            ((pg.time.get_ticks() - self.start_time) - self.pause_duration) / 1000, 2)
+                        (pg.time.get_ticks() -
+                            self.start_time -
+                            self.pause_duration) / 1000,
+                        2)
 
         if self.wall_app_mode == 0:
-            if (pg.time.get_ticks() - self.last_wall_app) >= c.walls_regularity:
+            if ((pg.time.get_ticks() - self.last_wall_app) >=
+                    c.walls_regularity):
                 self.last_wall_app = pg.time.get_ticks()
                 self.wall_speed += c.wall_acceleration
                 if not ((self.wall_speed % 1) > (1 - c.wall_acceleration)):
                     self.create_wall(self.wall_speed)
-            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity:
+            if ((pg.time.get_ticks() - self.last_bonus_app) >=
+                    c.bonuses_regularity):
                 if (pg.time.get_ticks() - self.last_wall_app) > c.bonus_offset:
                     self.last_bonus_app = pg.time.get_ticks()
                     self.create_bonus(
@@ -897,31 +915,36 @@ class Rocket(Game):
                         random.randint(0, c.screen_height - c.bonus_height),
                         self.wall_speed)
         elif self.wall_app_mode == 1 and self.is_final_line == 0:
-            if (pg.time.get_ticks() - self.last_wall_app) >= c.walls_regularity_finish:
+            if (pg.time.get_ticks() - self.last_wall_app) >= \
+                                    c.walls_regularity_finish:
                 self.last_wall_app = pg.time.get_ticks()
-                self.create_wall_determined_up(self.bias_key[0], self.wall_speed)
-                self.create_wall_determined_down(self.bias_key[2], self.wall_speed)
-            if (pg.time.get_ticks() - self.last_bonus_app) >= c.bonuses_regularity_finish \
-                and (pg.time.get_ticks() - self.last_star_app) >= 200:
+                self.create_wall_determined_up(
+                                            self.bias_key[0],
+                                            self.wall_speed)
+                self.create_wall_determined_down(
+                                            self.bias_key[2],
+                                            self.wall_speed)
+            if ((pg.time.get_ticks() - self.last_bonus_app) >=
+                    c.bonuses_regularity_finish) \
+                    and ((pg.time.get_ticks() - self.last_star_app) >= 200):
                 self.last_bonus_app = pg.time.get_ticks()
                 self.create_bonus(
                                 c.screen_width,
                                 random.choice(range(250, 350, 5)),
                                 self.wall_speed,
                                 'bomb')
-            
-            if (pg.time.get_ticks() - self.last_star_app) >= ((c.game_duration - 20) // 4) * 1000 \
-                and (pg.time.get_ticks() - self.last_bonus_app) >= 300: 
+            if ((pg.time.get_ticks() - self.last_star_app) >=
+                    ((c.game_duration - 20) // 4) * 1000) \
+                    and ((pg.time.get_ticks() - self.last_bonus_app) >= 300):
                 if self.exist_stars < c.stars_max and random.randint(0, 1):
                     self.last_star_app = pg.time.get_ticks()
-                    self.exist_stars+=1
+                    self.exist_stars += 1
                     self.create_bonus(
                                     c.screen_width,
                                     random.choice(range(250, 350, 2)),
                                     self.wall_speed,
                                     'star')
-            
-            
+
             if (pg.time.get_ticks() - self.last_bias_change_up) >= 200:
                 if self.bias_key[0] < 180 and self.bias_key[0] >= 80:
                     self.last_bias_change_up = pg.time.get_ticks()
@@ -939,16 +962,16 @@ class Rocket(Game):
                     self.bias_key[2] = self.bias_key[2] + 12 * self.bias_key[3]
 
         self.handle_collisions()
-        if (not self.last_size_change is None):
+        if self.last_size_change is not None:
             if (pg.time.get_ticks() - self.last_size_change) >= 10000:
                 self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
-            self.finish_procedures(self.wall_app_mode, win = False)
+            self.finish_procedures(self.wall_app_mode, win=False)
 
         if self.wall_app_mode == 1:
-            if self.current_timer >= c.game_duration and \
-                self.current_timer <= c.game_duration + 2:
+            if ((self.current_timer >= c.game_duration) and
+                    (self.current_timer <= c.game_duration + 2)):
                 self.is_final_line = 1
             if self.current_timer > c.game_duration + 2:
                 self.is_final_line = 0

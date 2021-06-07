@@ -45,7 +45,6 @@ class Duck(GameObject):
         self.character = character
         self.file_path = c.character_images[self.character]
         self.good_image = pygame.image.load(self.file_path).convert_alpha()
-        #self.myImage = self.good_image
         self.myImage = pygame.transform.scale(self.good_image, (w, h))
 
     def draw(self, surface):
@@ -83,16 +82,18 @@ class Duck(GameObject):
         :param new_width: new width
         :param new_height: new height
         """
-        #self.myImage = self.good_image
         if new_height <= self.bounds.height:
-             self.myImage = pygame.transform.scale(self.myImage, (new_width, new_height))
+            self.myImage = pygame.transform.scale(
+                                            self.myImage,
+                                            (new_width, new_height))
         else:
-            self.myImage = pygame.transform.scale(self.good_image, (new_width, new_height))
+            self.myImage = pygame.transform.scale(
+                                            self.good_image,
+                                            (new_width, new_height))
         center = self.bounds.center
         self.bounds.width = new_width
         self.bounds.height = new_height
         self.bounds.center = center
-        
 
     def change_character(self):
         """Change character image according to self.character."""

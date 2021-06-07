@@ -3,6 +3,7 @@
 import pygame
 from game_object import GameObject
 
+
 class Image(GameObject):
     """
     Image class, based on GameObject class.
@@ -22,7 +23,7 @@ class Image(GameObject):
                  h: int,
                  file_path: str,
                  seen: bool = True):
-        """Init Image object with certain features."""        
+        """Init Image object with certain features."""
         super().__init__(x, y, w, h)
         self.seen = seen
         self.myImage = pygame.image.load(file_path)
