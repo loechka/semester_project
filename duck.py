@@ -25,7 +25,6 @@ class Duck(GameObject):
         """
         Init Duck object with certain features.
 
-        Keyword arguments:
         :param x: left coordinate
         :param y: top coordinate
         :param w: object width
@@ -53,7 +52,6 @@ class Duck(GameObject):
         """
         Draw duck.
 
-        Keyword arguments:
         :param surface: pygame Surface
         """
         if self.seen:
@@ -63,7 +61,6 @@ class Duck(GameObject):
         """
         Handle keyboard events.
 
-        Keyword arguments:
         :param key: key pressed
         """
         if key == pygame.K_LEFT:
@@ -83,7 +80,6 @@ class Duck(GameObject):
         """
         Change character size.
 
-        Keyword arguments:
         :param new_width: new width
         :param new_height: new height
         """
@@ -105,7 +101,7 @@ class Duck(GameObject):
         self.myImage = self.good_image
 
     def update(self):
-        """Update wall position."""
+        """Update character position."""
         dx, dy = 0, 0
         if self.moving_left:
             dx = -(min(self.offset, self.left))
@@ -121,7 +117,7 @@ class Duck(GameObject):
         self.move(dx, dy)
 
     def delete(self):
-        """Delete duck.
+        """Delete character.
 
         Makes it an invisible dot.
         """
