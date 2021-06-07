@@ -53,6 +53,8 @@ class Rocket(Game):
         self.character_images = []
         self.character_objects = []
         self.label_objects = [0] * 3
+        self.time_label = None
+        self.high_score_label = None
         self.character_id = 1
         self.wall_app_mode = 0
         self.is_game_running = False
@@ -579,6 +581,10 @@ class Rocket(Game):
         def on_until_finish(button):
             """Handle pressing REACH FINISH button."""
             self.wall_app_mode = 1
+            if self.time_label in self.objects:
+                self.objects.remove(self.time_label)
+            if self.high_score_label in self.objects:
+                self.objects.remove(self.high_score_label)    
 
         def on_back_from_difficulty(button):
             """Handle pressing RETURN from difficulty menu button."""
