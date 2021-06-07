@@ -66,7 +66,7 @@ class Rocket(Game):
         self.last_bonus_app = c.bonus_offset
         self.last_star_app = c.star_offset
         self.last_size_change = None
-        self.last_wall_change = 0
+        #self.last_wall_change = 0
         self.last_bias_change_up = c.bias_up_offset
         self.last_bias_change_down = c.bias_down_offset
         self.bias_key = [80, 1, 80, 1]
@@ -161,7 +161,17 @@ class Rocket(Game):
         def on_continue_game(button):
             """Handle pressing CONTINUE button."""
             global pause_start
-            self.pause_duration += pg.time.get_ticks() - pause_start
+            pause_curr = pg.time.get_ticks() - pause_start
+            self.pause_duration += pause_curr
+            self.last_wall_app += pause_curr
+            self.last_bonus_app += pause_curr
+            self.last_bias_change_down += pause_curr
+            self.last_bias_change_up += pause_curr
+            #self.last_wall_change 
+            if not self.last_size_change is None:
+                self.last_size_change += pause_curr
+            #self.last_size_change,
+
             for b in self.menu_buttons:
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
