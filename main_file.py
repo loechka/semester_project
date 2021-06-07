@@ -248,7 +248,8 @@ class Rocket(Game):
     def handle_stop_game(self, key):
         """Handle pressing Esc key.
         
-        :key: pressed key"""
+        :key: pressed key
+        """
         global pause_start
         if self.is_game_running is True and key == pg.K_ESCAPE:
             self.is_game_running = False
@@ -650,7 +651,6 @@ class Rocket(Game):
     def create_character(self):
         """Create character switching menu."""
         def on_face_default(button):
-            
             """Handle pressing SQUARE button."""
             self.character_id = 0
             for b in self.character_buttons:

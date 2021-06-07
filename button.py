@@ -19,6 +19,7 @@ class Button(GameObject):
     :param text: text on the button
     :param on_click: mouse click event
     :param padding: text padding
+    :param text_color: text color
     """
 
     def __init__(self,
@@ -28,7 +29,9 @@ class Button(GameObject):
                  h: int,
                  text: str,
                  on_click=lambda x: None,
-                 padding: int = 0):
+                 padding: int = 0,
+                 text_color: tuple = c.button_text_color
+                 ):
         """Init Button object with certain features."""
         super().__init__(x, y, w, h)
         self.state = 'normal'
@@ -36,7 +39,7 @@ class Button(GameObject):
 
         self.text = TextObject(x + padding,
                                y + padding, lambda: text,
-                               c.button_text_color,
+                               text_color,
                                c.font_name,
                                c.font_size)
 
