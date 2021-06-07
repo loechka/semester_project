@@ -89,7 +89,7 @@ record_offset_y = 100
 
 offset = 10
 
-game_duration = 80
+game_duration = 40
 
 stars_max = 3
 star_offset = 100
