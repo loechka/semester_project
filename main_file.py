@@ -505,7 +505,7 @@ class Rocket(Game):
                             c.settings_offset_x,
                             c.settings_offset_y + 50 * (i - 1),
                             lambda: f"{str(current_scores[str(i)])}" + _(" sec"),
-                            c.text_color,
+                            c.button_text_color_chosen,
                             c.font_name,
                             c.font_size,
                             1)
@@ -564,7 +564,7 @@ class Rocket(Game):
             for i, (text, click_handler, language) in \
                 enumerate(((_("ENGLISH"), on_eng, 'en'),
                            (_("RUSSIAN"), on_rus, 'ru'),
-                           (_("APPLY"), on_back_from_language, ''))):
+                           (_("RETURN"), on_back_from_language, ''))):
                 if self.language_id == language:
                     text_color = c.button_text_color_chosen
                 else:
@@ -837,7 +837,7 @@ class Rocket(Game):
         else:
             if win:
                 self.show_message(
-                                _("YOU WIN ") + str(self.earned_points) + _(" POINTS"),
+                                _("YOU WIN! ({}/3 STARS)").format(self.earned_points),
                                 centralized=True)
             else: 
                 self.show_message(

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-03 23:05+0300\n"
+"POT-Creation-Date: 2021-06-07 17:45+0300\n"
 "PO-Revision-Date: 2021-06-03 15:49+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,115 +18,116 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: main_file.py:148 main_file.py:174
+#: main_file.py:186 main_file.py:212
 msgid "NEW GAME"
 msgstr ""
 
-#: main_file.py:149
+#: main_file.py:187
 msgid "SETTINGS"
 msgstr ""
 
-#: main_file.py:150
+#: main_file.py:188
 msgid "HIGH SCORES"
 msgstr ""
 
-#: main_file.py:151
+#: main_file.py:189
 msgid "QUIT"
 msgstr ""
 
-#: main_file.py:173
+#: main_file.py:211
 msgid "CONTINUE"
 msgstr ""
 
-#: main_file.py:175
+#: main_file.py:213
 msgid "MAIN MENU"
 msgstr ""
 
-#: main_file.py:358
+#: main_file.py:401
 msgid "TIME"
 msgstr ""
 
-#: main_file.py:366
+#: main_file.py:409
 msgid "HIGH SCORE"
 msgstr ""
 
-#: main_file.py:414
+#: main_file.py:457
 msgid "CHARACTER"
 msgstr ""
 
-#: main_file.py:415
+#: main_file.py:458
 msgid "GAME MODE"
 msgstr ""
 
-#: main_file.py:416
+#: main_file.py:459
 msgid "LANGUAGE"
 msgstr ""
 
-#: main_file.py:417 main_file.py:475 main_file.py:554 main_file.py:605
+#: main_file.py:460 main_file.py:518 main_file.py:567 main_file.py:626
+#: main_file.py:698
 msgid "RETURN"
 msgstr ""
 
-#: main_file.py:464
+#: main_file.py:507
 msgid " sec"
 msgstr ""
 
-#: main_file.py:474
+#: main_file.py:517
 msgid "RESET"
 msgstr ""
 
-#: main_file.py:512
+#: main_file.py:565
 msgid "ENGLISH"
 msgstr ""
 
-#: main_file.py:513
+#: main_file.py:566
 msgid "RUSSIAN"
 msgstr ""
 
-#: main_file.py:514
-msgid "APPLY"
-msgstr ""
-
-#: main_file.py:552
+#: main_file.py:624
 msgid "ENDLESS"
 msgstr ""
 
-#: main_file.py:553
+#: main_file.py:625
 msgid "REACH FINISH"
 msgstr ""
 
-#: main_file.py:602 main_file.py:619
+#: main_file.py:695 main_file.py:717
 msgid "SQUARE"
 msgstr ""
 
-#: main_file.py:603 main_file.py:620
+#: main_file.py:696 main_file.py:718
 msgid "DUCK"
 msgstr ""
 
-#: main_file.py:604 main_file.py:621
+#: main_file.py:697 main_file.py:719
 msgid "HORSE"
 msgstr ""
 
-#: main_file.py:731
-msgid "LET'S GO!"
-msgstr ""
-
-#: main_file.py:780
+#: main_file.py:834
 msgid "sec"
 msgstr ""
 
-#: main_file.py:809
-msgid "YOU WIN!"
+#: main_file.py:840
+msgid "YOU WIN! ({}/3 STARS)"
 msgstr ""
 
-#: main_file.py:858
+#: main_file.py:844
+msgid "TRY AGAIN"
+msgstr ""
+
+#: main_file.py:879
+msgid "LET'S GO!"
+msgstr ""
+
+#: main_file.py:987
 msgid " - USE ARROW KEYS"
 msgstr ""
 
-#: main_file.py:865
+#: main_file.py:994
 msgid " - AVOID WALLS AND BOMBS"
 msgstr ""
 
-#: main_file.py:872
+#: main_file.py:1001
 msgid " - COLLECT STARS"
 msgstr ""
 
@@ -134,5 +135,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "EXIT"
+#~ msgstr ""
+
+#~ msgid "YOU WIN!"
+#~ msgstr ""
+
+#~ msgid "APPLY"
 #~ msgstr ""
 
