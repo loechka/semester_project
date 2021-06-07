@@ -761,7 +761,7 @@ class Rocket(Game):
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
 
-    def finish_procedures(self, wall_app_mode: int):
+    def finish_procedures(self, wall_app_mode: int, win = True):
         """Handle game finish.
         
         :param wall_app_mode: game mode (0 - endless, 1 - reach finish)
@@ -777,8 +777,13 @@ class Rocket(Game):
                             centralized=True)
             self.record_high_score(round(self.result / 1000, 2))
         else:
-            self.show_message(
-                                _("YOU WIN ") + str(self.earned_points) + _(" points"),
+            if win:
+                self.show_message(
+                                _("YOU WIN ") + str(self.earned_points) + _(" POINTS"),
+                                centralized=True)
+            else: 
+                self.show_message(
+                                _("TRY AGAIN"),
                                 centralized=True)
             if self.finish_line:
                 self.finish_line.delete()
@@ -879,16 +884,15 @@ class Rocket(Game):
         if (not self.last_size_change is None):
             if (pg.time.get_ticks() - self.last_size_change) >= 10000:
                 self.duck.change_size(c.duck_width, c.duck_height)
-                self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
-            self.finish_procedures(self.wall_app_mode)
+            self.finish_procedures(self.wall_app_mode, win = False)
 
         if self.wall_app_mode == 1:
             if self.current_timer >= c.game_duration and \
-                self.current_timer <= c.game_duration + 10:
+                self.current_timer <= c.game_duration + 2:
                 self.is_final_line = 1
-            if self.current_timer > c.game_duration + 10:
+            if self.current_timer > c.game_duration + 2:
                 self.is_final_line = 0
                 self.create_final_line()
                 self.finish_procedures(self.wall_app_mode)
