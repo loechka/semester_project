@@ -761,10 +761,11 @@ class Rocket(Game):
                         c.duck_height_large)
                     self.last_size_change = pg.time.get_ticks()
 
-    def finish_procedures(self, wall_app_mode: int, win = True):
+    def finish_procedures(self, wall_app_mode: int, win: bool = True):
         """Handle game finish.
         
         :param wall_app_mode: game mode (0 - endless, 1 - reach finish)
+        :param win: is the game won (default True)
         """
         self.mode = 'main'
         self.is_game_running = False
