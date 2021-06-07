@@ -65,7 +65,7 @@ class Rocket(Game):
         self.last_wall_app = 0
         self.last_bonus_app = c.bonus_offset
         self.last_star_app = c.star_offset
-        self.last_size_change = 0
+        self.last_size_change = None
         self.last_wall_change = 0
         self.last_bias_change_up = c.bias_up_offset
         self.last_bias_change_down = c.bias_down_offset
@@ -108,6 +108,7 @@ class Rocket(Game):
                 live_label.delete()
             self.lives = c.initial_lives
             self.last_bonus_app = c.bonus_offset
+            self.last_size_change = None
             self.last_wall_app = 0
             self.pause_duration = 0
             self.current_timer = 0
@@ -129,6 +130,7 @@ class Rocket(Game):
                 live_label.delete()
             self.lives = c.initial_lives
             self.last_bonus_app = c.bonus_offset
+            self.last_size_change = None
             self.last_wall_app = 0
             self.pause_duration = 0
             self.current_timer = 0
@@ -785,6 +787,7 @@ class Rocket(Game):
             live_label.delete()
         self.lives = c.initial_lives
         self.last_bonus_app = c.bonus_offset
+        self.last_size_change = None
         self.last_wall_app = 0
         self.pause_duration = 0
         self.current_timer = 0  
@@ -863,8 +866,10 @@ class Rocket(Game):
                     self.bias_key[2] = self.bias_key[2] + 12 * self.bias_key[3]
 
         self.handle_collisions()
-        if (pg.time.get_ticks() - self.last_size_change) >= 10000:
-            self.duck.change_size(c.duck_width, c.duck_height)
+        if (not self.last_size_change is None):
+            if (pg.time.get_ticks() - self.last_size_change) >= 10000:
+                self.duck.change_size(c.duck_width, c.duck_height)
+                self.duck.change_size(c.duck_width, c.duck_height)
 
         if self.lives <= 0:
             self.finish_procedures(self.wall_app_mode)
