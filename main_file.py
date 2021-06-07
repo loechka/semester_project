@@ -246,7 +246,9 @@ class Rocket(Game):
         self.character_objects.append(self.duck)
 
     def handle_stop_game(self, key):
-        """Handle pressing Esc key."""
+        """Handle pressing Esc key.
+        
+        :key: pressed key"""
         global pause_start
         if self.is_game_running is True and key == pg.K_ESCAPE:
             self.is_game_running = False
@@ -358,7 +360,8 @@ class Rocket(Game):
         :param location_x: left coordinate
         :param location_y: top coordinate
         :param speed_x: horisontal speed
-        :param speed_y: vertical speed (default 0)
+        :one type: key for generating same bonuses - 'deafult' - use param good, \
+                                                'star' - star, 'bomb' - bomb
         """
         bonus_good = bool(random.randint(0, 1))
         bonus_type = (random.randint(0, 1))
@@ -388,9 +391,6 @@ class Rocket(Game):
                 'images/finish_line.png')
         self.finish_line = p
         self.objects.append(p)
-
-    def create_objects(self):
-        self.create_menu()
 
     def create_labels(self, wall_app_mode):
         """Create timer and high score on the top of game window."""
