@@ -15,7 +15,7 @@ class Game:
     :param width: window width
     :param height: window height
     :param back_image_file: path to back image
-    :params frame_rate: frame rate
+    :param frame_rate: frame rate
     """
 
     def __init__(self,

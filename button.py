@@ -105,3 +105,11 @@ class Button(GameObject):
         if self.state == 'pressed':
             self.on_click(self)
             self.state = 'hover'
+
+    def delete(self):
+        """Delete button.
+
+        Makes it an invisible dot.
+        """
+        self.bounds.height = 0
+        self.bounds.width = 0
