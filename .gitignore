@@ -1,0 +1,11 @@
+*~
+*.bak
+*.orig
+Pipfile.*
+__pycache__
+build
+dist
+*.mo
+.coverage
+.doit*
+*.pot
