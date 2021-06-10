@@ -21,7 +21,7 @@ import gettext
 import os.path
 
 pg.mixer.init()
-pg.mixer.music.load(os.path.dirname(__file__)+'\..\music.mp3')
+pg.mixer.music.load(c.music_path)
 
 datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
