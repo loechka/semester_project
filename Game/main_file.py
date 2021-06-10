@@ -803,7 +803,7 @@ class Rocket(Game):
             edge = intersect(wall, self.duck)
             if not edge:
                 continue
-            
+
             sound_hit.play()
             wall.delete()
             self.lives -= 1

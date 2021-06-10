@@ -5,11 +5,11 @@ from doit.tools import create_folder
 DOIT_CONFIG = {'default_tasks': ['all']}
 
 
-#def task_gitclean():
-#    """Clean all generated files not tracked by GIT."""
-#    return {
-#            'actions': ['git clean -xdf'],
-#           }
+def task_gitclean():
+    """Clean all generated files not tracked by GIT."""
+    return {
+            'actions': ['git clean -xdf'],
+           }
 
 
 def task_html():
@@ -24,7 +24,6 @@ def task_test():
 #def task_test():
 #    """Preform tests."""
 #    yield {'actions': ['coverage run -m unittest -v'], 'name': "run"}
-    
 #    yield {'actions': ['coverage report'], 'verbosity': 2, 'name': "report"}
 
 

@@ -4,6 +4,8 @@ screen_width = 800
 screen_height = 600
 
 music_path = 'sound/music.mp3'
+sound_hit = 'sound/wall.wav'
+sound_bonus = 'sound/bonus.wav'
 background_image = 'images/background.png'
 character_images = {0: 'images/square.png',
                     1: 'images/duck.png',
