@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-07 17:45+0300\n"
+"POT-Creation-Date: 2021-06-10 18:40+0300\n"
 "PO-Revision-Date: 2021-06-03 15:05+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,116 +19,116 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: main_file.py:186 main_file.py:212
+#: Game/main_file.py:186 Game/main_file.py:212
 msgid "NEW GAME"
 msgstr "НОВАЯ ИГРА"
 
-#: main_file.py:187
+#: Game/main_file.py:187
 msgid "SETTINGS"
 msgstr "НАСТРОЙКИ"
 
-#: main_file.py:188
+#: Game/main_file.py:188
 msgid "HIGH SCORES"
 msgstr "РЕКОРДЫ"
 
-#: main_file.py:189
+#: Game/main_file.py:189
 msgid "QUIT"
 msgstr "ВЫХОД"
 
-#: main_file.py:211
+#: Game/main_file.py:211
 msgid "CONTINUE"
 msgstr "ПРОДОЛЖИТЬ"
 
-#: main_file.py:213
+#: Game/main_file.py:213
 msgid "MAIN MENU"
 msgstr "ГЛАВНОЕ МЕНЮ"
 
-#: main_file.py:401
+#: Game/main_file.py:409
 msgid "TIME"
 msgstr "ВРЕМЯ"
 
-#: main_file.py:409
+#: Game/main_file.py:419
 msgid "HIGH SCORE"
 msgstr "РЕКОРД"
 
-#: main_file.py:457
+#: Game/main_file.py:468
 msgid "CHARACTER"
 msgstr "ПЕРСОНАЖ"
 
-#: main_file.py:458
+#: Game/main_file.py:469
 msgid "GAME MODE"
 msgstr "РЕЖИМ ИГРЫ"
 
-#: main_file.py:459
+#: Game/main_file.py:470
 msgid "LANGUAGE"
 msgstr "ЯЗЫК"
 
-#: main_file.py:460 main_file.py:518 main_file.py:567 main_file.py:626
-#: main_file.py:698
+#: Game/main_file.py:471 Game/main_file.py:531 Game/main_file.py:580
+#: Game/main_file.py:639 Game/main_file.py:710
 msgid "RETURN"
 msgstr "НАЗАД"
 
-#: main_file.py:507
+#: Game/main_file.py:520
 msgid " sec"
 msgstr "сек"
 
-#: main_file.py:517
+#: Game/main_file.py:530
 msgid "RESET"
 msgstr "СБРОС"
 
-#: main_file.py:565
+#: Game/main_file.py:578
 msgid "ENGLISH"
 msgstr "АНГЛИЙСКИЙ"
 
-#: main_file.py:566
+#: Game/main_file.py:579
 msgid "RUSSIAN"
 msgstr "РУССКИЙ"
 
-#: main_file.py:624
+#: Game/main_file.py:637
 msgid "ENDLESS"
 msgstr "БЕСКОНЕЧНЫЙ"
 
-#: main_file.py:625
+#: Game/main_file.py:638
 msgid "REACH FINISH"
 msgstr "ДОБРАТЬСЯ ДО ФИНИША"
 
-#: main_file.py:695 main_file.py:717
+#: Game/main_file.py:707 Game/main_file.py:729
 msgid "SQUARE"
 msgstr "КВАДРАТ"
 
-#: main_file.py:696 main_file.py:718
+#: Game/main_file.py:708 Game/main_file.py:730
 msgid "DUCK"
 msgstr "УТОЧКА"
 
-#: main_file.py:697 main_file.py:719
+#: Game/main_file.py:709 Game/main_file.py:731
 msgid "HORSE"
 msgstr "ЛОШАДЬ"
 
-#: main_file.py:834
+#: Game/main_file.py:848
 msgid "sec"
 msgstr "сек"
 
-#: main_file.py:840
+#: Game/main_file.py:854
 msgid "YOU WIN! ({}/3 STARS)"
 msgstr "ПОБЕДА! ({}/3 ЗВЕЗД)"
 
-#: main_file.py:844
+#: Game/main_file.py:858
 msgid "TRY AGAIN"
 msgstr "ПОПРОБУЙ ЕЩЕ РАЗ!"
 
-#: main_file.py:879
+#: Game/main_file.py:892
 msgid "LET'S GO!"
 msgstr "ПОЛЕТЕЛИ!"
 
-#: main_file.py:987
+#: Game/main_file.py:1010
 msgid " - USE ARROW KEYS"
 msgstr " - ИСПОЛЬЗУЙ КЛАВИШИ СО СТРЕЛКАМИ"
 
-#: main_file.py:994
+#: Game/main_file.py:1017
 msgid " - AVOID WALLS AND BOMBS"
 msgstr " - ИЗБЕГАЙ СТЕН И БОМБ"
 
-#: main_file.py:1001
+#: Game/main_file.py:1024
 msgid " - COLLECT STARS"
 msgstr " - СОБИРАЙ ЗВЕЗДЫ"
 

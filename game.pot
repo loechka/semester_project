@@ -1,18 +1,17 @@
-# English translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-06-10 18:40+0300\n"
-"PO-Revision-Date: 2021-06-03 15:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,16 +129,4 @@ msgstr ""
 #: Game/main_file.py:1024
 msgid " - COLLECT STARS"
 msgstr ""
-
-#~ msgid " - USE ARROR KEYS"
-#~ msgstr ""
-
-#~ msgid "EXIT"
-#~ msgstr ""
-
-#~ msgid "YOU WIN!"
-#~ msgstr ""
-
-#~ msgid "APPLY"
-#~ msgstr ""
 

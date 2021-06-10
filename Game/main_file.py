@@ -24,11 +24,11 @@ datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
                             'game',
                             languages=['ru'],
-                            localedir=os.path.join(datapath, 'po'))
+                            localedir=datapath)
 lang_en = gettext.translation(
                             'game',
                             languages=['en'],
-                            localedir=os.path.join(datapath, 'po'))
+                            localedir=datapath)
 lang_en.install()
 
 
