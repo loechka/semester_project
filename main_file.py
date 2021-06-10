@@ -21,7 +21,7 @@ import gettext
 import os.path
 import sys
 
-datapath = os.path.dirname(sys.argv[0])
+datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
                             'game',
                             languages=['ru'],
