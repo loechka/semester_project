@@ -20,6 +20,9 @@ import shelve
 import gettext
 import os.path
 
+pg.mixer.init()
+pg.mixer.music.load(os.path.dirname(__file__)+'\..\music.mp3')
+
 datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
                             'game',
@@ -98,6 +101,7 @@ class Rocket(Game):
 
             self.is_game_running = True
             self.start_level = True
+            pg.mixer.music.play(-1)
 
         def on_new(button):
             """Handle pressing NEW GAME button during game."""
@@ -119,6 +123,7 @@ class Rocket(Game):
             self.current_timer = 0
             self.is_game_running = True
             self.start_level = True
+            pg.mixer.music.play(-1)
 
         def on_main_menu(button):
             """Handle pressing MAIN MEN button."""
@@ -177,6 +182,7 @@ class Rocket(Game):
                 self.objects.remove(b)
                 self.mouse_handlers.remove(b.handle_mouse_event)
             self.is_game_running = True
+            pg.mixer.music.unpause()
 
         # first rendering of menu buttons
         if len(self.menu_buttons) == 0:
@@ -255,6 +261,7 @@ class Rocket(Game):
             pause_start = pg.time.get_ticks()
             self.mode = 'short'
             self.create_menu()
+            pg.mixer.music.pause()
         else:
             pass
 
@@ -837,6 +844,7 @@ class Rocket(Game):
         """
         self.mode = 'main'
         self.is_game_running = False
+        pg.mixer.music.stop()
         self.menu_buttons = []
         if wall_app_mode == 0:
             self.set_high_score()
