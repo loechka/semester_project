@@ -19,7 +19,6 @@ from collections import deque
 import shelve
 import gettext
 import os.path
-import sys
 
 datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
