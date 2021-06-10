@@ -42,7 +42,7 @@ class Rocket(Game):
     def __init__(self):
         """Init Rocket class object with certain features."""
         Game.__init__(self,
-                      'Rocket',
+                      'Fly_game',
                       c.screen_width,
                       c.screen_height,
                       c.background_image,
