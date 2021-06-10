@@ -22,6 +22,11 @@ import os.path
 
 pg.mixer.init()
 pg.mixer.music.load(c.music_path)
+pg.mixer.music.set_volume(0.5)
+sound_hit = pg.mixer.Sound(c.sound_hit)
+sound_hit.set_volume(1)
+sound_bonus = pg.mixer.Sound(c.sound_bonus)
+sound_bonus.set_volume(0.5)
 
 datapath = os.path.dirname(__file__)
 lang_ru = gettext.translation(
@@ -798,7 +803,8 @@ class Rocket(Game):
             edge = intersect(wall, self.duck)
             if not edge:
                 continue
-
+            
+            sound_hit.play()
             wall.delete()
             self.lives -= 1
             if self.lives != -1:
@@ -809,9 +815,9 @@ class Rocket(Game):
             edge = intersect(bonus, self.duck)
             if not edge:
                 continue
-
             bonus.delete()
             if (bonus.good):
+                sound_bonus.play()
                 if (bonus.type == 0) & (self.lives < 3):
                     self.lives += 1
                     self.objects.append(self.label_objects[self.lives - 1])
@@ -822,6 +828,7 @@ class Rocket(Game):
                     self.last_size_change = pg.time.get_ticks()
                 self.earned_points += 1
             elif not bonus.good:
+                sound_hit.play()
                 if (bonus.type == 0):
                     if (self.lives <= 2):
                         for i in range(self.lives):
