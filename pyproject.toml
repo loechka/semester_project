@@ -4,7 +4,14 @@ requires = [
   "pygame",
   "setuptools",
   "wheel",
-  "build"
+  "build",
+  "coverage", 
+  "doit",
+   "flake8", 
+   "pydocstyle",
+    "pymin-reqs",
+    "Sphinx"
 ]
+
 
 build-backend = "setuptools.build_meta" 

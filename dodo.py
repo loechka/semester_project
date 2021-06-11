@@ -7,7 +7,7 @@ DOIT_CONFIG = {'default_tasks': ['all']}
 def task_html():
     """Make HTML documentationi."""
     return {
-            'actions': ['sphinx-build -M html docs/source build'],
+            'actions': ['sphinx-build -M html ./docs/source build'],
            }
 
 
@@ -35,7 +35,7 @@ def task_pot():
 def task_po():
     """Update translations."""
     return {
-            'actions': ['pybabel update -D game -d po -i game.pot'],
+            'actions': ['pybabel update -D app -d po -i game.pot'],
             'file_dep': ['game.pot'],
             'targets': ['po/ru/LC_MESSAGES/game.po'],
            }
@@ -46,17 +46,17 @@ def task_mo():
     return {
             'actions': [
                 (create_folder, ['Game/ru/LC_MESSAGES']),
-                'pybabel compile -D game -l ru -i po/ru/LC_MESSAGES/game.po -d Game',
+                'pybabel compile -D app -l ru -i po/ru/LC_MESSAGES/game.po -d app',
                 (create_folder, ['Game/en/LC_MESSAGES']),
-                'pybabel compile -D game -l en -i po/en/LC_MESSAGES/game.po -d Game'
+                'pybabel compile -D app -l en -i po/en/LC_MESSAGES/game.po -d app'
                        ],
             'file_dep': [
                         'po/ru/LC_MESSAGES/game.po',
                         'po/en/LC_MESSAGES/game.po'
                         ],
             'targets': [
-                        'Game/ru/LC_MESSAGES/game.mo',
-                        'Game/en/LC_MESSAGES/game.mo'
+                        'app/ru/LC_MESSAGES/game.mo',
+                        'app/en/LC_MESSAGES/game.mo'
                         ],
            }
 

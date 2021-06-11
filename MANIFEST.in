@@ -3,4 +3,5 @@ recursive-include tests *
 recursive-include docs *
 include images/*.png
 include sound/*.mp3
+include sound/*.wav
 include *.md
