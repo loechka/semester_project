@@ -26,8 +26,8 @@ def task_test():
 def task_pot():
     """Re-create .pot ."""
     return {
-            'actions': ['pybabel extract -o game.pot Game'],
-            'file_dep': glob.glob('Game/*.py'),
+            'actions': ['pybabel extract -o game.pot app'],
+            'file_dep': glob.glob('app/*.py'),
             'targets': ['game.pot'],
            }
 
