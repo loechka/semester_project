@@ -1,1 +1,1 @@
-"""Fly_game init file."""
+"""Fly_game application init."""
