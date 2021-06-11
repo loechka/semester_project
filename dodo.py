@@ -5,9 +5,10 @@ DOIT_CONFIG = {'default_tasks': ['all']}
 
 
 def task_html():
-    """Make HTML documentationi."""
+    """Make HTML documentation."""
     return {
             'actions': ['sphinx-build -M html ./docs/source build'],
+            'task_dep': ['mo']
            }
 
 
@@ -29,7 +30,7 @@ def task_pot():
 def task_po():
     """Update translations."""
     return {
-            'actions': ['pybabel update -D app -d po -i game.pot'],
+            'actions': ['pybabel update -D game -d po -i game.pot'],
             'file_dep': ['game.pot'],
             'targets': ['po/ru/LC_MESSAGES/game.po'],
            }
@@ -68,7 +69,7 @@ def task_mo():
 def task_wheel():
    """Create binary wheel distribution."""
    return {
-           'actions': ['python -m build -w'],
+           'actions': ['rm -rf dist build', 'python -m build -w'],
            'task_dep': ['mo'],
           }
 
