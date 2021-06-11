@@ -13,8 +13,11 @@ def task_html():
 
 def task_test():
     """Preform tests."""
-    yield {'actions': ['python -m unittest -v'], 'name': "run"}
-#def task_test():
+    yield {
+            'file_dep': glob.glob('Game/*.py'), 
+            'actions': ['coverage run -m unittest -v'], 'name': "run"
+           }
+# def task_test():
 #    """Preform tests."""
 #    yield {'actions': ['coverage run -m unittest -v'], 'name': "run"}
 #    yield {'actions': ['coverage report'], 'verbosity': 2, 'name': "report"}
@@ -66,12 +69,12 @@ def task_mo():
 #           }
 
 
-#def task_wheel():
-#    """Create binary wheel distribution."""
-#    return {
-#            'actions': ['python -m build -w'],
-#            'task_dep': ['mo'],
-#           }
+def task_wheel():
+   """Create binary wheel distribution."""
+   return {
+           'actions': ['python -m build -w'],
+           'task_dep': ['mo'],
+          }
 
 
 def task_app():
