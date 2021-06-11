@@ -1,3 +1,0 @@
-[console_scripts]
-DateTime = app.__main__:main
-

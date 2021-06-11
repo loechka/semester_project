@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-10 22:41+0300\n"
+"POT-Creation-Date: 2021-06-11 11:42+0300\n"
 "PO-Revision-Date: 2021-06-03 15:49+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -16,118 +16,118 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.5.3\n"
 
-#: Game/main_file.py:191 Game/main_file.py:217
+#: app/rocket.py:197 app/rocket.py:223
 msgid "NEW GAME"
 msgstr ""
 
-#: Game/main_file.py:192
+#: app/rocket.py:198
 msgid "SETTINGS"
 msgstr ""
 
-#: Game/main_file.py:193
+#: app/rocket.py:199
 msgid "HIGH SCORES"
 msgstr ""
 
-#: Game/main_file.py:194
+#: app/rocket.py:200
 msgid "QUIT"
 msgstr ""
 
-#: Game/main_file.py:216
+#: app/rocket.py:222
 msgid "CONTINUE"
 msgstr ""
 
-#: Game/main_file.py:218
+#: app/rocket.py:224
 msgid "MAIN MENU"
 msgstr ""
 
-#: Game/main_file.py:415
+#: app/rocket.py:421
 msgid "TIME"
 msgstr ""
 
-#: Game/main_file.py:425
+#: app/rocket.py:431
 msgid "HIGH SCORE"
 msgstr ""
 
-#: Game/main_file.py:474
+#: app/rocket.py:480
 msgid "CHARACTER"
 msgstr ""
 
-#: Game/main_file.py:475
+#: app/rocket.py:481
 msgid "GAME MODE"
 msgstr ""
 
-#: Game/main_file.py:476
+#: app/rocket.py:482
 msgid "LANGUAGE"
 msgstr ""
 
-#: Game/main_file.py:477 Game/main_file.py:537 Game/main_file.py:586
-#: Game/main_file.py:645 Game/main_file.py:716
+#: app/rocket.py:483 app/rocket.py:543 app/rocket.py:592 app/rocket.py:651
+#: app/rocket.py:722
 msgid "RETURN"
 msgstr ""
 
-#: Game/main_file.py:526
+#: app/rocket.py:532
 msgid " sec"
 msgstr ""
 
-#: Game/main_file.py:536
+#: app/rocket.py:542
 msgid "RESET"
 msgstr ""
 
-#: Game/main_file.py:584
+#: app/rocket.py:590
 msgid "ENGLISH"
 msgstr ""
 
-#: Game/main_file.py:585
+#: app/rocket.py:591
 msgid "RUSSIAN"
 msgstr ""
 
-#: Game/main_file.py:643
+#: app/rocket.py:649
 msgid "ENDLESS"
 msgstr ""
 
-#: Game/main_file.py:644
+#: app/rocket.py:650
 msgid "REACH FINISH"
 msgstr ""
 
-#: Game/main_file.py:713 Game/main_file.py:735
+#: app/rocket.py:719 app/rocket.py:741
 msgid "SQUARE"
 msgstr ""
 
-#: Game/main_file.py:714 Game/main_file.py:736
+#: app/rocket.py:720 app/rocket.py:742
 msgid "DUCK"
 msgstr ""
 
-#: Game/main_file.py:715 Game/main_file.py:737
+#: app/rocket.py:721 app/rocket.py:743
 msgid "HORSE"
 msgstr ""
 
-#: Game/main_file.py:855
+#: app/rocket.py:863
 msgid "sec"
 msgstr ""
 
-#: Game/main_file.py:861
+#: app/rocket.py:869
 msgid "YOU WIN! ({}/3 STARS)"
 msgstr ""
 
-#: Game/main_file.py:865
+#: app/rocket.py:873
 msgid "TRY AGAIN"
 msgstr ""
 
-#: Game/main_file.py:899
+#: app/rocket.py:907
 msgid "LET'S GO!"
 msgstr ""
 
-#: Game/main_file.py:1017
+#: app/rocket.py:1025
 msgid " - USE ARROW KEYS"
 msgstr ""
 
-#: Game/main_file.py:1024
+#: app/rocket.py:1032
 msgid " - AVOID WALLS AND BOMBS"
 msgstr ""
 
-#: Game/main_file.py:1031
+#: app/rocket.py:1039
 msgid " - COLLECT STARS"
 msgstr ""
 
