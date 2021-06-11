@@ -50,6 +50,7 @@ def task_mo():
                 (create_folder, ['app/en/LC_MESSAGES']),
                 'pybabel compile -D game -l en -i po/en/LC_MESSAGES/game.po -d app'
 
+
                        ],
             'file_dep': [
                         'po/ru/LC_MESSAGES/game.po',
@@ -81,7 +82,7 @@ def task_wheel():
 def task_app():
     """Run application."""
     return {
-            'actions': ['python -m Game'],
+            'actions': ['python -m app'],
             'task_dep': ['mo'],
            }
 
@@ -89,14 +90,14 @@ def task_app():
 def task_style():
     """Check style against flake8."""
     return {
-            'actions': ['flake8 Game']
+            'actions': ['flake8 app']
            }
 
 
 def task_docstyle():
     """Check docstrings against pydocstyle."""
     return {
-            'actions': ['pydocstyle Game']
+            'actions': ['pydocstyle app']
            }
 
 
