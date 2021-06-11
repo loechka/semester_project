@@ -6,7 +6,7 @@ from . import config as c
 
 
 class Bonus(GameObject):
-    """
+    r"""
     Bonus object class, based on GameObject class.
 
     There are two types of bonuses: good - star, bad - bomb.
