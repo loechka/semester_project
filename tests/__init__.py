@@ -1,11 +1,11 @@
 import unittest
 
-from Game.duck import Duck
-from Game.wall import Wall
-from Game.bonus import Bonus
-from Game.button import Button
-from Game.image import Image
-import Game.config as c
+from .duck import Duck
+from .wall import Wall
+from .bonus import Bonus
+from .button import Button
+from .image import Image
+import .config as c
 import pygame as pg
 import sys
 
