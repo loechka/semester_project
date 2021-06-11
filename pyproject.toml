@@ -1,0 +1,10 @@
+[build-system]
+requires = [
+   "pyfiglet",
+  "pygame",
+  "setuptools",
+  "wheel",
+  "build"
+]
+
+build-backend = "setuptools.build_meta" 
