@@ -2,6 +2,7 @@
 
 from .rocket import Rocket
 
+
 def main():
     """Run the game."""
     Rocket().run()

@@ -4,6 +4,7 @@ import pygame as pg
 from collections import defaultdict
 import sys
 
+
 class Game:
     """
     Base Game class.

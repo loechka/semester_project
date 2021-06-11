@@ -321,6 +321,7 @@ class Rocket(Game):
         :param bias_key: changing parameter for vertical coordinate
         :param speed_x: horisontal speed
         :param speed_y: vertical speed (default 0)
+
         """
         wall = Wall(c.screen_width + 50,
                     random.choice(range(c.screen_height - bias_key - 30,
@@ -349,6 +350,7 @@ class Rocket(Game):
         :param bias_key: changing parameter for vertical coordinate
         :param speed_x: horisontal speed
         :param speed_y: vertical speed (default 0)
+
         """
         wall = Wall(c.screen_width,
                     random.choice(range(bias_key - 30,
