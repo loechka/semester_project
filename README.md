@@ -11,5 +11,5 @@
 
 Для реализации проекта планируется использовать библотеку PyGame
 
-<img src="main_window.png" width="521" height="330"> <img src="settings_window.png" width="521" height="330">
-<img src="game_window.png" width="521" height="330">
+<img src="images_preview/main_window.png" width="521" height="330"> <img src="images_preview/settings_window.png" width="521" height="330">
+<img src="images_preview/game_window.png" width="521" height="330">
