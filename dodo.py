@@ -14,7 +14,7 @@ def task_html():
 def task_test():
     """Preform tests."""
     yield {
-            'file_dep': glob.glob('Game/*.py'), 
+            'file_dep': glob.glob('app/*.py'), 
             'actions': ['coverage run -m unittest -v'], 'name': "run"
            }
 # def task_test():
@@ -45,9 +45,9 @@ def task_mo():
     """Compile translations."""
     return {
             'actions': [
-                (create_folder, ['Game/ru/LC_MESSAGES']),
+                (create_folder, ['app/ru/LC_MESSAGES']),
                 'pybabel compile -D app -l ru -i po/ru/LC_MESSAGES/game.po -d app',
-                (create_folder, ['Game/en/LC_MESSAGES']),
+                (create_folder, ['app/en/LC_MESSAGES']),
                 'pybabel compile -D app -l en -i po/en/LC_MESSAGES/game.po -d app'
                        ],
             'file_dep': [
@@ -80,7 +80,7 @@ def task_wheel():
 def task_app():
     """Run application."""
     return {
-            'actions': ['python -m Game'],
+            'actions': ['python -m app'],
             'task_dep': ['mo'],
            }
 
@@ -88,14 +88,14 @@ def task_app():
 def task_style():
     """Check style against flake8."""
     return {
-            'actions': ['flake8 Game']
+            'actions': ['flake8 app']
            }
 
 
 def task_docstyle():
     """Check docstrings against pydocstyle."""
     return {
-            'actions': ['pydocstyle Game']
+            'actions': ['pydocstyle app']
            }
 
 

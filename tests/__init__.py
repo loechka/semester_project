@@ -1,15 +1,15 @@
 import unittest
 
-from .duck import Duck
-from .wall import Wall
-from .bonus import Bonus
-from .button import Button
-from .image import Image
-import .config as c
+from app.duck import Duck
+from app.wall import Wall
+from app.bonus import Bonus
+from app.button import Button
+from app.image import Image
+from app import config as c
 import pygame as pg
 import sys
+# sys.path.append('../app/duck.py')
 
-# sys.path.append('../Game/duck.py')
 
 
 class WidgetTestCase(unittest.TestCase):
