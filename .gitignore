@@ -4,9 +4,12 @@
 *.dir
 *.orig
 Pipfile.*
-*\__pycache__
+*.txt
+__pycache__
 build
 *.mo
 .coverage
+dist
+*.egg_info
 .doit*
 *.pot
