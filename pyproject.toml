@@ -1,16 +1,16 @@
 [build-system]
 requires = [
-   "pyfiglet",
+  "pyfiglet",
   "pygame",
   "setuptools",
   "wheel",
   "build",
   "coverage", 
   "doit",
-   "flake8", 
-   "pydocstyle",
-    "pymin-reqs",
-    "Sphinx"
+  "flake8", 
+  "pydocstyle",
+  "pymin-reqs",
+  "Sphinx"
 ]
 
 
