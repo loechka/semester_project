@@ -7,6 +7,12 @@ name = "pypi"
 pyfiglet = "*"
 
 [dev-packages]
+doit = "*"
+flake8 = "*"
+pydocstyle = "*"
+sphinx = "*"
+coverage = "*"
+build = "*"
 
 [requires]
 python_version = "3.9"
