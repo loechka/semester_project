@@ -34,7 +34,7 @@ class Wall(GameObject):
         self.seen = seen
         self.color = color
         file_path = c.wall_image
-        self.myImage = pygame.image.load(file_path).convert_alpha()
+        self.myImage = pygame.image.load(file_path)
         self.myImage = pygame.transform.scale(self.myImage, (w, h))
 
     def draw(self, surface):
