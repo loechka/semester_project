@@ -1,4 +1,4 @@
 Class Rocket 
 ============
-.. automodule:: main_file
+.. automodule:: app.rocket
    :members:

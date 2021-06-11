@@ -1,4 +1,4 @@
 Class Button
 ============
-.. automodule:: button
+.. automodule:: app.button
    :members:

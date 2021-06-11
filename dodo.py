@@ -14,7 +14,7 @@ def task_html():
 def task_test():
     """Preform tests."""
     yield {
-            'file_dep': glob.glob('Game/*.py'), 
+            'file_dep': glob.glob('app/*.py'), 
             'actions': ['coverage run -m unittest -v'], 'name': "run"
            }
 # def task_test():
@@ -45,18 +45,18 @@ def task_mo():
     """Compile translations."""
     return {
             'actions': [
-                (create_folder, ['Game/ru/LC_MESSAGES']),
-                'pybabel compile -D game -l ru -i po/ru/LC_MESSAGES/game.po -d Game',
-                (create_folder, ['Game/en/LC_MESSAGES']),
-                'pybabel compile -D game -l en -i po/en/LC_MESSAGES/game.po -d Game'
+                (create_folder, ['app/ru/LC_MESSAGES']),
+                'pybabel compile -D game -l ru -i po/ru/LC_MESSAGES/game.po -d app',
+                (create_folder, ['app/en/LC_MESSAGES']),
+                'pybabel compile -D game -l en -i po/en/LC_MESSAGES/game.po -d app'
                        ],
             'file_dep': [
                         'po/ru/LC_MESSAGES/game.po',
                         'po/en/LC_MESSAGES/game.po'
                         ],
             'targets': [
-                        'Game/ru/LC_MESSAGES/game.mo',
-                        'Game/en/LC_MESSAGES/game.mo'
+                        'app/ru/LC_MESSAGES/game.mo',
+                        'app/en/LC_MESSAGES/game.mo'
                         ],
            }
 

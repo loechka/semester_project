@@ -1,4 +1,4 @@
 Class Image 
 ============
-.. automodule:: image
+.. automodule:: app.image
    :members:

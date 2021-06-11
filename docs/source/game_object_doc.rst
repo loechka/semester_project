@@ -1,5 +1,5 @@
 Class GameObject 
 ================
 
-.. automodule:: game_object
+.. automodule:: app.game_object
    :members:

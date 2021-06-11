@@ -1,4 +1,4 @@
 Class TextObject 
 ================
-.. automodule:: text_object
+.. automodule:: app.text_object
    :members:

@@ -1,4 +1,4 @@
 Class Duck
 ============
-.. automodule:: duck
+.. automodule:: app.duck
    :members:

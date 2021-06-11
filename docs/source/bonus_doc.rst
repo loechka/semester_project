@@ -1,5 +1,5 @@
 Class Bonus 
 ============
-.. automodule:: bonus
+.. automodule:: app.bonus
    :members:
    :private-members:

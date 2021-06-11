@@ -1,4 +1,4 @@
 Class Wall 
 ============
-.. automodule:: wall
+.. automodule:: app.wall
    :members:

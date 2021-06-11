@@ -1,4 +1,4 @@
 Class Game
 ============
-.. automodule:: game
+.. automodule:: app.game
    :members:
