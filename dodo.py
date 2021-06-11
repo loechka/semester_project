@@ -11,11 +11,6 @@ def task_html():
            }
 
 
-# def task_test():
-#     """Preform tests."""
-#     yield {
-#             'actions': ['coverage run -m unittest -v'], 'name': "run"
-#            }
 def task_test():
    """Preform tests."""
    yield {'actions': ['coverage run -m unittest -v'], 'name': "run"}
